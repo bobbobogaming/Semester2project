@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.CharacterSheet.CharacterViewController">
+   <center>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="70.0">
+               <children>
+                  <Label text="Strength" />
+                  <Label fx:id="strMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="strField" onAction="#onStatEnter" onKeyTyped="#onStatInput" />
+                  <Label text="Dexterity" />
+                  <Label fx:id="dexMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="dexField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <Label text="Constitution" />
+                  <Label fx:id="conMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="conField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <Label text="Intelligence" />
+                  <Label fx:id="intMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="intField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <Label text="Wisdom" />
+                  <Label fx:id="wisMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="wisField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <Label text="Charisma" />
+                  <Label fx:id="charMod" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="charField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

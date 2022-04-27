@@ -1,5 +1,6 @@
 package Application.MVVM.Core;
 
+import Application.MVVM.View.TabPane.TabPaneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,17 +41,15 @@ public class ViewHandler
   {
     FXMLLoader loader = new FXMLLoader();
     Parent root = null;
-    if (viewToOpen.equals("chat")){
-      loader.setLocation(getClass().getResource("/view/chat/ChatView.fxml"));
-      root = loader.load();
-      currentStage.setTitle("");
+    loader.setLocation(getClass().getResource("/Application/MVVM/View/TabPane/TabView.fxml"));
+    root = loader.load();
+    TabPaneController tabPaneController = loader.getController();
+    tabPaneController.init(viewModelFactory.getCharacterViewModel());
+    currentStage.setTitle("Dnd support");
 
-      currentScene = new Scene(root);
-
-      currentStage.setOnCloseRequest(e ->{});
-
-      currentStage.setScene(currentScene);
-      currentStage.show();
-    }
+    currentScene = new Scene(root);
+    currentStage.setOnCloseRequest(e ->{});
+    currentStage.setScene(currentScene);
+    currentStage.show();
   }
 }
