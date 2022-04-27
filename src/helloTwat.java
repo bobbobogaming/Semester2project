@@ -4,5 +4,7 @@ public class helloTwat
   {
     System.out.println("test");
     System.out.println("TEST2!!!");
+
+    System.out.println("Fuck dig Michale");
   }
 }
