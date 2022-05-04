@@ -1,10 +1,14 @@
 package Application.MVVM.Core;
 
+import Application.MVVM.View.CharacterSheet.CharacterViewModel;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ViewModelFactory
 {
+  private CharacterViewModel characterViewModel;
+
   private static ViewModelFactory instance;
   private static Lock lock = new ReentrantLock();
 
@@ -20,5 +24,11 @@ public class ViewModelFactory
 
   private ViewModelFactory(ModelFactory modelFactory)
   {
+    characterViewModel = new CharacterViewModel();
+  }
+
+  public CharacterViewModel getCharacterViewModel()
+  {
+    return characterViewModel;
   }
 }
