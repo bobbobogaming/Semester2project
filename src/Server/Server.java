@@ -1,15 +1,16 @@
 package Server;
 
-import MVVM.Model.Charachter;
+import Application.MVVM.Model.Character;
 import Server.ServerModel.IServerModel;
 import Server.ServerModel.ServerModel;
-import Util.Iserver;
+import Util.IServer;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Server implements Remote, Iserver {
+public class Server implements Remote, IServer
+{
     IServerModel serverModel;
     public Server() throws RemoteException {
         UnicastRemoteObject.exportObject(this,0);
@@ -19,11 +20,11 @@ public class Server implements Remote, Iserver {
 
     @Override
     public void makeCharacter(Character character) {
-        serverModel.makeCharcter(character);
+        serverModel.makeCharacter(character);
     }
 
     @Override
-    public Charachter getCharacter(String name) {
-        return serverModel.getCharcter(name);
+    public Character getCharacter(String name) {
+        return serverModel.getCharacter(name);
     }
 }

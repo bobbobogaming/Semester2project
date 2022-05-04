@@ -1,22 +1,21 @@
 package Server.ServerModel;
 
-import MVVM.Model.Charachter;
-import Server.ServerConnector.JDBC;
+import Application.MVVM.Model.Character;
+import Application.MVVM.Model.character.Stats;
+import Database.DatabaseWrapper;
 
 public class ServerModel implements IServerModel {
 
-    JDBC jdbc;
-    public ServerModel(){
-        jdbc = new JDBC();
+    public ServerModel(){}
+
+    @Override
+    public void makeCharacter(Character character) {
+        DatabaseWrapper.addCharacter(character.getName(),"n/a");
     }
 
     @Override
-    public void makeCharcter(Character character) {
-        JDBC.makeCharecter(character);
-    }
-
-    @Override
-    public Charachter getCharcter(String name) {
-        return JDBC.getCharecter(name);
+    public Character getCharacter(String name) {
+        DatabaseWrapper.getAllCharacters();
+        return  new Character(new Stats(1,2,3,4,5,6),"yo");
     }
 }
