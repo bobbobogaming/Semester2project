@@ -19,42 +19,42 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="strField" onAction="#onStatEnter" onKeyTyped="#onStatInput" />
+                  <TextField fx:id="strField" onAction="#onStatEnter" />
                   <Label text="Dexterity" />
                   <Label fx:id="dexMod" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="dexField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <TextField fx:id="dexField" onAction="#onStatEnter" />
                   <Label text="Constitution" />
                   <Label fx:id="conMod" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="conField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <TextField fx:id="conField" onAction="#onStatEnter" />
                   <Label text="Intelligence" />
                   <Label fx:id="intMod" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="intField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <TextField fx:id="intField" onAction="#onStatEnter" />
                   <Label text="Wisdom" />
                   <Label fx:id="wisMod" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="wisField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <TextField fx:id="wisField" onAction="#onStatEnter" />
                   <Label text="Charisma" />
                   <Label fx:id="charMod" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="charField" onAction="#onStatEnter" onKeyPressed="#onStatInput" />
+                  <TextField fx:id="charField" onAction="#onStatEnter" />
                </children>
             </VBox>
          </children>
