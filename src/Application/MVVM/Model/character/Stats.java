@@ -2,19 +2,17 @@ package Application.MVVM.Model.character;
 
 public class Stats
 {
-  private int charisma,constitution, dexterity, intelligence,strength,wisdom;
-  private IModifier modifier;
+  private int strength,dexterity,constitution,intelligence,wisdom,charisma;
 
-  public Stats(int charisma, int constitution, int dexterity, int intelligence,
-      int strength, int wisdom)
+  public Stats(int strength, int dexterity, int constitution, int intelligence,
+      int wisdom, int charisma)
   {
-    this.charisma = charisma;
-    this.constitution = constitution;
-    this.dexterity = dexterity;
-    this.intelligence = intelligence;
     this.strength = strength;
+    this.dexterity = dexterity;
+    this.constitution = constitution;
+    this.intelligence = intelligence;
     this.wisdom = wisdom;
-    this.modifier = new Modifer();
+    this.charisma = charisma;
   }
 
   public int getCharisma()
@@ -49,31 +47,31 @@ public class Stats
 
   public int getCharismaModifier()
   {
-    return modifier.modifierValue(charisma);
+    return Modifier.modifyValue(charisma);
   }
 
   public int getConstitutionModifier()
   {
-    return modifier.modifierValue(constitution);
+    return Modifier.modifyValue(constitution);
   }
 
   public int getDexterityModifier()
   {
-    return modifier.modifierValue(dexterity);
+    return Modifier.modifyValue(dexterity);
   }
 
   public int getIntelligenceModifier()
   {
-    return modifier.modifierValue(intelligence);
+    return Modifier.modifyValue(intelligence);
   }
 
   public int getStrengthModifier()
   {
-    return modifier.modifierValue(strength);
+    return Modifier.modifyValue(strength);
   }
 
   public int getWisdomModifier()
   {
-    return modifier.modifierValue(wisdom);
+    return Modifier.modifyValue(wisdom);
   }
 }
