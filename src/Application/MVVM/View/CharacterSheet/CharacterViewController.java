@@ -26,6 +26,8 @@ public class CharacterViewController
   @FXML Label charMod;
   @FXML TextField charField;
 
+  @FXML TextField nameField;
+
   private CharacterViewModel viewModel;
 
   public void init(CharacterViewModel characterViewModel){
@@ -64,5 +66,10 @@ public class CharacterViewController
   public void onStatEnter(ActionEvent actionEvent)
   {
     viewModel.setStat((TextField) actionEvent.getSource());
+  }
+
+  public void onCreate(ActionEvent actionEvent)
+  {
+    viewModel.createCharacterSheet(nameField.getText(),intField.getText(),dexField.getText(),conField.getText(),intField.getText(),wisField.getText(),charField.getText());
   }
 }

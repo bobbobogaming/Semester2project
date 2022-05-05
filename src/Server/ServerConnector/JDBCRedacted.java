@@ -1,6 +1,6 @@
 package Server.ServerConnector;
 
-import Application.MVVM.Model.Character;
+import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 
 public class JDBCRedacted

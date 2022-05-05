@@ -1,5 +1,7 @@
 package Application.MVVM.View.CharacterSheet;
 
+import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
+import Util.IClientRMI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;
@@ -13,7 +15,10 @@ public class CharacterViewModel
   private StringProperty wisMod;
   private StringProperty charMod;
 
-  public CharacterViewModel()
+  private IClientRMI clientRMI;
+  private ICharacterSheetModel characterSheetModel;
+
+  public CharacterViewModel(ICharacterSheetModel characterSheetModel,IClientRMI clientRMI)
   {
     strMod = new SimpleStringProperty();
     dexMod = new SimpleStringProperty();
@@ -21,6 +26,9 @@ public class CharacterViewModel
     intMod = new SimpleStringProperty();
     wisMod = new SimpleStringProperty();
     charMod = new SimpleStringProperty();
+
+    this.characterSheetModel = characterSheetModel;
+    this.clientRMI = clientRMI;
   }
 
   public StringProperty strModProperty()
@@ -76,5 +84,10 @@ public class CharacterViewModel
     }
 
     System.out.println(source.getId());
+  }
+
+  public void createCharacterSheet(String name,String str, String dex, String con, String intel,
+      String wis, String cha){
+    characterSheetModel.makeCharacter(name,Integer.parseInt(str),Integer.parseInt(dex),Integer.parseInt(con),Integer.parseInt(intel),Integer.parseInt(wis),Integer.parseInt(cha));
   }
 }

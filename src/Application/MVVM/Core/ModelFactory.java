@@ -1,5 +1,9 @@
 package Application.MVVM.Core;
 
+import Application.MVVM.Model.CharacterSheet.CharacterSheetModel;
+import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
+import Util.IClientRMI;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -7,6 +11,7 @@ public class ModelFactory
 {
   private static ModelFactory instance;
   private static Lock lock = new ReentrantLock();
+  private ICharacterSheetModel characterSheetModel;
 
   private ModelFactory(){}
 
@@ -20,5 +25,13 @@ public class ModelFactory
     return instance;
   }
 
-
+  public ICharacterSheetModel getCharacterSheetModel(IClientRMI clientRMI)
+  {
+    if (characterSheetModel == null){
+      synchronized (lock){
+        if (characterSheetModel == null) characterSheetModel = new CharacterSheetModel(clientRMI);
+      }
+    }
+    return characterSheetModel;
+  }
 }

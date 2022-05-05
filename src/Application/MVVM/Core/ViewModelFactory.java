@@ -16,15 +16,16 @@ public class ViewModelFactory
   {
     if (instance == null){
       synchronized (lock){
-        if (instance == null) instance = new ViewModelFactory(ModelFactory.getInstance());
+        if (instance == null) instance = new ViewModelFactory(ModelFactory.getInstance(),ClientFactory.getInstance());
       }
     }
     return instance;
   }
 
-  private ViewModelFactory(ModelFactory modelFactory)
+  private ViewModelFactory(ModelFactory modelFactory, ClientFactory clientFactory)
   {
-    characterViewModel = new CharacterViewModel();
+    characterViewModel = new CharacterViewModel(modelFactory.getCharacterSheetModel(
+        clientFactory.getClientRMI()),clientFactory.getClientRMI());
   }
 
   public CharacterViewModel getCharacterViewModel()

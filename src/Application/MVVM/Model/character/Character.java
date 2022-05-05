@@ -1,8 +1,8 @@
-package Application.MVVM.Model;
+package Application.MVVM.Model.character;
 
-import Application.MVVM.Model.character.Stats;
+import java.io.Serializable;
 
-public class Character
+public class Character implements Serializable
 {
 
   private Stats stats;

@@ -1,6 +1,6 @@
 package Server.ServerModel;
 
-import Application.MVVM.Model.Character;
+import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 import Database.DatabaseWrapper;
 
@@ -9,8 +9,9 @@ public class ServerModel implements IServerModel {
     public ServerModel(){}
 
     @Override
-    public void makeCharacter(Character character) {
-        DatabaseWrapper.addCharacter(character.getName(),"n/a");
+    public void saveCharacter(Character character) {
+        System.out.println(character.getName());
+        //DatabaseWrapper.addCharacter(character.getName(),"n/a");
     }
 
     @Override

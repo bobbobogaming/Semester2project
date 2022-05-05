@@ -1,6 +1,8 @@
 package Application.MVVM.Model.character;
 
-public class Stats
+import java.io.Serializable;
+
+public class Stats implements Serializable
 {
   private int strength,dexterity,constitution,intelligence,wisdom,charisma;
 

@@ -1,10 +1,8 @@
 package Server.ServerModel;
 
-import Application.MVVM.Model.Character;
-
-import java.rmi.RemoteException;
+import Application.MVVM.Model.character.Character;
 
 public interface IServerModel {
-    void makeCharacter(Character character);
+    void saveCharacter(Character character);
     Character getCharacter(String name);
 }
