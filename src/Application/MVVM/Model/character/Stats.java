@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Stats implements Serializable
 {
+  private final Modifier modifier;
   private int strength,dexterity,constitution,intelligence,wisdom,charisma;
 
   public Stats(int strength, int dexterity, int constitution, int intelligence,
@@ -15,6 +16,7 @@ public class Stats implements Serializable
     this.intelligence = intelligence;
     this.wisdom = wisdom;
     this.charisma = charisma;
+    modifier = new Modifier();
   }
 
   public int getCharisma()
@@ -49,31 +51,31 @@ public class Stats implements Serializable
 
   public int getCharismaModifier()
   {
-    return Modifier.modifyValue(charisma);
+    return modifier.modifierValue(charisma);
   }
 
   public int getConstitutionModifier()
   {
-    return Modifier.modifyValue(constitution);
+    return modifier.modifierValue(constitution);
   }
 
   public int getDexterityModifier()
   {
-    return Modifier.modifyValue(dexterity);
+    return modifier.modifierValue(dexterity);
   }
 
   public int getIntelligenceModifier()
   {
-    return Modifier.modifyValue(intelligence);
+    return modifier.modifierValue(intelligence);
   }
 
   public int getStrengthModifier()
   {
-    return Modifier.modifyValue(strength);
+    return modifier.modifierValue(strength);
   }
 
   public int getWisdomModifier()
   {
-    return Modifier.modifyValue(wisdom);
+    return modifier.modifierValue(wisdom);
   }
 }

@@ -1,10 +1,8 @@
 package Application.MVVM.Model.character;
 
-public class Modifier
+public class Modifier implements IModifier
 {
-  private Modifier(){}
-
-  public static int modifyValue(int value)
+  public int modifierValue(int value)
   {
     return value / 2 - 5;
   }
