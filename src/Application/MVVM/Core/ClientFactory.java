@@ -1,7 +1,7 @@
 package Application.MVVM.Core;
 
-import Application.Client.Client;
-import Util.IClientModel;
+import Application.Client.ClientRMI;
+import Util.IClientRMI;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -12,7 +12,7 @@ public class ClientFactory
 {
   private static ClientFactory instance;
   private static Lock lock = new ReentrantLock();
-  private IClientModel clientRMI;
+  private ClientRMI clientRMI;
 
   private ClientFactory(){  }
 
@@ -26,7 +26,7 @@ public class ClientFactory
     return instance;
   }
 
-  public IClientModel getClientRMI()
+  public ClientRMI getClientRMI()
   {
     if (clientRMI == null)
     {
@@ -35,7 +35,7 @@ public class ClientFactory
         {
           try
           {
-            clientRMI = new Client();
+            clientRMI = new ClientRMI();
           }
           catch (RemoteException | NotBoundException e)
           {
