@@ -1,6 +1,7 @@
 package Application.MVVM.Core;
 
 import Application.MVVM.View.CharacterSheet.CharacterViewModel;
+import Application.MVVM.View.Login.LoginViewModel;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -8,6 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ViewModelFactory
 {
   private CharacterViewModel characterViewModel;
+  private LoginViewModel loginViewModel;
 
   private static ViewModelFactory instance;
   private static Lock lock = new ReentrantLock();
@@ -26,10 +28,18 @@ public class ViewModelFactory
   {
     characterViewModel = new CharacterViewModel(modelFactory.getCharacterSheetModel(
         clientFactory.getClientRMI()),clientFactory.getClientRMI());
+    loginViewModel = new LoginViewModel(clientFactory.getClientRMI());
   }
 
   public CharacterViewModel getCharacterViewModel()
   {
     return characterViewModel;
+  }
+
+  public LoginViewModel getLoginViewModel(ViewHandler viewHandler)
+  {
+    System.out.println(loginViewModel);
+    loginViewModel.addPropertyChangeListener(viewHandler);
+    return loginViewModel;
   }
 }
