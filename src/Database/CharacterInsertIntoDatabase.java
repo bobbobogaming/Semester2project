@@ -10,6 +10,7 @@ public class CharacterInsertIntoDatabase {
         IDatabaseConnector = new DataBaseConnector();
     }
 
+
     public void InsertCharacterIntoDatabase(Character character, String user)
     {
 
