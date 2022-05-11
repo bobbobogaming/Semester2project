@@ -1,7 +1,7 @@
 package Application.Client;
 
 import Application.MVVM.Model.character.Character;
-import Util.ClientRMI;
+import Util.IClientRMI;
 import Util.IServer;
 
 import java.rmi.NoSuchObjectException;
@@ -11,12 +11,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Client implements ClientRMI, ClientLogin
+public class ClientRMI implements IClientRMI, ClientLogin
 {
   private final IServer server;
   private UserID userID;
 
-  public Client() throws RemoteException, NotBoundException
+  public ClientRMI() throws RemoteException, NotBoundException
   {
     UnicastRemoteObject.exportObject(this,0);
     Registry registry = LocateRegistry.getRegistry("localhost",1099);
