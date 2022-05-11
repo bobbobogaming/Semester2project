@@ -1,16 +1,19 @@
 package Application.MVVM.Core;
 
-import Application.MVVM.View.TabPane.TabPaneController;
+import Application.MVVM.View.Login.LoginViewController;
+import Application.MVVM.View.TabPane.TabViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ViewHandler
+public class ViewHandler implements PropertyChangeListener
 {
   private Scene currentScene;
   private Stage currentStage;
@@ -18,9 +21,7 @@ public class ViewHandler
   private static ViewHandler instance;
   private static Lock lock = new ReentrantLock();
 
-  public static ViewHandler getInstance(Stage stage)
-
-  {
+  public static ViewHandler getInstance(Stage stage) {
     if (instance == null){
       synchronized (lock){
         if (instance == null) instance = new ViewHandler(stage,
@@ -34,17 +35,45 @@ public class ViewHandler
   {
     currentStage = stage;
     this.viewModelFactory = viewModelFactory;
-
   }
 
-  public void start(String viewToOpen) throws IOException
+  public void start(String view) throws IOException
   {
     FXMLLoader loader = new FXMLLoader();
     Parent root = null;
-    loader.setLocation(getClass().getResource("/Application/MVVM/View/TabPane/TabView.fxml"));
+    loader.setLocation(getClass().getResource("/Application/MVVM/View/Login/LoginView.fxml"));
     root = loader.load();
-    TabPaneController tabPaneController = loader.getController();
-    tabPaneController.init(viewModelFactory.getCharacterViewModel());
+    LoginViewController loginViewController = loader.getController();
+    loginViewController.init(viewModelFactory.getLoginViewModel(this));
+    currentStage.setTitle("Dnd support");
+
+    currentScene = new Scene(root);
+    currentStage.setOnCloseRequest(e ->loginViewController.onExit());
+    currentStage.setScene(currentScene);
+    currentStage.show();
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    if (evt.getPropertyName().equals("Tabs")){
+      startTab();
+    }
+  }
+
+  private void startTab(){
+    FXMLLoader loader = new FXMLLoader();
+    Parent root = null;
+    loader.setLocation(getClass().getResource("/Application/MVVM/View/TabPane/TabView.fxml"));
+    try
+    {
+      root = loader.load();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    TabViewController tabViewController = loader.getController();
+    tabViewController.init(viewModelFactory.getCharacterViewModel());
     currentStage.setTitle("Dnd support");
 
     currentScene = new Scene(root);
