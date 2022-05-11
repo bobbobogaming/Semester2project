@@ -2,15 +2,15 @@ package Application.MVVM.Model.CharacterSheet;
 
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
-import Util.IClientRMI;
+import Util.IClientModel;
 
 import java.rmi.RemoteException;
 
 public class CharacterSheetModel implements ICharacterSheetModel
 {
-  IClientRMI clientRMI;
+  IClientModel clientRMI;
 
-  public CharacterSheetModel(IClientRMI clientRMI)
+  public CharacterSheetModel(IClientModel clientRMI)
   {
     this.clientRMI = clientRMI;
   }
