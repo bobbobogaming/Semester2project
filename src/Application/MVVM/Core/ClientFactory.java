@@ -12,7 +12,7 @@ public class ClientFactory
 {
   private static ClientFactory instance;
   private static Lock lock = new ReentrantLock();
-  private IClientRMI clientRMI;
+  private ClientRMI clientRMI;
 
   private ClientFactory(){  }
 
@@ -26,7 +26,7 @@ public class ClientFactory
     return instance;
   }
 
-  public IClientRMI getClientRMI()
+  public ClientRMI getClientRMI()
   {
     if (clientRMI == null)
     {

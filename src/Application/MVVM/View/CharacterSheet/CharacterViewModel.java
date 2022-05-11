@@ -1,7 +1,7 @@
 package Application.MVVM.View.CharacterSheet;
 
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
-import Util.IClientRMI;
+import Util.IClientModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;
@@ -15,10 +15,11 @@ public class CharacterViewModel
   private StringProperty wisMod;
   private StringProperty charMod;
 
-  private IClientRMI clientRMI;
+  private IClientModel clientRMI;
   private ICharacterSheetModel characterSheetModel;
 
-  public CharacterViewModel(ICharacterSheetModel characterSheetModel,IClientRMI clientRMI)
+  public CharacterViewModel(ICharacterSheetModel characterSheetModel,
+      IClientModel clientRMI)
   {
     strMod = new SimpleStringProperty();
     dexMod = new SimpleStringProperty();
