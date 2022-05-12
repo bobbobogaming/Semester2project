@@ -1,5 +1,6 @@
 package Shared;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 
 import java.rmi.Remote;
