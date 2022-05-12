@@ -44,7 +44,6 @@ public class ViewModelFactory
 
   public LoginViewModel getLoginViewModel(ViewHandler viewHandler)
   {
-    System.out.println(loginViewModel);
     loginViewModel.addPropertyChangeListener(viewHandler);
     return loginViewModel;
   }

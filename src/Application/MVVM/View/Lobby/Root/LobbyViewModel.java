@@ -33,4 +33,8 @@ public class LobbyViewModel implements PropertyChangeSubject
   public void onExit(){
     lobby.onExit();
   }
+
+  public void joinLobby(int lobbyId) {
+    lobby.connectToLobby(lobbyId);
+  }
 }

@@ -6,6 +6,6 @@ import Util.PropertyChangeSubject;
 public interface ClientLobby extends PropertyChangeSubject
 {
   void createLobby();
-  void connectToLobby(int lobbyId, IClientModel client);
+  void connectToLobby(int lobbyId);
   void onExit();
 }

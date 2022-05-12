@@ -1,6 +1,7 @@
 package Application.MVVM.View.Lobby.Dm;
 
 import Application.Client.Client;
+import Application.Client.ClientLobby;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,7 +9,7 @@ public class DMLobbyViewModel
 {
   private StringProperty lobbyIdProperty;
 
-  public Client client;
+  public ClientLobby client;
 
   public DMLobbyViewModel(Client clientRMI)
   {
@@ -23,6 +24,6 @@ public class DMLobbyViewModel
 
   public void setLobbyId(String lobbyId)
   {
-    lobbyIdProperty.setValue(lobbyId);
+    lobbyIdProperty.setValue("Lobby id: " + lobbyId);
   }
 }

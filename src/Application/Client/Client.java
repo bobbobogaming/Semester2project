@@ -50,11 +50,11 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     }
   }
 
-  @Override public void connectToLobby(int lobbyId, IClientModel client) {
+  @Override public void connectToLobby(int lobbyId) {
     try
     {
-      server.connectToLobby(lobbyId, client);
-
+      server.connectToLobby(lobbyId, this);
+      support.firePropertyChange("connectAsDM",null,lobbyId);
     }
     catch (RemoteException e)
     {
