@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Lobby {
+  private final int lobbyId;
   private final ArrayList<IClientModel> players;
   private IClientModel dungeonMaster;
 
-  public Lobby(IClientModel dungeonMaster) {
+  public Lobby(int lobbyId, IClientModel dungeonMaster) {
+    this.lobbyId = lobbyId;
     this.players = new ArrayList<>();
     this.dungeonMaster = dungeonMaster;
   }

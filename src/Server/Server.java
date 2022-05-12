@@ -6,14 +6,17 @@ import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Server implements IServerModel {
 
-    private final ArrayList<Lobby> lobbies;
+    private final Map<Integer, Lobby> lobbies;
+    private int nextLobbyId;
 
     public Server() throws RemoteException {
-        lobbies = new ArrayList<>();
+        nextLobbyId = 0;
+        lobbies = new HashMap<>();
         UnicastRemoteObject.exportObject(this,0);
     }
 
