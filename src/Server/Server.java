@@ -1,8 +1,8 @@
 package Server;
 
 import Application.MVVM.Model.character.Character;
-import Util.IClientModel;
-import Util.IServerModel;
+import Shared.IClientModel;
+import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,8 +17,10 @@ public class Server implements IServerModel {
         UnicastRemoteObject.exportObject(this,0);
     }
 
-    @Override public void createLobby(IClientModel lobbyCreator) {
-        lobbies.add(new Lobby(lobbyCreator));
+    @Override public int createLobby(IClientModel lobbyCreator) {
+        Lobby lobby = new Lobby(nextLobbyId, lobbyCreator);
+        lobbies.put(nextLobbyId++, lobby);
+        return lobby.getLobbyId();
     }
 
     @Override public void connectToLobby(int lobbyId, IClientModel client) {

@@ -2,7 +2,7 @@ package Application.MVVM.Model.CharacterSheet;
 
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
-import Util.IClientModel;
+import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 

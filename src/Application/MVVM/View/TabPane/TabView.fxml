@@ -2,12 +2,11 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="1040.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.TabPane.TabViewController">
     <tabs>
         <Tab fx:id="tab1" text="Lobby">
-            <fx:include fx:id="lobbyView" source="../Lobby/LobbyView.fxml"/>
+            <fx:include fx:id="lobbyView" source="../Lobby/Root/LobbyView.fxml"/>
         </Tab>
         <Tab fx:id="tab2" text="Character Sheet">
             <fx:include fx:id="characterView" source="../CharacterSheet/CharacterView.fxml" />
