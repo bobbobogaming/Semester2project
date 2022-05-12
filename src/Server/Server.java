@@ -26,6 +26,7 @@ public class Server implements IServerModel {
     }
 
     public void saveCharacter(Character character) throws RemoteException {
+
     }
 
     public Character getCharacter(String name) throws RemoteException {
