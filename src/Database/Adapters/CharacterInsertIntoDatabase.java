@@ -1,20 +1,23 @@
-package Database;
+package Database.Adapters;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
+import Database.DataBaseConnector;
+import Database.IDatabaseConnector;
 
 import java.util.ArrayList;
 
 public class CharacterInsertIntoDatabase {
 
-    private IDatabaseConnector IDatabaseConnector;
+    private IDatabaseConnector iDatabaseConnector;
 
     public CharacterInsertIntoDatabase() {
-        IDatabaseConnector = new DataBaseConnector();
+        iDatabaseConnector = new DataBaseConnector();
     }
 
 
-    public void InsertCharacterIntoDatabase(Character character, String user)
+    public void InsertCharacterIntoDatabase(Character character, UserID user)
     {   //this is an adapter that converts a user and character into an array that can be saved in the database
 
         int constitution, wisdom, dexterity, charisma, intelligence, strength;
@@ -37,7 +40,7 @@ public class CharacterInsertIntoDatabase {
         strength = stats.getStrength();
 
 
-        //wrapper in a Arraylist
+        //wrapper in an Arraylist
         ArrayList<Object> characterInfo = new ArrayList<>();
         characterInfo.add(constitution);
         characterInfo.add(wisdom);
@@ -45,12 +48,12 @@ public class CharacterInsertIntoDatabase {
         characterInfo.add(charisma);
         characterInfo.add(intelligence);
         characterInfo.add(strength);
-        characterInfo.add(user);
+        characterInfo.add(user.getName());
         characterInfo.add(characterName);
         characterInfo.add(level);
         characterInfo.add(clas);
         characterInfo.add(maxHp);
 
-        IDatabaseConnector.addDataToDataBase("character",characterInfo);
+        iDatabaseConnector.addDataToDataBase("character",characterInfo);
     }
 }

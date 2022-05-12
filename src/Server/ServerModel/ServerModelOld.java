@@ -1,8 +1,10 @@
 package Server.ServerModel;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 import Database.DatabaseWrapper;
+import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
 import Util.IClientModel;
 import Util.IServerModel;
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 
 public class ServerModelOld implements IServerModel {
     private final ArrayList<Lobby> lobbies;
+
+    private UserID user;
 
     public ServerModelOld(){
         lobbies = new ArrayList<>();
@@ -22,6 +26,8 @@ public class ServerModelOld implements IServerModel {
 
     @Override
     public void saveCharacter(Character character) {
+        CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
+        characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,user);
         System.out.println(character.getName());
         //DatabaseWrapper.addCharacter(character.getName(),"n/a");
     }

@@ -1,5 +1,7 @@
 package Database;
 
+import Application.MVVM.Model.character.Character;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -51,6 +53,7 @@ public class DataBaseConnector implements IDatabaseConnector {
     try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
       String query = "insert into " + table +" values (";
 
+      //first we make the number of elements that we need to be able to
       for (int i = 0; i < data.size(); i++) {
         if(i!=0) {
           query += ", ?";
@@ -74,6 +77,42 @@ public class DataBaseConnector implements IDatabaseConnector {
     }
 
   }
+
+  @Override
+  public void deleteDataFromDataBase(String table, ArrayList<String> coloumns, ArrayList<Object> equals) {
+    try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+      if (coloumns.size() == equals.size()) {
+        String query = "insert into " + table + " values (";
+
+        //first we make the number of elements that we need to be able to
+        for (int i = 0; i < coloumns.size(); i++) {
+          if (i != 0) {
+            query += "and ? == ?";
+          } else {
+            query += "? == ?";
+          }
+        }
+        query += ")";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        //stmt.setObject(1, table);
+        for (int i = 0; i < coloumns.size(); i++) {
+          stmt.setObject(i*2 + 1, coloumns.get(i));
+          stmt.setObject(i*2 + 2, equals.get(i));
+        }
+
+
+        stmt.execute();
+
+
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+  }
+
+
+
+
   public static void main(String[] args) {
     //    DatabaseWrapper.addCharacter("Anders", "H");
     //    DatabaseWrapper.addCharacter("Simon", "L");

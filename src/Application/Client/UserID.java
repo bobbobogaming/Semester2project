@@ -20,6 +20,10 @@ public class UserID
     return isDM;
   }
 
+  public String getName() {
+    return name;
+  }
+
   @Override public String toString()
   {
     return "UserID{" + "isDM=" + isDM + ", name='" + name + '\'' + '}';
