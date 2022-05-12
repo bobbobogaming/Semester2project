@@ -34,6 +34,7 @@ public class ViewHandler implements PropertyChangeListener
   private ViewHandler(Stage stage, ViewModelFactory viewModelFactory)
   {
     currentStage = stage;
+    currentStage.setResizable(false);
     this.viewModelFactory = viewModelFactory;
   }
 
@@ -73,11 +74,11 @@ public class ViewHandler implements PropertyChangeListener
       e.printStackTrace();
     }
     TabViewController tabViewController = loader.getController();
-    tabViewController.init(viewModelFactory.getCharacterViewModel());
+    tabViewController.init(viewModelFactory);
     currentStage.setTitle("Dnd support");
 
     currentScene = new Scene(root);
-    currentStage.setOnCloseRequest(e ->{});
+    currentStage.setOnCloseRequest(e -> tabViewController.onExit());
     currentStage.setScene(currentScene);
     currentStage.show();
   }

@@ -37,6 +37,7 @@ public class LoginViewModel implements PropertyChangeSubject
 
   public void onExit()
   {
+    if (clientRMI != null)
     clientRMI.onExit();
   }
 }

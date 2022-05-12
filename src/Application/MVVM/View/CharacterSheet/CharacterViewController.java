@@ -45,6 +45,7 @@ public class CharacterViewController
       if (c.getControlNewText().isEmpty()){
         return c;
       }
+
       ParsePosition parsePosition = new ParsePosition(0);
       Object object = format.parse(c.getControlNewText(),parsePosition);
 

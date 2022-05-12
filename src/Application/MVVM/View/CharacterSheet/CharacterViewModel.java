@@ -1,7 +1,7 @@
 package Application.MVVM.View.CharacterSheet;
 
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
-import Util.IClientModel;
+import Shared.IClientModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;

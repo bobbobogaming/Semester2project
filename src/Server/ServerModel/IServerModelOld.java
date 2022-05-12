@@ -1,7 +1,7 @@
 package Server.ServerModel;
 
 import Application.MVVM.Model.character.Character;
-import Util.IClientModel;
+import Shared.IClientModel;
 
 public interface IServerModelOld {
     void saveCharacter(Character character);

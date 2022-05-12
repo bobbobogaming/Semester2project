@@ -1,31 +1,32 @@
 package Server;
 
-import Util.IClientModel;
+import Shared.IClientModel;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Lobby {
+  private final int lobbyId;
   private final ArrayList<IClientModel> players;
   private IClientModel dungeonMaster;
 
-  public Lobby(IClientModel dungeonMaster) {
+  public Lobby(int lobbyId, IClientModel dungeonMaster) {
+    this.lobbyId = lobbyId;
     this.players = new ArrayList<>();
     this.dungeonMaster = dungeonMaster;
   }
 
   public void addPlayer(IClientModel client) {
     players.add(client);
-    try {
-      System.out.println(client.getUsername() + " was added to the lobby");
-    }
-    catch (RemoteException e) {
-      e.printStackTrace();
-    }
   }
 
   public void removePlayer(IClientModel client) {
     players.remove(client);
+  }
+
+  public int getLobbyId()
+  {
+    return lobbyId;
   }
 
   public IClientModel getDungeonMaster() {
