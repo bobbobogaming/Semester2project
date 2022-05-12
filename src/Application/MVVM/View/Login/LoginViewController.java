@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 
 public class LoginViewController
 {
-  @FXML TextField userNameField;
+  @FXML private TextField userNameField;
   private LoginViewModel loginViewModel;
 
   public void init(LoginViewModel loginViewModel)

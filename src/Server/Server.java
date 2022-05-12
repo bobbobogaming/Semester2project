@@ -31,7 +31,6 @@ public class Server implements IServerModel {
     @Override public void connectToLobby(int lobbyId, IClientModel client) {
         lobbies.get(lobbyId).addPlayer(client);
     }
-
     public void saveCharacter(Character character, UserID userID) throws RemoteException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();

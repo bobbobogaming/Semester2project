@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 
 public class DMLobbyViewController
 {
-  @FXML Label lobbyId;
+  @FXML private Label lobbyId;
 
   private DMLobbyViewModel viewModel;
 
   public void init(DMLobbyViewModel dmLobbyViewModel){
     viewModel = dmLobbyViewModel;
 
-    lobbyId.textProperty().bind(viewModel.lobbyIdPropertyProperty());
+    lobbyId.textProperty().bind(viewModel.lobbyIdProperty());
   }
 
   public void setLobbyId(String lobbyId){

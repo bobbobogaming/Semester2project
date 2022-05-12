@@ -39,6 +39,10 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     return server.getCharacter(name);
   }
 
+  @Override public String getUsername() throws RemoteException {
+    return userID.getName();
+  }
+
   @Override public void createLobby()
   {
     try
@@ -55,7 +59,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     try
     {
       server.connectToLobby(lobbyId, this);
-      support.firePropertyChange("connectAsDM",null,lobbyId);
+      support.firePropertyChange("connectAsPlayer",null,lobbyId);
     }
     catch (RemoteException e)
     {

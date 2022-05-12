@@ -3,6 +3,7 @@ package Application.MVVM.View.TabPane;
 import Application.MVVM.Core.ViewModelFactory;
 import Application.MVVM.View.CharacterSheet.CharacterViewController;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewController;
+import Application.MVVM.View.Lobby.Player.PlayerLobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import javafx.fxml.FXML;
@@ -15,11 +16,11 @@ import java.io.IOException;
 
 public class TabViewController implements PropertyChangeListener
 {
-  @FXML Tab tab1;
-  @FXML Tab tab2;
+  @FXML private Tab tab1;
+  @FXML private Tab tab2;
 
-  @FXML LobbyViewController lobbyViewController;
-  @FXML CharacterViewController characterViewController;
+  @FXML private LobbyViewController lobbyViewController;
+  @FXML private CharacterViewController characterViewController;
 
   private ViewModelFactory viewModelFactory;
 
@@ -36,6 +37,26 @@ public class TabViewController implements PropertyChangeListener
     if (evt.getPropertyName().equals("connectAsDM")){
       System.out.println(evt.getNewValue());
       setTabDmLobby(evt.getNewValue() + "");
+    } else if (evt.getPropertyName().equals("connectAsPlayer")){
+      setTabPlayerLobby(evt.getNewValue() + "");
+    }
+  }
+
+  private void setTabPlayerLobby(String lobbyId) {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource(
+        "/Application/MVVM/View/Lobby/Player/PlayerLobbyView.fxml"));
+    try
+    {
+      tab1.setContent(loader.load());
+
+      PlayerLobbyViewController playerLobbyViewController = loader.getController();
+      playerLobbyViewController.init(viewModelFactory.getPlayerLobbyViewModel());
+      playerLobbyViewController.setLobbyId(lobbyId);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
     }
   }
 

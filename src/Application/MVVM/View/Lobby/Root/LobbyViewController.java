@@ -16,7 +16,7 @@ import java.util.function.UnaryOperator;
 
 public class LobbyViewController
 {
-  @FXML TextField lobbyId;
+  @FXML private TextField lobbyId;
   private LobbyViewModel lobbyViewModel;
 
   public void init(LobbyViewModel lobbyViewModel)
