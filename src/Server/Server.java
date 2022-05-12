@@ -1,6 +1,8 @@
 package Server;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
+import Database.Adapters.CharacterInsertIntoDatabase;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
@@ -30,8 +32,10 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).addPlayer(client);
     }
 
-    public void saveCharacter(Character character) throws RemoteException {
-
+    public void saveCharacter(Character character, UserID userID) throws RemoteException {
+        System.out.println(character);
+        CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
+        insertData.InsertCharacterIntoDatabase(character,userID);
     }
 
     public Character getCharacter(String name) throws RemoteException {

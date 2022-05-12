@@ -14,9 +14,9 @@ public class CharacterDeleteFromDatabase {
     }
 
     public void deleteCharacterFromDatabase(UserID userID, String characterName){
-        String table = "Character";
+        String table = "character";
 
-        String userName = userID.toString();
+        String userName = userID.getName();
        // String characterName = character.getName(); // just in case we want to use character instead
 
         ArrayList<Object> conditions = new ArrayList<>(2);

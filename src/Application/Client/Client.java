@@ -30,7 +30,8 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   @Override public void makeCharacter(Character character)
       throws RemoteException
   {
-    server.saveCharacter(character);
+    System.out.println(character);
+    server.saveCharacter(character, userID);
   }
 
   @Override public Character getCharacter(String name) throws RemoteException

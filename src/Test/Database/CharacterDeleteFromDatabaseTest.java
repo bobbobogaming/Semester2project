@@ -15,12 +15,13 @@ class CharacterDeleteFromDatabaseTest {
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
 
-        String name = "BOB";
+        name = "something";
         userID = new UserID("Morten");
     }
 
     @org.junit.jupiter.api.Test
     void CharacterDelete() {
+        //you need to run CharacterInsertIntoDatabaseTest before this
         CharacterDeleteFromDatabase characterDeleteFromDatabase = new CharacterDeleteFromDatabase();
         characterDeleteFromDatabase.deleteCharacterFromDatabase(userID, name);
     }

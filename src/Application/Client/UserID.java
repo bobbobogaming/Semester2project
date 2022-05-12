@@ -1,6 +1,8 @@
 package Application.Client;
 
-public class UserID
+import java.io.Serializable;
+
+public class UserID implements Serializable
 {
   private boolean isDM;
   private String name;

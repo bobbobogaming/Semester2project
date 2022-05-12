@@ -1,5 +1,6 @@
 package Application.MVVM.Model.CharacterSheet;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 import Shared.IClientModel;
