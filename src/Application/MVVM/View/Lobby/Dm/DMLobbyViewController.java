@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 
 public class DMLobbyViewController
 {
-  @FXML Label lobbyId;
+  @FXML private Label lobbyId;
 
   private DMLobbyViewModel viewModel;
 

@@ -58,7 +58,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     try
     {
       server.connectToLobby(lobbyId, this);
-      support.firePropertyChange("connectAsDM",null,lobbyId);
+      support.firePropertyChange("connectAsPlayer",null,lobbyId);
     }
     catch (RemoteException e)
     {
