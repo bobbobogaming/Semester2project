@@ -6,8 +6,8 @@ import Application.MVVM.Model.character.Stats;
 //import Database.DatabaseWrapper;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
-import Util.IClientModel;
-import Util.IServerModel;
+import Shared.IClientModel;
+import Shared.IServerModel;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,9 @@ public class ServerModelOld implements IServerModel {
     }
 
     @Override
-    public void createLobby(IClientModel dungeonMaster) {
-        lobbies.add(new Lobby(dungeonMaster));
+    public int createLobby(IClientModel dungeonMaster) {
+        //lobbies.add(new Lobby(dungeonMaster));
+        return 1;
     }
 
 

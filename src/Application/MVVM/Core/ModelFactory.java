@@ -2,7 +2,7 @@ package Application.MVVM.Core;
 
 import Application.MVVM.Model.CharacterSheet.CharacterSheetModel;
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
-import Util.IClientModel;
+import Shared.IClientModel;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

@@ -1,24 +1,29 @@
 package Server;
 
 import Application.MVVM.Model.character.Character;
-import Util.IClientModel;
-import Util.IServerModel;
+import Shared.IClientModel;
+import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Server implements IServerModel {
 
-    private final ArrayList<Lobby> lobbies;
+    private final Map<Integer, Lobby> lobbies;
+    private int nextLobbyId;
 
     public Server() throws RemoteException {
-        lobbies = new ArrayList<>();
+        nextLobbyId = 0;
+        lobbies = new HashMap<>();
         UnicastRemoteObject.exportObject(this,0);
     }
 
-    @Override public void createLobby(IClientModel lobbyCreator) {
-        lobbies.add(new Lobby(lobbyCreator));
+    @Override public int createLobby(IClientModel lobbyCreator) {
+        Lobby lobby = new Lobby(nextLobbyId, lobbyCreator);
+        lobbies.put(nextLobbyId++, lobby);
+        return lobby.getLobbyId();
     }
 
     @Override public void connectToLobby(int lobbyId, IClientModel client) {

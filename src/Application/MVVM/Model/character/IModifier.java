@@ -1,6 +1,8 @@
 package Application.MVVM.Model.character;
 
-public interface IModifier
+import java.io.Serializable;
+
+public interface IModifier extends Serializable
 {
   int modifierValue(int value);
 }
