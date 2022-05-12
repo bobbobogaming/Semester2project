@@ -2,16 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Root.LobbyViewController">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Root.LobbyViewController">
     <children>
-        <Button layoutX="46.0" layoutY="80.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="141.0" text="Create lobby" onAction="#createLobby"/>
-        <TextField layoutX="300.0" layoutY="86.0" prefHeight="25.0" prefWidth="224.0" promptText="Lobby ID" fx:id="lobbyId" onAction="#joinLobby"/>
-        <Button layoutX="301.0" layoutY="119.0" mnemonicParsing="false" text="Join Lobby" onAction="#joinLobby"/>
-        <Label layoutX="46.0" layoutY="59.0" text="Create game" />
-        <Label layoutX="300.0" layoutY="59.0" text="Join game" />
+        <Button layoutX="116.0" layoutY="85.0" mnemonicParsing="false" onAction="#createLobby" prefHeight="49.0" prefWidth="141.0" text="Create lobby" />
+        <TextField fx:id="lobbyId" layoutX="496.0" layoutY="74.0" onAction="#joinLobby" prefHeight="25.0" prefWidth="224.0" promptText="Lobby ID" />
+        <Button layoutX="497.0" layoutY="107.0" mnemonicParsing="false" onAction="#joinLobby" text="Join Lobby" />
+        <Label layoutX="116.0" layoutY="64.0" text="Create game" />
+        <Label layoutX="496.0" layoutY="47.0" text="Join game" />
+      <Separator layoutX="397.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="2.0" />
     </children>
 </Pane>

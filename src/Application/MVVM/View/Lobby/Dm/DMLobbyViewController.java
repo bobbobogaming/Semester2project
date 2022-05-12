@@ -12,7 +12,7 @@ public class DMLobbyViewController
   public void init(DMLobbyViewModel dmLobbyViewModel){
     viewModel = dmLobbyViewModel;
 
-    lobbyId.textProperty().bind(viewModel.lobbyIdPropertyProperty());
+    lobbyId.textProperty().bind(viewModel.lobbyIdProperty());
   }
 
   public void setLobbyId(String lobbyId){

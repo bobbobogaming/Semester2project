@@ -17,7 +17,7 @@ public class DMLobbyViewModel
     lobbyIdProperty = new SimpleStringProperty();
   }
 
-  public StringProperty lobbyIdPropertyProperty()
+  public StringProperty lobbyIdProperty()
   {
     return lobbyIdProperty;
   }

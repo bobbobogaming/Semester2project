@@ -9,4 +9,5 @@ public interface IClientModel extends Remote
 {
   void makeCharacter(Character character) throws RemoteException;
   Character getCharacter(String name) throws RemoteException;
+  String getUsername() throws RemoteException;
 }
