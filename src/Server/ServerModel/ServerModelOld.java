@@ -3,7 +3,7 @@ package Server.ServerModel;
 import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
-import Database.DatabaseWrapper;
+//import Database.DatabaseWrapper;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
 import Util.IClientModel;
@@ -34,7 +34,7 @@ public class ServerModelOld implements IServerModel {
 
     @Override
     public Character getCharacter(String name) {
-        DatabaseWrapper.getAllCharacters();
+  //      DatabaseWrapper.getAllCharacters();
         return  new Character(new Stats(1,2,3,4,5,6),"yo");
     }
 
