@@ -27,7 +27,7 @@ public class Server implements IServerModel {
     }
 
     @Override public void connectToLobby(int lobbyId, IClientModel client) {
-        lobbies.get(0).addPlayer(client);
+        lobbies.get(lobbyId).addPlayer(client);
     }
 
     public void saveCharacter(Character character) throws RemoteException {
