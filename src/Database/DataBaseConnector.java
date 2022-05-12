@@ -184,7 +184,6 @@ public class DataBaseConnector implements IDatabaseConnector {
              ) {
           returnvalue.add(rs.getObject(columns));
         }
-        System.out.println(rs.getArray(1));
         //System.out.println(rs.);
         //characters += "First name: " + rs.getString("fname")
         //        + ", Last name: " + rs.getString("lname") + "\n";

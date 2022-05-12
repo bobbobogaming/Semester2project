@@ -25,7 +25,8 @@ public class ServerModelOld implements IServerModel {
     }
 
     @Override
-    public void saveCharacter(Character character) {
+    public void saveCharacter(Character character , UserID user) {
+        System.out.println("test");
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
         characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,user);
         System.out.println(character.getName());
