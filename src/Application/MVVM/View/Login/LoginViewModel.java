@@ -20,19 +20,18 @@ public class LoginViewModel implements PropertyChangeSubject
 
   public void login(String name){
     clientRMI.setUserID(new UserID(name));
-    support.firePropertyChange("Tabs",null,null);
   }
 
   @Override public void addPropertyChangeListener(
       PropertyChangeListener listener)
   {
-    support.addPropertyChangeListener(listener);
+    clientRMI.addPropertyChangeListener(listener);
   }
 
   @Override public void removePropertyChangeListener(
       PropertyChangeListener listener)
   {
-    support.removePropertyChangeListener(listener);
+    clientRMI.removePropertyChangeListener(listener);
   }
 
   public void onExit()

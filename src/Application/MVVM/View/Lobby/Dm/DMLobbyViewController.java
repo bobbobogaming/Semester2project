@@ -1,5 +1,6 @@
 package Application.MVVM.View.Lobby.Dm;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -17,5 +18,9 @@ public class DMLobbyViewController
 
   public void setLobbyId(String lobbyId){
     viewModel.setLobbyId(lobbyId);
+  }
+
+  public void openMonsterList(ActionEvent actionEvent) {
+    viewModel.openMonsterList();
   }
 }

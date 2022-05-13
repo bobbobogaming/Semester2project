@@ -21,7 +21,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Add monster" />
+      <Button layoutX="14.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Add monster" onAction="#openMonsterList"/>
       <Button layoutX="117.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Remove monster" />
    </children>
 </Pane>

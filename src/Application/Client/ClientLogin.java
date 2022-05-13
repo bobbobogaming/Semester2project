@@ -1,6 +1,8 @@
 package Application.Client;
 
-public interface ClientLogin
+import Util.PropertyChangeSubject;
+
+public interface ClientLogin extends PropertyChangeSubject
 {
   void setUserID(UserID userID);
   void onExit();
