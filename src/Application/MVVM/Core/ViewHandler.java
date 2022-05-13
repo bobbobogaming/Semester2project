@@ -1,15 +1,18 @@
 package Application.MVVM.Core;
 
+import Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewController;
 import Application.MVVM.View.Login.LoginViewController;
 import Application.MVVM.View.TabPane.TabViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -59,6 +62,9 @@ public class ViewHandler implements PropertyChangeListener
     if (evt.getPropertyName().equals("Tabs")){
       startTab();
     }
+    else if (evt.getPropertyName().equals("MonsterView")) {
+      showSelectMonsterView((ArrayList<String>) evt.getNewValue());
+    }
   }
 
   private void startTab(){
@@ -81,5 +87,31 @@ public class ViewHandler implements PropertyChangeListener
     currentStage.setOnCloseRequest(e -> tabViewController.onExit());
     currentStage.setScene(currentScene);
     currentStage.show();
+  }
+
+  private void showSelectMonsterView(ArrayList<String> monsters) {
+    FXMLLoader loader = new FXMLLoader();
+    Parent root = null;
+    loader.setLocation(getClass().getResource("/Application/MVVM/View/Lobby/Dm/MonsterSearch/SelectMonsterView.fxml"));
+    try
+    {
+      root = loader.load();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    Stage localStage = new Stage();
+
+    SelectMonsterViewController controller = loader.getController();
+    controller.init(viewModelFactory.getSelectMonsterViewModel(), monsters);
+
+    localStage.setTitle("Select monster");
+    Scene localScene = new Scene(root);
+    localStage.setScene(localScene);
+    localStage.setResizable(false);
+    localStage.initModality(Modality.WINDOW_MODAL);
+    localStage.initOwner(currentScene.getWindow());
+    localStage.show();
   }
 }

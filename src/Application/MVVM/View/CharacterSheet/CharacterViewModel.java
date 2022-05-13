@@ -83,8 +83,6 @@ public class CharacterViewModel
         }
       }
     }
-
-    System.out.println(source.getId());
   }
 
   public void createCharacterSheet(String name,String str, String dex, String con, String intel,
