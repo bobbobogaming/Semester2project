@@ -26,4 +26,8 @@ public class DMLobbyViewModel
   {
     lobbyIdProperty.setValue("Lobby id: " + lobbyId);
   }
+
+  public void openMonsterList() {
+    client.getMonsters();
+  }
 }

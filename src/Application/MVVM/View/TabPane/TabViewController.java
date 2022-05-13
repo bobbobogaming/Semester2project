@@ -35,7 +35,6 @@ public class TabViewController implements PropertyChangeListener
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     if (evt.getPropertyName().equals("connectAsDM")){
-      System.out.println(evt.getNewValue());
       setTabDmLobby(evt.getNewValue() + "");
     } else if (evt.getPropertyName().equals("connectAsPlayer")){
       setTabPlayerLobby(evt.getNewValue() + "");

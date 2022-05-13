@@ -2,6 +2,7 @@ package Application.MVVM.Core;
 
 import Application.MVVM.View.CharacterSheet.CharacterViewModel;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
+import Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewModel;
 import Application.MVVM.View.Lobby.Player.PlayerLobbyViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import Application.MVVM.View.Login.LoginViewModel;
@@ -12,10 +13,11 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ViewModelFactory
 {
   private final PlayerLobbyViewModel playerLobbyViewModel;
-  private CharacterViewModel characterViewModel;
-  private LoginViewModel loginViewModel;
-  private LobbyViewModel lobbyViewModel;
-  private DMLobbyViewModel dmLobbyViewModel;
+  private final CharacterViewModel characterViewModel;
+  private final LoginViewModel loginViewModel;
+  private final LobbyViewModel lobbyViewModel;
+  private final DMLobbyViewModel dmLobbyViewModel;
+  private final SelectMonsterViewModel selectMonsterViewModel;
 
   private static ViewModelFactory instance;
   private static Lock lock = new ReentrantLock();
@@ -38,6 +40,7 @@ public class ViewModelFactory
     lobbyViewModel = new LobbyViewModel(clientFactory.getClientRMI());
     dmLobbyViewModel = new DMLobbyViewModel(clientFactory.getClientRMI());
     playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClientRMI());
+    selectMonsterViewModel = new SelectMonsterViewModel();
   }
 
   public CharacterViewModel getCharacterViewModel()
@@ -63,5 +66,9 @@ public class ViewModelFactory
 
   public PlayerLobbyViewModel getPlayerLobbyViewModel() {
     return playerLobbyViewModel;
+  }
+
+  public SelectMonsterViewModel getSelectMonsterViewModel() {
+    return selectMonsterViewModel;
   }
 }

@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class Client implements IClientModel, ClientLogin, ClientLobby
 {
@@ -71,7 +72,15 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   {
     this.userID = userID;
     support.firePropertyChange("Tabs",null,null);
-    System.out.println(this.userID);
+  }
+
+  @Override public void getMonsters() {
+    ArrayList<String> arrayList = new ArrayList<>();
+    arrayList.add("cat");
+    arrayList.add("dog");
+    arrayList.add("simonC");
+    arrayList.add("simonL");
+    support.firePropertyChange("MonsterView",null,arrayList);
   }
 
   @Override public void onExit()
