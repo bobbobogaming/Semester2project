@@ -1,10 +1,11 @@
 package Application.MVVM.Model.character;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Stats implements Serializable
 {
-  private final Modifier modifier;
+  private final IModifier modifier;
   private int strength,dexterity,constitution,intelligence,wisdom,charisma;
 
   public Stats(int strength, int dexterity, int constitution, int intelligence,
@@ -33,6 +34,9 @@ public class Stats implements Serializable
   {
     return dexterity;
   }
+
+
+
 
   public int getIntelligence()
   {
@@ -77,5 +81,26 @@ public class Stats implements Serializable
   public int getWisdomModifier()
   {
     return modifier.modifierValue(wisdom);
+  }
+
+  @Override
+  public String toString() {
+    return "Stats{" +
+            "modifier=" + modifier +
+            ", strength=" + strength +
+            ", dexterity=" + dexterity +
+            ", constitution=" + constitution +
+            ", intelligence=" + intelligence +
+            ", wisdom=" + wisdom +
+            ", charisma=" + charisma +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Stats)) return false;
+    Stats stats = (Stats) o;
+    return strength == stats.strength && dexterity == stats.dexterity && constitution == stats.constitution && intelligence == stats.intelligence && wisdom == stats.wisdom && charisma == stats.charisma;
   }
 }
