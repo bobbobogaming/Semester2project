@@ -39,7 +39,7 @@ public class GetMonsterFromDataBaseView {
                 String speed = rs.getString("speed");
                 int maxHp = rs.getInt("maxHp");
                 String monsterName = rs.getString("monstername");
-                int cr = rs.getInt("cr");
+                String cr = rs.getString("cr");
 
                 String description = rs.getString("description");
                 String actionName = rs.getString("actionname");
@@ -50,13 +50,20 @@ public class GetMonsterFromDataBaseView {
                     actions.add(action);
                     Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma);
                     oldMonster = new Monster(stats, maxHp, ac, cr, monsterName, actions);
+
                 }else if (oldMonstername.equals("")){
                     oldMonstername = monsterName;
+                    actions.add(action);
+                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma);
+                    oldMonster = new Monster(stats, maxHp, ac, cr, monsterName, actions);
                 }else
                 {
                     monsterArrayList.add(oldMonster);
                     actions = new ArrayList<>();
+                    actions.add(action);
                     oldMonstername = monsterName;
+                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma);
+                    oldMonster = new Monster(stats, maxHp, ac, cr, monsterName, actions);
                 }
             }
 
