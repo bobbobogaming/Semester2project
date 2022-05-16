@@ -4,11 +4,13 @@ import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 //import Database.DatabaseWrapper;
+import Application.MVVM.Model.monster.Monster;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class ServerModelOld implements IServerModel {
@@ -50,5 +52,16 @@ public class ServerModelOld implements IServerModel {
         lobbies.get(lobbyId).addPlayer(client);
     }
 
+    //@Override
+    public void addMonster(Monster monster, int lobbyId)
+        throws RemoteException {
+
+    }
+
+    //@Override
+    public ArrayList<Monster> getMonsters(int lobbyId)
+        throws RemoteException {
+        return null;
+    }
 
 }

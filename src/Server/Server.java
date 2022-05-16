@@ -2,12 +2,14 @@ package Server;
 
 import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
+import Application.MVVM.Model.monster.Monster;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -31,6 +33,15 @@ public class Server implements IServerModel {
     @Override public void connectToLobby(int lobbyId, IClientModel client) {
         lobbies.get(lobbyId).addPlayer(client);
     }
+
+    @Override public void addMonster(Monster monster, int lobbyId) throws RemoteException {
+        lobbies.get(lobbyId).addMonster(monster);
+    }
+
+    @Override public void removeMonster(Monster monster, int lobbyId) throws RemoteException {
+        lobbies.get(lobbyId).removeMonster(monster);
+    }
+
     public void saveCharacter(Character character, UserID userID) throws RemoteException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();

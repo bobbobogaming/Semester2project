@@ -30,4 +30,20 @@ public class DMLobbyViewModel
   public void openMonsterList() {
     client.getMonsters();
   }
+
+  @Override public void propertyChange(PropertyChangeEvent evt) {
+
+    if (evt.getPropertyName().equals("UpdateMonsterTable")) {
+      initList.clear();
+      initList.addAll((ArrayList<Monster>) evt.getNewValue());
+    }
+  }
+
+  public ListProperty<Monster> initListProperty() {
+    return initList;
+  }
+
+  public void removeMonster(Monster monster) {
+    client.removeMonsterFromLobby(monster);
+  }
 }

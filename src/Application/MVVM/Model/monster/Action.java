@@ -1,6 +1,8 @@
 package Application.MVVM.Model.monster;
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable {
     private String description;
     private String actionName;
 

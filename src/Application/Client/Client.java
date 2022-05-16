@@ -1,6 +1,9 @@
 package Application.Client;
 
 import Application.MVVM.Model.character.Character;
+import Application.MVVM.Model.character.Stats;
+import Application.MVVM.Model.monster.Action;
+import Application.MVVM.Model.monster.Monster;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
@@ -44,6 +47,10 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     return userID.getName();
   }
 
+  @Override public void updateMonsterTable(ArrayList<Monster> monsters) throws RemoteException {
+    support.firePropertyChange("UpdateMonsterTable", null, monsters);
+  }
+
   @Override public void createLobby()
   {
     try
@@ -81,6 +88,24 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     arrayList.add("simonC");
     arrayList.add("simonL");
     support.firePropertyChange("MonsterView",null,arrayList);
+  }
+
+  @Override public void removeMonsterFromLobby(Monster monster) {
+    try {
+      server.removeMonster(monster, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void addMonsterToLobby(Monster monster) {
+    try {
+      server.addMonster(monster, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public void onExit()

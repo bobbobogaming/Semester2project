@@ -2,9 +2,10 @@ package Application.MVVM.Model.monster;
 
 import Application.MVVM.Model.character.Stats;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Monster {
+public class Monster implements Serializable {
     private Stats monsterStats;
     private int maxHP, ac;
     private double cr;
@@ -47,5 +48,21 @@ public class Monster {
             monsterActions.add(action.copy());
         }
         return monsterActions;
+    }
+
+    @Override public String toString() {
+        return monsterName;
+    }
+    @Override public boolean equals(Object obj) {
+        if (!(obj instanceof Monster)) {
+            return false;
+        }
+        Monster otherMonster = (Monster) obj;
+        return  (otherMonster.getMonsterName().equals(monsterName)
+        && otherMonster.getMonsterAction().equals(monsterAction)
+        && otherMonster.getMonsterStats().equals(monsterStats)
+        && otherMonster.getAc() == ac
+        && otherMonster.getCr() == cr
+        && otherMonster.getMaxHP() == maxHP);
     }
 }

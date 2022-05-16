@@ -1,6 +1,6 @@
 package Application.Client;
 
-import Shared.IClientModel;
+import Application.MVVM.Model.monster.Monster;
 import Util.PropertyChangeSubject;
 
 public interface ClientLobby extends PropertyChangeSubject
