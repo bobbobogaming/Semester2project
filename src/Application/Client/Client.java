@@ -71,6 +71,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   @Override public void setUserID(UserID userID)
   {
     this.userID = userID;
+
     support.firePropertyChange("Tabs",null,null);
   }
 

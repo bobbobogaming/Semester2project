@@ -4,11 +4,13 @@ import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 //import Database.DatabaseWrapper;
+import Database.Adapters.AdduserToDataBase;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class ServerModelOld implements IServerModel {
@@ -48,6 +50,12 @@ public class ServerModelOld implements IServerModel {
 
     public void connectToLobby(int lobbyId, IClientModel client) {
         lobbies.get(lobbyId).addPlayer(client);
+    }
+
+    @Override
+    public void saveUser(UserID userID) throws RemoteException {
+        AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
+        adduserToDataBase.addUser(userID);
     }
 
 
