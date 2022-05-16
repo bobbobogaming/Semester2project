@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster
 {
   private final IServerModel server;
   private PropertyChangeSupport support;
@@ -55,7 +55,9 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   {
     try
     {
-      support.firePropertyChange("connectAsDM",null,server.createLobby(this));
+      int lobbyId = server.createLobby(this);
+      userID.setLobbyId(lobbyId);
+      support.firePropertyChange("connectAsDM",null,lobbyId);
     }
     catch (RemoteException e)
     {
@@ -67,6 +69,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     try
     {
       server.connectToLobby(lobbyId, this);
+      userID.setLobbyId(lobbyId);
       support.firePropertyChange("connectAsPlayer",null,lobbyId);
     }
     catch (RemoteException e)
@@ -82,11 +85,11 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   }
 
   @Override public void getMonsters() {
-    ArrayList<String> arrayList = new ArrayList<>();
-    arrayList.add("cat");
-    arrayList.add("dog");
-    arrayList.add("simonC");
-    arrayList.add("simonL");
+    ArrayList<Monster> arrayList = new ArrayList<>();
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"simon",new ArrayList<>()));
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 

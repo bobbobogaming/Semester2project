@@ -2,8 +2,12 @@ package Application.MVVM.View.Lobby.Player;
 
 import Application.Client.Client;
 import Application.Client.ClientLobby;
+import Application.MVVM.Model.monster.Monster;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -33,5 +37,16 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
   public void setLobbyId(String lobbyId)
   {
     lobbyIdProperty.setValue("Lobby id: " + lobbyId);
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt) {
+    if (evt.getPropertyName().equals("UpdateMonsterTable")) {
+      initList.clear();
+      initList.addAll((ArrayList<Monster>) evt.getNewValue());
+    }
+  }
+
+  public ListProperty<Monster> initListProperty() {
+    return initList;
   }
 }

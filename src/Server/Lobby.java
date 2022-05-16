@@ -5,7 +5,6 @@ import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Lobby {
   private final int lobbyId;
@@ -29,6 +28,7 @@ public class Lobby {
   public void addPlayer(IClientModel client) {
     players.add(client);
     try {
+      client.updateMonsterTable(monsters);
       System.out.println(client.getUsername() + " joined lobby " + lobbyId);
     }
     catch (RemoteException e) {

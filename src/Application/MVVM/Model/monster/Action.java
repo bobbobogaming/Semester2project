@@ -24,4 +24,13 @@ public class Action implements Serializable {
         return new Action(description, actionName);
     }
 
+    @Override public boolean equals(Object obj){
+        if (!(obj instanceof Action)) {
+            return false;
+        }
+
+        Action other = (Action) obj;
+        return description.equals(other.description) && actionName.equals(other.actionName);
+    }
+
 }

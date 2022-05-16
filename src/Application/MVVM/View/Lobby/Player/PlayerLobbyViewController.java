@@ -4,9 +4,12 @@ import Application.MVVM.Model.monster.Monster;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PlayerLobbyViewController {
 
+  @FXML private TableView<Monster> initList;
   @FXML private Label lobbyId;
 
   private PlayerLobbyViewModel viewModel;
