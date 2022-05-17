@@ -101,6 +101,11 @@ public class Stats implements Serializable
     if (this == o) return true;
     if (!(o instanceof Stats)) return false;
     Stats stats = (Stats) o;
-    return strength == stats.strength && dexterity == stats.dexterity && constitution == stats.constitution && intelligence == stats.intelligence && wisdom == stats.wisdom && charisma == stats.charisma;
+    return strength == stats.strength
+        && dexterity == stats.dexterity
+        && constitution == stats.constitution
+        && intelligence == stats.intelligence
+        && wisdom == stats.wisdom
+        && charisma == stats.charisma;
   }
 }

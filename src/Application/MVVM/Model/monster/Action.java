@@ -1,6 +1,8 @@
 package Application.MVVM.Model.monster;
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable {
     private String description;
     private String actionName;
 
@@ -20,6 +22,15 @@ public class Action {
     public Action copy()
     {
         return new Action(description, actionName);
+    }
+
+    @Override public boolean equals(Object obj){
+        if (!(obj instanceof Action)) {
+            return false;
+        }
+
+        Action other = (Action) obj;
+        return description.equals(other.description) && actionName.equals(other.actionName);
     }
 
 }

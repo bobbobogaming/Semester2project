@@ -1,6 +1,9 @@
 package Application.Client;
 
 import Application.MVVM.Model.character.Character;
+import Application.MVVM.Model.character.Stats;
+import Application.MVVM.Model.monster.Action;
+import Application.MVVM.Model.monster.Monster;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
@@ -14,7 +17,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster
 {
   private final IServerModel server;
   private PropertyChangeSupport support;
@@ -44,11 +47,17 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     return userID.getName();
   }
 
+  @Override public void updateMonsterTable(ArrayList<Monster> monsters) throws RemoteException {
+    support.firePropertyChange("UpdateMonsterTable", null, monsters);
+  }
+
   @Override public void createLobby()
   {
     try
     {
-      support.firePropertyChange("connectAsDM",null,server.createLobby(this));
+      int lobbyId = server.createLobby(this);
+      userID.setLobbyId(lobbyId);
+      support.firePropertyChange("connectAsDM",null,lobbyId);
     }
     catch (RemoteException e)
     {
@@ -60,6 +69,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
     try
     {
       server.connectToLobby(lobbyId, this);
+      userID.setLobbyId(lobbyId);
       support.firePropertyChange("connectAsPlayer",null,lobbyId);
     }
     catch (RemoteException e)
@@ -76,12 +86,30 @@ public class Client implements IClientModel, ClientLogin, ClientLobby
   }
 
   @Override public void getMonsters() {
-    ArrayList<String> arrayList = new ArrayList<>();
-    arrayList.add("cat");
-    arrayList.add("dog");
-    arrayList.add("simonC");
-    arrayList.add("simonL");
+    ArrayList<Monster> arrayList = new ArrayList<>();
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"simon",new ArrayList<>()));
     support.firePropertyChange("MonsterView",null,arrayList);
+  }
+
+  @Override public void removeMonsterFromLobby(Monster monster) {
+    try {
+      server.removeMonster(monster, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void addMonsterToLobby(Monster monster) {
+    try {
+      server.addMonster(monster, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public void onExit()

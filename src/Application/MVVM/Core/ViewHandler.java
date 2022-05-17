@@ -1,5 +1,6 @@
 package Application.MVVM.Core;
 
+import Application.MVVM.Model.monster.Monster;
 import Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewController;
 import Application.MVVM.View.Login.LoginViewController;
 import Application.MVVM.View.TabPane.TabViewController;
@@ -63,7 +64,7 @@ public class ViewHandler implements PropertyChangeListener
       startTab();
     }
     else if (evt.getPropertyName().equals("MonsterView")) {
-      showSelectMonsterView((ArrayList<String>) evt.getNewValue());
+      showSelectMonsterView((ArrayList<Monster>) evt.getNewValue());
     }
   }
 
@@ -89,7 +90,7 @@ public class ViewHandler implements PropertyChangeListener
     currentStage.show();
   }
 
-  private void showSelectMonsterView(ArrayList<String> monsters) {
+  private void showSelectMonsterView(ArrayList<Monster> monsters) {
     FXMLLoader loader = new FXMLLoader();
     Parent root = null;
     loader.setLocation(getClass().getResource("/Application/MVVM/View/Lobby/Dm/MonsterSearch/SelectMonsterView.fxml"));
