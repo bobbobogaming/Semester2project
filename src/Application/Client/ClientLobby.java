@@ -8,6 +8,6 @@ public interface ClientLobby extends PropertyChangeSubject
   void createLobby();
   void connectToLobby(int lobbyId);
   void getMonsters();
-  void removeMonsterFromLobby(Monster monster);
+  void removeInitiativeFromLobby(InitWrapper initWrapper);
   void onExit();
 }

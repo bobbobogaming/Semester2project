@@ -1,8 +1,8 @@
 package Application.Client;
 
+import Application.MVVM.Model.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
-import Application.MVVM.Model.monster.Action;
 import Application.MVVM.Model.monster.Monster;
 import Shared.IClientModel;
 import Shared.IServerModel;
@@ -94,18 +94,19 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 
-  @Override public void removeMonsterFromLobby(Monster monster) {
+  @Override public void removeInitiativeFromLobby(InitWrapper initiative) {
     try {
-      server.removeMonster(monster, userID.getLobbyId());
+      server.removeInitiative(initiative, userID.getLobbyId());
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
   }
 
-  @Override public void addMonsterToLobby(Monster monster) {
+  @Override
+  public void addInitiativeToLobby(InitWrapper initiative) {
     try {
-      server.addMonster(monster, userID.getLobbyId());
+      server.addInitiative(initiative, userID.getLobbyId());
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
