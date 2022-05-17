@@ -72,4 +72,47 @@ class GetMonsterFromDataBaseViewTest {
     void sizeOfMonster(){
         assertEquals(796,monsterArrayList.size());
     }
+
+    @Test
+    void testForZuggtmoyChamberlain(){
+        boolean test = false;
+
+        for (Monster monster: monsterArrayList
+        ) {
+            if (monster.getMonsterName().equals("Zuggtmoy, Chamberlain")){
+                test = true;
+
+            }
+        }
+        assertTrue(test);
+    }
+
+    @Test
+    void testForOneAbility(){
+        boolean test = false;
+
+
+        for (Monster monster: monsterArrayList
+        ) {
+            if (monster.getMonsterName().equals("Zuggtmoy, Bridesmaid") && monster.getMonsterAction().size()==1){
+                test = true;
+            }
+        }
+        assertTrue(test);
+    }
+
+    @Test
+    void testForUnicornHas6Ability(){
+        boolean test = false;
+
+
+        for (Monster monster: monsterArrayList
+        ) {
+            if (monster.getMonsterName().equals("Unicorn") && monster.getMonsterAction().size()==6){
+                test = true;
+            }
+        }
+        assertTrue(test);
+
+    }
 }
