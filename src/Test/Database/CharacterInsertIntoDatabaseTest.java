@@ -21,4 +21,6 @@ class CharacterInsertIntoDatabaseTest {
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
         characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,userID);
     }
+
+
 }
