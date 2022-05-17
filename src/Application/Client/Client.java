@@ -47,8 +47,8 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     return userID.getName();
   }
 
-  @Override public void updateMonsterTable(ArrayList<Monster> monsters) throws RemoteException {
-    support.firePropertyChange("UpdateMonsterTable", null, monsters);
+  @Override public void updateInitiativeTable(ArrayList<InitWrapper> monsters) throws RemoteException {
+    support.firePropertyChange("UpdateInitiativeTable", null, monsters);
   }
 
   @Override public void createLobby()
@@ -87,10 +87,10 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
 
   @Override public void getMonsters() {
     ArrayList<Monster> arrayList = new ArrayList<>();
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"per",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"cat",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"dog",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"simon",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","simon",new ArrayList<>()));
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 

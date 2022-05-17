@@ -55,8 +55,8 @@ public class Lobby {
     }
   }
 
-  public void removeMonster(Monster monster) {
-    monsters.remove(monster);
+  public void removeInitiative(InitWrapper initiative) {
+    this.initiative.remove(initiative);
     try {
       dungeonMaster.updateInitiativeTable(this.initiative);
       players.forEach((player) -> {

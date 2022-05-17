@@ -62,7 +62,7 @@ public class Monster implements Serializable {
         && otherMonster.getMonsterAction().equals(monsterAction)
         && otherMonster.getMonsterStats().equals(monsterStats)
         && otherMonster.getAc() == ac
-        && otherMonster.getCr() == cr
+        && otherMonster.getCr().equals(cr)
         && otherMonster.getMaxHP() == maxHP);
     }
 }
