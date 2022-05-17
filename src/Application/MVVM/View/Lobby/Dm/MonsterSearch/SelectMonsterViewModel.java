@@ -1,5 +1,7 @@
 package Application.MVVM.View.Lobby.Dm.MonsterSearch;
 
+import Application.Client.ClientAddMonster;
+import Application.MVVM.Model.monster.Monster;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ObservableValue;
@@ -12,29 +14,36 @@ import java.util.Locale;
 
 public class SelectMonsterViewModel {
 
-  private ListProperty<String> monsterList;
-  private ArrayList<String> monsterListItems;
+  private ListProperty<Monster> monsterList;
+  private ArrayList<Monster> monsterListItems;
+  private ClientAddMonster clientAddMonster;
 
-  public SelectMonsterViewModel() {
+  public SelectMonsterViewModel(ClientAddMonster clientAddMonster) {
+    this.clientAddMonster = clientAddMonster;
+
     monsterListItems = new ArrayList<>();
     monsterList = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
   }
 
-  public ListProperty<String> getMonsterListProperty() {
+  public ListProperty<Monster> getMonsterListProperty() {
     return monsterList;
   }
 
   public void onSearchBarKeyTyped(String query) {
-    ObservableList<String> filteredMonsterList = FXCollections.observableArrayList(new ArrayList<>());
-    for (String monsterListItem : monsterListItems) {
-      if (monsterListItem.toLowerCase().contains(query.toLowerCase())) filteredMonsterList.add(monsterListItem);
+    ObservableList<Monster> filteredMonsterList = FXCollections.observableArrayList(new ArrayList<>());
+    for (Monster monsterListItem : monsterListItems) {
+      if (monsterListItem.getMonsterName().toLowerCase().contains(query.toLowerCase())) filteredMonsterList.add(monsterListItem);
     }
     monsterList.setValue(filteredMonsterList);
   }
 
-  public void setMonsterListItems(ArrayList<String> monsterListItems) {
+  public void setMonsterListItems(ArrayList<Monster> monsterListItems) {
     this.monsterListItems = monsterListItems;
     monsterList.clear();
     monsterList.addAll(monsterListItems);
+  }
+
+  public void addMonster(Monster monster){
+    clientAddMonster.addMonsterToLobby(monster);
   }
 }

@@ -4,14 +4,17 @@ import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 //import Database.DatabaseWrapper;
+import Application.MVVM.Model.monster.Monster;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ServerModelOld implements IServerModel {
+public class ServerModelOld //implements IServerModel
+    {
     private final ArrayList<Lobby> lobbies;
 
     private UserID user;
@@ -24,7 +27,7 @@ public class ServerModelOld implements IServerModel {
         this.lobbies = lobbies;
     }
 
-    @Override
+    //@Override
     public void saveCharacter(Character character , UserID user) {
         System.out.println("test");
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
@@ -33,13 +36,13 @@ public class ServerModelOld implements IServerModel {
         //DatabaseWrapper.addCharacter(character.getName(),"n/a");
     }
 
-    @Override
+    //@Override
     public Character getCharacter(String name) {
   //      DatabaseWrapper.getAllCharacters();
         return  new Character(new Stats(1,2,3,4,5,6),"yo");
     }
 
-    @Override
+    //@Override
     public int createLobby(IClientModel dungeonMaster) {
         //lobbies.add(new Lobby(dungeonMaster));
         return 1;
@@ -50,5 +53,16 @@ public class ServerModelOld implements IServerModel {
         lobbies.get(lobbyId).addPlayer(client);
     }
 
+    //@Override
+    public void addMonster(Monster monster, int lobbyId)
+        throws RemoteException {
+
+    }
+
+    //@Override
+    public ArrayList<Monster> getMonsters(int lobbyId)
+        throws RemoteException {
+        return null;
+    }
 
 }

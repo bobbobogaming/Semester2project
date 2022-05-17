@@ -25,7 +25,7 @@ public class ClientFactory
     return instance;
   }
 
-  public Client getClientRMI()
+  public Client getClient()
   {
     if (client == null)
     {

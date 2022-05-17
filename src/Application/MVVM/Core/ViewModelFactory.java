@@ -35,12 +35,12 @@ public class ViewModelFactory
   private ViewModelFactory(ModelFactory modelFactory, ClientFactory clientFactory)
   {
     characterViewModel = new CharacterViewModel(modelFactory.getCharacterSheetModel(
-        clientFactory.getClientRMI()),clientFactory.getClientRMI());
-    loginViewModel = new LoginViewModel(clientFactory.getClientRMI());
-    lobbyViewModel = new LobbyViewModel(clientFactory.getClientRMI());
-    dmLobbyViewModel = new DMLobbyViewModel(clientFactory.getClientRMI());
-    playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClientRMI());
-    selectMonsterViewModel = new SelectMonsterViewModel();
+        clientFactory.getClient()),clientFactory.getClient());
+    loginViewModel = new LoginViewModel(clientFactory.getClient());
+    lobbyViewModel = new LobbyViewModel(clientFactory.getClient());
+    dmLobbyViewModel = new DMLobbyViewModel(clientFactory.getClient());
+    playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClient());
+    selectMonsterViewModel = new SelectMonsterViewModel(clientFactory.getClient());
   }
 
   public CharacterViewModel getCharacterViewModel()
