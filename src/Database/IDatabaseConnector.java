@@ -1,8 +1,9 @@
 package Database;
 
 import Application.Client.UserID;
-import Application.MVVM.Model.character.Character;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IDatabaseConnector {
@@ -13,9 +14,10 @@ public interface IDatabaseConnector {
 
     void selectAllDataFromTableDatabase(String table);
 
-    ArrayList selectColumnsFromTableDataBase(ArrayList<String> columnsName, String table);
 
-    ArrayList<Character> getAllCharacterFromUser(UserID userID);
+    ResultSet selectAllDataFromTable(String table,UserID userID) throws SQLException;
+
+    ResultSet selectAllDataFromTable(String table);
 
 
 

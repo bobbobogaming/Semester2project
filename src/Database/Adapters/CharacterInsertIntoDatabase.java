@@ -54,6 +54,6 @@ public class CharacterInsertIntoDatabase {
         characterInfo.add(clas);
         characterInfo.add(maxHp);
 
-        iDatabaseConnector.addDataToDataBase("character",characterInfo);
+        iDatabaseConnector.addDataToDataBase("characters",characterInfo);
     }
 }

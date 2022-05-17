@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class Monster implements Serializable {
     private Stats monsterStats;
     private int maxHP, ac;
-    private double cr;
+    private String cr;
     private String monsterName;
     private ArrayList<Action> monsterAction;
 
-    public Monster(Stats monsterStats, int maxHP, int ac, double cr, String monsterName, ArrayList<Action> monsterAction) {
+    public Monster(Stats monsterStats, int maxHP, int ac, String cr, String monsterName, ArrayList<Action> monsterAction) {
         this.monsterStats = monsterStats;
         this.maxHP = maxHP;
         this.ac = ac;
@@ -34,7 +34,7 @@ public class Monster implements Serializable {
         return ac;
     }
 
-    public double getCr() {
+    public String getCr() {
         return cr;
     }
 

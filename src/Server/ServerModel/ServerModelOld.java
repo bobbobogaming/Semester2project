@@ -4,6 +4,7 @@ import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 //import Database.DatabaseWrapper;
+import Database.Adapters.AdduserToDataBase;
 import Application.MVVM.Model.monster.Monster;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Server.Lobby;
@@ -53,6 +54,12 @@ public class ServerModelOld //implements IServerModel
         lobbies.get(lobbyId).addPlayer(client);
     }
 
+    @Override
+    public void saveUser(UserID userID) throws RemoteException {
+        AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
+        adduserToDataBase.addUser(userID);
+    }
+
     //@Override
     public void addMonster(Monster monster, int lobbyId)
         throws RemoteException {
@@ -64,5 +71,4 @@ public class ServerModelOld //implements IServerModel
         throws RemoteException {
         return null;
     }
-
 }

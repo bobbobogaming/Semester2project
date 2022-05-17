@@ -14,6 +14,8 @@ public interface IServerModel extends Remote
     Character getCharacter(String name) throws RemoteException;
     int createLobby(IClientModel lobbyCreator) throws RemoteException;
     void connectToLobby(int lobbyId, IClientModel client) throws RemoteException;
+
+    void saveUser(UserID userID) throws RemoteException;
     void addMonster(Monster monster, int lobbyId) throws RemoteException;
     void removeMonster(Monster monster, int lobbyId) throws RemoteException;
 }
