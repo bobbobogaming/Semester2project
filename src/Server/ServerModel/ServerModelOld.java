@@ -49,12 +49,12 @@ public class ServerModelOld //implements IServerModel
         return 1;
     }
 
-
+    //@Override
     public void connectToLobby(int lobbyId, IClientModel client) {
         lobbies.get(lobbyId).addPlayer(client);
     }
 
-    @Override
+    //@Override
     public void saveUser(UserID userID) throws RemoteException {
         AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
         adduserToDataBase.addUser(userID);

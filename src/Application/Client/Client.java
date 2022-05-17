@@ -1,8 +1,8 @@
 package Application.Client;
 
+import Application.MVVM.Model.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
-import Application.MVVM.Model.monster.Action;
 import Application.MVVM.Model.monster.Monster;
 import Shared.IClientModel;
 import Shared.IServerModel;
@@ -47,8 +47,8 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     return userID.getName();
   }
 
-  @Override public void updateMonsterTable(ArrayList<Monster> monsters) throws RemoteException {
-    support.firePropertyChange("UpdateMonsterTable", null, monsters);
+  @Override public void updateInitiativeTable(ArrayList<InitWrapper> monsters) throws RemoteException {
+    support.firePropertyChange("UpdateInitiativeTable", null, monsters);
   }
 
   @Override public void createLobby()
@@ -87,25 +87,26 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
 
   @Override public void getMonsters() {
     ArrayList<Monster> arrayList = new ArrayList<>();
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"per",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"cat",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"dog",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,10,"simon",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","simon",new ArrayList<>()));
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 
-  @Override public void removeMonsterFromLobby(Monster monster) {
+  @Override public void removeInitiativeFromLobby(InitWrapper initiative) {
     try {
-      server.removeMonster(monster, userID.getLobbyId());
+      server.removeInitiative(initiative, userID.getLobbyId());
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
   }
 
-  @Override public void addMonsterToLobby(Monster monster) {
+  @Override
+  public void addInitiativeToLobby(InitWrapper initiative) {
     try {
-      server.addMonster(monster, userID.getLobbyId());
+      server.addInitiative(initiative, userID.getLobbyId());
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);

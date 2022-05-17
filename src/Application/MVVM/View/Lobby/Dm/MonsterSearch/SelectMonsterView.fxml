@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewController">
    <children>
       <TextField fx:id="searchBar" layoutX="14.0" layoutY="53.0" onAction="#onSearchBarEnterPressed" onKeyTyped="#onSearchBarKeyTyped" prefHeight="25.0" prefWidth="471.0" promptText="Search Monster Name" />
       <ListView fx:id="monsterList" layoutX="14.0" layoutY="90.0" onKeyPressed="#onMonsterListEnterKeyPressed" prefHeight="230.0" prefWidth="471.0" />

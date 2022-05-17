@@ -2,6 +2,7 @@ package Application.MVVM.View.Lobby.Player;
 
 import Application.Client.Client;
 import Application.Client.ClientLobby;
+import Application.MVVM.Model.InitWrapper;
 import Application.MVVM.Model.monster.Monster;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class PlayerLobbyViewModel implements PropertyChangeListener {
 
   private StringProperty lobbyIdProperty;
-  private ListProperty<Monster> initList;
+  private ListProperty<InitWrapper> initList;
 
   public ClientLobby client; //TODO should be chanced to a more fitting interface
 
@@ -40,13 +41,13 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("UpdateMonsterTable")) {
+    if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
       initList.clear();
-      initList.addAll((ArrayList<Monster>) evt.getNewValue());
+      initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
     }
   }
 
-  public ListProperty<Monster> initListProperty() {
+  public ListProperty<InitWrapper> initListProperty() {
     return initList;
   }
 }

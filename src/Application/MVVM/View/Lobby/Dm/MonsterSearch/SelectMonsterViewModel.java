@@ -1,6 +1,7 @@
 package Application.MVVM.View.Lobby.Dm.MonsterSearch;
 
 import Application.Client.ClientAddMonster;
+import Application.MVVM.Model.InitWrapper;
 import Application.MVVM.Model.monster.Monster;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -42,8 +43,7 @@ public class SelectMonsterViewModel {
     monsterList.clear();
     monsterList.addAll(monsterListItems);
   }
-
   public void addMonster(Monster monster){
-    clientAddMonster.addMonsterToLobby(monster);
+    clientAddMonster.addInitiativeToLobby(new InitWrapper(monster));
   }
 }
