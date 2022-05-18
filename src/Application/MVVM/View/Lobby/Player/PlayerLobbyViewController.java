@@ -1,8 +1,6 @@
 package Application.MVVM.View.Lobby.Player;
 
-import Application.MVVM.Model.InitWrapper;
-import Application.MVVM.Model.monster.Monster;
-import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -23,6 +21,9 @@ public class PlayerLobbyViewController {
     initList.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
     initList.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("hp"));
     initList.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("ac"));
+
+    initList.setSelectionModel(null);
+    initList.setFocusTraversable(false);
   }
 
   public void setLobbyId(String lobbyId){

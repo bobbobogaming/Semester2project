@@ -1,8 +1,8 @@
 package Application.Client;
 
-import Application.MVVM.Model.InitWrapper;
-import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
+import Application.MVVM.Model.initWrapper.InitWrapper;
+import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.monster.Monster;
 import Shared.IClientModel;
 import Shared.IServerModel;
@@ -18,7 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter
 {
   private final IServerModel server;
   private PropertyChangeSupport support;
@@ -86,13 +86,14 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void getMonsters() {
-    ArrayList<Monster> arrayList;/* = new ArrayList<>();
+    ArrayList<Monster> arrayList = new ArrayList<>();
 
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","per",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","cat",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","dog",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","simon",new ArrayList<>()));
-    */
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,20),10,"10","cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","simon",new ArrayList<>()));
+
+    /*
     try {
       arrayList = server.getMonsters();
     } catch (RemoteException e) {
@@ -100,6 +101,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+    */
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 
@@ -112,6 +114,15 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     }
   }
 
+  @Override public void updateInitList(InitWrapper initiative){
+    try {
+      server.updateInitiative(initiative, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  };
+
   @Override
   public void addInitiativeToLobby(InitWrapper initiative) {
     try {
@@ -120,6 +131,10 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override public void joinCombatAsCharacter() {
+
   }
 
   @Override public void onExit()

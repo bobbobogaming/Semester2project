@@ -4,6 +4,7 @@ import Application.MVVM.View.CharacterSheet.CharacterViewModel;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
 import Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewModel;
 import Application.MVVM.View.Lobby.Player.PlayerLobbyViewModel;
+import Application.MVVM.View.Lobby.Player.characterselect.SelectCharacterViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import Application.MVVM.View.Login.LoginViewModel;
 
@@ -18,6 +19,8 @@ public class ViewModelFactory
   private final LobbyViewModel lobbyViewModel;
   private final DMLobbyViewModel dmLobbyViewModel;
   private final SelectMonsterViewModel selectMonsterViewModel;
+
+  private final SelectCharacterViewModel selectCharacterViewModel;
 
   private static ViewModelFactory instance;
   private static Lock lock = new ReentrantLock();
@@ -41,6 +44,7 @@ public class ViewModelFactory
     dmLobbyViewModel = new DMLobbyViewModel(clientFactory.getClient());
     playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClient());
     selectMonsterViewModel = new SelectMonsterViewModel(clientFactory.getClient());
+    selectCharacterViewModel = new SelectCharacterViewModel(clientFactory.getClient());
   }
 
   public CharacterViewModel getCharacterViewModel()
@@ -70,5 +74,9 @@ public class ViewModelFactory
 
   public SelectMonsterViewModel getSelectMonsterViewModel() {
     return selectMonsterViewModel;
+  }
+
+  public SelectCharacterViewModel getSelectCharacterViewModel() {
+    return selectCharacterViewModel;
   }
 }

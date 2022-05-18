@@ -102,8 +102,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void insertMultipleCharacterWithSameNameSameUserIdExpectedError()
     {
-        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname);
-        System.out.println("tet");
+        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2, 10), charname);
 
         assertThrows(org.postgresql.util.PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
 

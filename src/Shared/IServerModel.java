@@ -1,7 +1,7 @@
 package Shared;
 
 import Application.Client.UserID;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.monster.Monster;
 
@@ -22,4 +22,5 @@ public interface IServerModel extends Remote
     void saveUser(UserID userID) throws RemoteException, SQLException;
     void addInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
     void removeInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
+    void updateInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
 }

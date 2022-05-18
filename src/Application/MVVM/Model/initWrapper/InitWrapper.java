@@ -1,4 +1,4 @@
-package Application.MVVM.Model;
+package Application.MVVM.Model.initWrapper;
 
 import Application.MVVM.Model.monster.Monster;
 import Application.MVVM.Model.character.Character;
@@ -11,19 +11,22 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private String name;
   private int hp;
   private int ac;
+  private IStatFormat source;
 
   public InitWrapper(Monster monster){
     init = new Random().nextInt(20);
     name = monster.getMonsterName();
     hp = monster.getMaxHP();
     ac = monster.getAc();
+    source = monster;
   }
 
   public InitWrapper(Character character){
     init = new Random().nextInt(20);
     name = character.getName();
-    hp = 10;
-    ac = 10;
+    hp = character.getStats().getMaxHP();
+    ac = 10 + character.getStats().getDexterityModifier();
+    source = character;
   }
 
   public void setInit(int init) {
@@ -58,6 +61,10 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
     return ac;
   }
 
+  public String getFormattedStats(){
+    return source.getFormattedStats();
+  }
+
   @Override public boolean equals(Object obj) {
     if (!(obj instanceof InitWrapper)) {
       return false;
@@ -65,13 +72,12 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
     InitWrapper otherInit = (InitWrapper) obj;
     return (otherInit.init == init
         && otherInit.name.equals(name)
-        && otherInit.hp == hp
         && otherInit.ac == ac);
   }
 
   @Override public int compareTo(InitWrapper o) {
     if (init > o.init) return 1;
     else if (init < o.init) return -1;
-    return 0;
+    return name.compareTo(o.name);
   }
 }

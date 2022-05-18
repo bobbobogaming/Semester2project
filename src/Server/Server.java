@@ -1,7 +1,7 @@
 package Server;
 
 import Application.Client.UserID;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Database.Adapters.AdduserToDataBase;
 import Application.MVVM.Model.monster.Monster;
@@ -59,7 +59,11 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).removeInitiative(initiative);
     }
 
-    public void saveCharacter(Character character, UserID userID) throws RemoteException, SQLException {
+    @Override public void updateInitiative(InitWrapper initiative, int lobbyId) throws RemoteException {
+        lobbies.get(lobbyId).updateInitiative(initiative);
+    }
+
+    public void saveCharacter(Character character, UserID userID) throws RemoteException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
         insertData.InsertCharacterIntoDatabase(character,userID);

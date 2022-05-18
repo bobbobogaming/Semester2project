@@ -2,7 +2,7 @@ package Application.MVVM.View.Lobby.Dm;
 
 import Application.Client.Client;
 import Application.Client.ClientLobby;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,5 +58,11 @@ public class DMLobbyViewModel implements PropertyChangeListener
 
   public void removeMonster(InitWrapper initWrapper) {
     client.removeInitiativeFromLobby(initWrapper);
+  }
+
+  public void lowerHealth(InitWrapper selectedItem,String amount) {
+    int subtractionAmount = Integer.parseInt(amount);
+    selectedItem.setHp(selectedItem.getHp() - subtractionAmount);
+    client.updateInitList(selectedItem);
   }
 }

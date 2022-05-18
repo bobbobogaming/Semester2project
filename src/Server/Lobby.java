@@ -1,10 +1,11 @@
 package Server;
 
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class Lobby {
   private final int lobbyId;
@@ -57,6 +58,26 @@ public class Lobby {
 
   public void removeInitiative(InitWrapper initiative) {
     this.initiative.remove(initiative);
+    try {
+      dungeonMaster.updateInitiativeTable(this.initiative);
+      players.forEach((player) -> {
+        try {
+          player.updateInitiativeTable(this.initiative);
+        }
+        catch (RemoteException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void updateInitiative(InitWrapper initiative){
+    this.initiative.remove(initiative);
+    this.initiative.add(initiative);
+    this.initiative.sort(InitWrapper::compareTo);
     try {
       dungeonMaster.updateInitiativeTable(this.initiative);
       players.forEach((player) -> {

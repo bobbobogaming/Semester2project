@@ -1,6 +1,6 @@
 package Shared;
 
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.character.Character;
 
 import java.rmi.Remote;
