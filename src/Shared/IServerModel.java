@@ -1,7 +1,7 @@
 package Shared;
 
 import Application.Client.UserID;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.monster.Monster;
 

@@ -1,8 +1,6 @@
 package Application.MVVM.View.Lobby.Player;
 
-import Application.MVVM.Model.InitWrapper;
-import Application.MVVM.Model.monster.Monster;
-import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;

@@ -1,17 +1,14 @@
 package Application.MVVM.View.Lobby.Dm.MonsterSearch;
 
 import Application.Client.ClientAddMonster;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.monster.Monster;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class SelectMonsterViewModel {
 

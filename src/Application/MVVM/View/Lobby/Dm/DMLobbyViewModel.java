@@ -2,7 +2,7 @@ package Application.MVVM.View.Lobby.Dm;
 
 import Application.Client.Client;
 import Application.Client.ClientLobby;
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;

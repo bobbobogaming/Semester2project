@@ -1,6 +1,6 @@
 package Server;
 
-import Application.MVVM.Model.InitWrapper;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import Shared.IClientModel;
 
 import java.rmi.RemoteException;

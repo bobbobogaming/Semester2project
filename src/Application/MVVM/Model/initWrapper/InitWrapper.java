@@ -1,4 +1,4 @@
-package Application.MVVM.Model;
+package Application.MVVM.Model.initWrapper;
 
 import Application.MVVM.Model.monster.Monster;
 import Application.MVVM.Model.character.Character;

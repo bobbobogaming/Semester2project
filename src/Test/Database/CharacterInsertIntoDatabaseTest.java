@@ -87,7 +87,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void insertMultipleCharacterWithSameNameSameUserIdExpectedError()
     {
-        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2), charname);
+        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2, 10), charname);
 
 
         ArrayList<Character> characterArrayList;
