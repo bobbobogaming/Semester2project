@@ -6,6 +6,7 @@ import Application.MVVM.Model.character.Stats;
 import Database.DataBaseConnector;
 import Database.IDatabaseConnector;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CharacterInsertIntoDatabase {
@@ -17,7 +18,7 @@ public class CharacterInsertIntoDatabase {
     }
 
 
-    public void InsertCharacterIntoDatabase(Character character, UserID user)
+    public void InsertCharacterIntoDatabase(Character character, UserID user) throws SQLException
     {   //this is an adapter that converts a user and character into an array that can be saved in the database
 
         int constitution, wisdom, dexterity, charisma, intelligence, strength;
@@ -53,7 +54,6 @@ public class CharacterInsertIntoDatabase {
         characterInfo.add(level);
         characterInfo.add(clas);
         characterInfo.add(maxHp);
-
         iDatabaseConnector.addDataToDataBase("characters",characterInfo);
     }
 }

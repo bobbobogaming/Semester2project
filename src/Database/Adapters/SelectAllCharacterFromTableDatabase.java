@@ -22,7 +22,7 @@ public class SelectAllCharacterFromTableDatabase {
 
         ResultSet rs = null;
         try {
-            rs = iDatabaseConnector.selectAllDataFromTable("Characters",userID);
+            rs = iDatabaseConnector.selectAllDataFromTable("viewcharacter",userID);
             while (rs.next()) {
                 int constitution = rs.getInt("constitution");
                 int wisdom = rs.getInt("wisdom");
