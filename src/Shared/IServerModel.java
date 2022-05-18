@@ -7,6 +7,7 @@ import Application.MVVM.Model.monster.Monster;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface IServerModel extends Remote
 {
@@ -15,6 +16,8 @@ public interface IServerModel extends Remote
     int createLobby(IClientModel lobbyCreator) throws RemoteException;
     void connectToLobby(int lobbyId, IClientModel client) throws RemoteException;
 
+
+    ArrayList<Monster> getMonsters() throws RemoteException;
     void saveUser(UserID userID) throws RemoteException;
     void addInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
     void removeInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;

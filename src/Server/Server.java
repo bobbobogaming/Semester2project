@@ -6,11 +6,13 @@ import Application.MVVM.Model.character.Character;
 import Database.Adapters.AdduserToDataBase;
 import Application.MVVM.Model.monster.Monster;
 import Database.Adapters.CharacterInsertIntoDatabase;
+import Database.Adapters.GetMonsterFromDataBaseView;
 import Shared.IClientModel;
 import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -33,6 +35,13 @@ public class Server implements IServerModel {
 
     @Override public void connectToLobby(int lobbyId, IClientModel client) {
         lobbies.get(lobbyId).addPlayer(client);
+    }
+
+    @Override
+    public ArrayList<Monster> getMonsters() {
+        GetMonsterFromDataBaseView getMonsterFromDataBaseView = new GetMonsterFromDataBaseView();
+
+        return getMonsterFromDataBaseView.getData();
     }
 
     @Override

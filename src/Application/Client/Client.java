@@ -86,11 +86,18 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void getMonsters() {
-    ArrayList<Monster> arrayList = new ArrayList<>();
+    ArrayList<Monster> arrayList;/* = new ArrayList<>();
+
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","per",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","cat",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","dog",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10),20,10,"10","simon",new ArrayList<>()));
+    */
+    try {
+      arrayList = server.getMonsters();
+    } catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 

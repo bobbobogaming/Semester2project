@@ -6,10 +6,10 @@ import java.util.Objects;
 public class Stats implements Serializable
 {
   private final IModifier modifier;
-  private int strength,dexterity,constitution,intelligence,wisdom,charisma;
+  private int strength,dexterity,constitution,intelligence,wisdom,charisma, maxHP;
 
   public Stats(int strength, int dexterity, int constitution, int intelligence,
-      int wisdom, int charisma)
+      int wisdom, int charisma, int maxHP)
   {
     this.strength = strength;
     this.dexterity = dexterity;
@@ -18,6 +18,7 @@ public class Stats implements Serializable
     this.wisdom = wisdom;
     this.charisma = charisma;
     modifier = new Modifier();
+    this.maxHP = maxHP;
   }
 
   public int getCharisma()
@@ -35,8 +36,7 @@ public class Stats implements Serializable
     return dexterity;
   }
 
-
-
+  public int getMaxHP(){return maxHP;}
 
   public int getIntelligence()
   {

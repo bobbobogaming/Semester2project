@@ -7,7 +7,11 @@ public class Action implements Serializable {
     private String actionName;
 
     public Action(String description, String actionName) {
-        this.description = description;
+        if (description==null)
+            this.description ="";
+        else {
+            this.description = description;
+        }
         this.actionName = actionName;
     }
 
