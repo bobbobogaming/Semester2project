@@ -63,13 +63,13 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).updateInitiative(initiative);
     }
 
-    public void saveCharacter(Character character, UserID userID) throws RemoteException {
+    public void saveCharacter(Character character, UserID userID) throws RemoteException, SQLException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
         insertData.InsertCharacterIntoDatabase(character,userID);
     }
 
-    public Character getCharacter(String name) throws RemoteException, SQLException {
+    public Character getCharacter(String name) throws RemoteException {
         return null;
     }
 }
