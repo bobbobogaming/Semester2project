@@ -40,7 +40,7 @@ public class ServerModelOld //implements IServerModel
     //@Override
     public Character getCharacter(String name) {
   //      DatabaseWrapper.getAllCharacters();
-        return  new Character(new Stats(1,2,3,4,5,6),"yo");
+        return  new Character(new Stats(1,2,3,4,5,6,14),"yo");
     }
 
     //@Override

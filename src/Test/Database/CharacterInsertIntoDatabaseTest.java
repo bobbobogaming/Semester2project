@@ -28,7 +28,7 @@ class CharacterInsertIntoDatabaseTest {
 
     @BeforeEach
     void setUp() {
-        Stats stats = new Stats(10, 11, 12, 13, 14, 15);
+        Stats stats = new Stats(10, 11, 12, 13, 14, 15,91);
         charname = "Bobby";
         character = new Character(stats, charname);
         userID = new UserID("Morten");
@@ -63,7 +63,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void duplicateUserNameDifferentCharacterName() {
 
-        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2), "Allan");
+        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2,15), "Allan");
         insert.InsertCharacterIntoDatabase(allan,userID);
         ArrayList<Character> characterArrayList;
         SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
@@ -87,7 +87,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void insertMultipleCharacterWithSameNameSameUserIdExpectedError()
     {
-        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2), charname);
+        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname);
 
 
         ArrayList<Character> characterArrayList;

@@ -7,14 +7,13 @@ import java.util.ArrayList;
 
 public class Monster implements Serializable {
     private Stats monsterStats;
-    private int maxHP, ac;
+    private int  ac;
     private String cr;
     private String monsterName;
     private ArrayList<Action> monsterAction;
 
-    public Monster(Stats monsterStats, int maxHP, int ac, String cr, String monsterName, ArrayList<Action> monsterAction) {
+    public Monster(Stats monsterStats, int ac, String cr, String monsterName, ArrayList<Action> monsterAction) {
         this.monsterStats = monsterStats;
-        this.maxHP = maxHP;
         this.ac = ac;
         this.cr = cr;
         this.monsterName = monsterName;
@@ -27,7 +26,7 @@ public class Monster implements Serializable {
     }
 
     public int getMaxHP() {
-        return maxHP;
+        return monsterStats.getMaxHP();
     }
 
     public int getAc() {
@@ -63,6 +62,6 @@ public class Monster implements Serializable {
         && otherMonster.getMonsterStats().equals(monsterStats)
         && otherMonster.getAc() == ac
         && otherMonster.getCr().equals(cr)
-        && otherMonster.getMaxHP() == maxHP);
+        );
     }
 }

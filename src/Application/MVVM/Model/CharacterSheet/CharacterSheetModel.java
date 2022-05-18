@@ -21,7 +21,7 @@ public class CharacterSheetModel implements ICharacterSheetModel
   {
     try
     {
-      clientRMI.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha),name));
+      clientRMI.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,15),name));
     }
     catch (RemoteException e)
     {
