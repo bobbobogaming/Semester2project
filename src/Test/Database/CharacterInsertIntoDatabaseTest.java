@@ -25,20 +25,30 @@ class CharacterInsertIntoDatabaseTest {
     private String charname;
 
     private CharacterInsertIntoDatabase insert;
+    private Stats stats;
 
     @BeforeEach
     void setUp() {
-        Stats stats = new Stats(10, 11, 12, 13, 14, 15,10);
+        stats = new Stats(10, 11, 12, 13, 14, 15,91);
         charname = "Bobby";
         character = new Character(stats, charname);
         userID = new UserID("Morten");
         AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
 
-        adduserToDataBase.addUser(userID);
+        try {
+            adduserToDataBase.addUser(userID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
         insert = new CharacterInsertIntoDatabase();
-        insert.InsertCharacterIntoDatabase(character, userID);
+        try {
+            insert.InsertCharacterIntoDatabase(character, userID);
+        } catch (SQLException e) {
+            System.out.println("kj");
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -63,8 +73,13 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void duplicateUserNameDifferentCharacterName() {
 
-        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2,10), "Allan");
-        insert.InsertCharacterIntoDatabase(allan,userID);
+        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2,15), "Allan");
+        try {
+            insert.InsertCharacterIntoDatabase(allan,userID);
+        } catch (SQLException e) {
+            fail();
+            throw new RuntimeException(e);
+        }
         ArrayList<Character> characterArrayList;
         SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
         characterArrayList = select.getAllCharacterFromTableDatabase(userID);
@@ -89,7 +104,9 @@ class CharacterInsertIntoDatabaseTest {
     {
         Character user = new Character(new Stats(2, 5, 2, 5, 5, 2, 10), charname);
 
+        assertThrows(org.postgresql.util.PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
 
+/*
         ArrayList<Character> characterArrayList;
         SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
         characterArrayList = select.getAllCharacterFromTableDatabase(userID);
@@ -103,9 +120,56 @@ class CharacterInsertIntoDatabaseTest {
         }
 
         assertTrue(insertMultipleCharacterWithSameNameSameUserId);
+*/
+    }
+
+    @Test
+    void outOfBoundsTestOnName(){
+        String username = "";
+        for (int i = 0; i <256 ; i++) {
+            username += "a";
+        }
+
+        Character character1 = new Character(stats,username);
+
+        assertThrows(PSQLException.class,()->insert.InsertCharacterIntoDatabase(character1,userID));
 
     }
 
+    @Test
+    void maxInBoundName(){
+        String charename = "";
+        for (int i = 0; i <255 ; i++) {
+            charename += "m";
+        }
+        Character character1 = new Character(stats,charename);
+
+        try {
+            insert.InsertCharacterIntoDatabase(character1,userID);
+            assertTrue(true);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        CharacterDeleteFromDatabase deleteFromDatabase = new CharacterDeleteFromDatabase();
+        deleteFromDatabase.deleteCharacterFromDatabase(userID, charename);
+    }
+
+    @Test
+    void minInBoundName(){
+        String charenam = "";
+
+        Character character1 = new Character(stats,charenam);
+
+        try {
+            insert.InsertCharacterIntoDatabase(character1,userID);
+            assertTrue(true);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        CharacterDeleteFromDatabase deleteFromDatabase = new CharacterDeleteFromDatabase();
+        deleteFromDatabase.deleteCharacterFromDatabase(userID, charenam);
+
+    }
 
     @AfterEach
     void removeDuplicateUsers()

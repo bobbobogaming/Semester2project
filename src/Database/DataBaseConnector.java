@@ -3,6 +3,7 @@ package Database;
 import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
+import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,8 +53,8 @@ public class DataBaseConnector implements IDatabaseConnector {
 
   }
 
-  public void addDataToDataBase(String table, ArrayList<Object> data) {
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+  public void addDataToDataBase(String table, ArrayList<Object> data) throws SQLException{
+    Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
       String query = "insert into " + table + " values (";
 
       //first we make the number of elements that we need to be able to
@@ -74,9 +75,6 @@ public class DataBaseConnector implements IDatabaseConnector {
 
       stmt.execute();
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
 
   }
 
@@ -112,33 +110,12 @@ public class DataBaseConnector implements IDatabaseConnector {
   }
 
   @Override
-  public void selectAllDataFromTableDatabase(String table) {
-
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
-      String query = "select * from " + table;
-
-      Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery(query);
-
-
-      while (rs.next()) {
-        System.out.println(rs.getArray(1));
-        //System.out.println(rs.);
-        //characters += "First name: " + rs.getString("fname")
-        //        + ", Last name: " + rs.getString("lname") + "\n";
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public ResultSet selectAllDataFromTable(String table,UserID userID)  {
+  public ResultSet selectAllDataFromTable(String table,UserID userID) throws SQLException  {
 
     ResultSet rs = null;
 
 
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+    Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
       String query = "select * from " + table + " where playerid = " + "'" + userID.getName() +
               "'";
@@ -146,30 +123,24 @@ public class DataBaseConnector implements IDatabaseConnector {
       Statement stmt = conn.createStatement();
 
       rs = stmt.executeQuery(query);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+
     return rs;
-
-
   }
 
   @Override
-  public ResultSet selectAllDataFromTable(String table)  {
+  public ResultSet selectAllDataFromTable(String table) throws SQLException {
 
     ResultSet rs = null;
 
 
-    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+    Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
       String query = "select * from " + table;
 
       Statement stmt = conn.createStatement();
 
       rs = stmt.executeQuery(query);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+
     return rs;
 
 

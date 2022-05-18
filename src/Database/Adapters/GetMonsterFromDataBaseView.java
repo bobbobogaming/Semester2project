@@ -48,13 +48,13 @@ public class GetMonsterFromDataBaseView {
 
                 if (oldMonstername.equals(monsterName)){
                     actions.add(action);
-                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma,maxHp);
+                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma, maxHp);
                     oldMonster = new Monster(stats, ac, cr, monsterName, actions);
 
                 }else if (oldMonstername.equals("")){
                     oldMonstername = monsterName;
                     actions.add(action);
-                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma,maxHp);
+                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma, maxHp);
                     oldMonster = new Monster(stats, ac, cr, monsterName, actions);
                 }else
                 {
@@ -62,7 +62,7 @@ public class GetMonsterFromDataBaseView {
                     actions = new ArrayList<>();
                     actions.add(action);
                     oldMonstername = monsterName;
-                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma,maxHp);
+                    Stats stats = new Stats(strength, dexterity, constitution, intelligence, wisdom, charisma, maxHp);
                     oldMonster = new Monster(stats, ac, cr, monsterName, actions);
                 }
             }

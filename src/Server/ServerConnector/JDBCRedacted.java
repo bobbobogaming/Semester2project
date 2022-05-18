@@ -9,6 +9,6 @@ public class JDBCRedacted
     }
 
     public static Character getCharacter(String name) {
-        return new Character(new Stats(10,10,01,10,10,10,10),"");
+        return new Character(new Stats(10,10,01,10,10,10,14),"");
     }
 }
