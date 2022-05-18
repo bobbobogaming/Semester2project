@@ -69,7 +69,7 @@ public class Server implements IServerModel {
         insertData.InsertCharacterIntoDatabase(character,userID);
     }
 
-    public Character getCharacter(String name) throws RemoteException {
+    public Character getCharacter(String name) throws RemoteException, SQLException {
         return null;
     }
 }
