@@ -1,9 +1,11 @@
 package Application.MVVM.Model.character;
 
+import Application.MVVM.Model.initWrapper.IStatFormat;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Character implements Serializable
+public class Character implements Serializable, IStatFormat
 {
 
 
@@ -24,6 +26,17 @@ public class Character implements Serializable
   public String getName()
   {
     return name;
+  }
+
+  @Override
+  public String getFormattedStats(){
+    return String.format("Max HP: %d",stats.getMaxHP()) + "\n"
+        + String.format("STR: %d (%d)",stats.getStrength(),stats.getStrengthModifier()) + "\n"
+        + String.format("DEX: %d (%d)",stats.getDexterity(),stats.getDexterityModifier()) +"\n"
+        + String.format("CON: %d (%d)",stats.getConstitution(),stats.getConstitutionModifier()) +"\n"
+        + String.format("INT: %d (%d)",stats.getIntelligence(),stats.getIntelligenceModifier()) +"\n"
+        + String.format("WIS: %d (%d)",stats.getWisdom(),stats.getWisdomModifier()) +"\n"
+        + String.format("CHA: %d (%d)",stats.getCharisma(),stats.getCharismaModifier());
   }
 
   @Override

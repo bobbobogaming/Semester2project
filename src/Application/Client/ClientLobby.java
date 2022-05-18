@@ -9,5 +9,6 @@ public interface ClientLobby extends PropertyChangeSubject
   void connectToLobby(int lobbyId);
   void getMonsters();
   void removeInitiativeFromLobby(InitWrapper initWrapper);
+  void updateInitList(InitWrapper initiative);
   void onExit();
 }

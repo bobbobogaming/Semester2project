@@ -21,4 +21,5 @@ public interface IServerModel extends Remote
     void saveUser(UserID userID) throws RemoteException;
     void addInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
     void removeInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
+    void updateInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;
 }

@@ -21,6 +21,9 @@ public class PlayerLobbyViewController {
     initList.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
     initList.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("hp"));
     initList.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("ac"));
+
+    initList.setSelectionModel(null);
+    initList.setFocusTraversable(false);
   }
 
   public void setLobbyId(String lobbyId){

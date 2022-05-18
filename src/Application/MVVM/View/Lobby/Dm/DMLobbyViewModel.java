@@ -59,4 +59,10 @@ public class DMLobbyViewModel implements PropertyChangeListener
   public void removeMonster(InitWrapper initWrapper) {
     client.removeInitiativeFromLobby(initWrapper);
   }
+
+  public void lowerHealth(InitWrapper selectedItem,String amount) {
+    int subtractionAmount = Integer.parseInt(amount);
+    selectedItem.setHp(selectedItem.getHp() - subtractionAmount);
+    client.updateInitList(selectedItem);
+  }
 }

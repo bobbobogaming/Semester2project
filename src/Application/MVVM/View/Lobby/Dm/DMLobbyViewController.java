@@ -5,7 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.text.Text;
+
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
+import java.util.function.UnaryOperator;
 
 public class DMLobbyViewController
 {
@@ -15,6 +19,7 @@ public class DMLobbyViewController
   @FXML private Text textArea;
   @FXML private TableView<InitWrapper> initList;
   @FXML private Label lobbyId;
+  @FXML private TextField subtractHealth;
 
   private DMLobbyViewModel viewModel;
 
@@ -78,6 +83,14 @@ public class DMLobbyViewController
 
   public void setLobbyId(String lobbyId){
     viewModel.setLobbyId(lobbyId);
+  }
+
+  public void onLowerHealth(ActionEvent actionEvent){
+    if (!subtractHealth.getText().isEmpty() && !subtractHealth.getText().equals("-")){
+      int index = initList.getSelectionModel().getSelectedIndex();
+      viewModel.lowerHealth(initList.getSelectionModel().getSelectedItem(),subtractHealth.getText());
+      initList.getSelectionModel().select(index);
+    }
   }
 
   public void openMonsterList(ActionEvent actionEvent) {

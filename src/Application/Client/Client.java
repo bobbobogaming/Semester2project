@@ -112,6 +112,15 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     }
   }
 
+  @Override public void updateInitList(InitWrapper initiative){
+    try {
+      server.updateInitiative(initiative, userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  };
+
   @Override
   public void addInitiativeToLobby(InitWrapper initiative) {
     try {

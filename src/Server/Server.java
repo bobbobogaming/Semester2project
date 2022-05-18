@@ -58,6 +58,10 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).removeInitiative(initiative);
     }
 
+    @Override public void updateInitiative(InitWrapper initiative, int lobbyId) throws RemoteException {
+        lobbies.get(lobbyId).updateInitiative(initiative);
+    }
+
     public void saveCharacter(Character character, UserID userID) throws RemoteException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
