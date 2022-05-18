@@ -15,6 +15,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster
@@ -32,8 +33,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void makeCharacter(Character character)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     System.out.println(character);
     server.saveCharacter(character, userID);
   }
@@ -96,6 +96,8 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     try {
       arrayList = server.getMonsters();
     } catch (RemoteException e) {
+      throw new RuntimeException(e);
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
     support.firePropertyChange("MonsterView",null,arrayList);

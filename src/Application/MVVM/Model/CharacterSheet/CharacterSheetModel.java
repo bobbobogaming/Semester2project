@@ -6,6 +6,7 @@ import Application.MVVM.Model.character.Stats;
 import Shared.IClientModel;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class CharacterSheetModel implements ICharacterSheetModel
 {
@@ -21,9 +22,9 @@ public class CharacterSheetModel implements ICharacterSheetModel
   {
     try
     {
-      clientRMI.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha),name));
+      clientRMI.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,15),name));
     }
-    catch (RemoteException e)
+    catch (RemoteException | SQLException e)
     {
       e.printStackTrace();
     }

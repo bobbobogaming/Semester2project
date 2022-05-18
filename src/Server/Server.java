@@ -12,6 +12,7 @@ import Shared.IServerModel;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class Server implements IServerModel {
     }
 
     @Override
-    public void saveUser(UserID userID) throws RemoteException {
+    public void saveUser(UserID userID) throws RemoteException, SQLException {
         AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
         adduserToDataBase.addUser(userID);
     }
@@ -58,7 +59,7 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).removeInitiative(initiative);
     }
 
-    public void saveCharacter(Character character, UserID userID) throws RemoteException {
+    public void saveCharacter(Character character, UserID userID) throws RemoteException, SQLException {
         System.out.println(character);
         CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
         insertData.InsertCharacterIntoDatabase(character,userID);

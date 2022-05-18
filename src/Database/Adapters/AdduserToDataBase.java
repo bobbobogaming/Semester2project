@@ -4,10 +4,11 @@ import Application.Client.UserID;
 import Database.DataBaseConnector;
 import Database.IDatabaseConnector;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AdduserToDataBase {
-    public void addUser(UserID userID){
+    public void addUser(UserID userID) throws SQLException {
         IDatabaseConnector dataBaseConnector = new DataBaseConnector();
 
 
@@ -26,6 +27,7 @@ public class AdduserToDataBase {
 
         ArrayList<String> userNameList= selectAllUserName.getAllUserName();
 
+        System.out.println(userNameList);
         if (!userNameList.contains(username)){
             dataBaseConnector.addDataToDataBase("player", insert);
         }

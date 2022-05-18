@@ -12,6 +12,7 @@ import Shared.IClientModel;
 import Shared.IServerModel;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServerModelOld //implements IServerModel
@@ -29,7 +30,7 @@ public class ServerModelOld //implements IServerModel
     }
 
     //@Override
-    public void saveCharacter(Character character , UserID user) {
+    public void saveCharacter(Character character , UserID user) throws SQLException {
         System.out.println("test");
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
         characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,user);
@@ -40,7 +41,7 @@ public class ServerModelOld //implements IServerModel
     //@Override
     public Character getCharacter(String name) {
   //      DatabaseWrapper.getAllCharacters();
-        return  new Character(new Stats(1,2,3,4,5,6),"yo");
+        return  new Character(new Stats(1,2,3,4,5,6,14),"yo");
     }
 
     //@Override
@@ -55,7 +56,7 @@ public class ServerModelOld //implements IServerModel
     }
 
     //@Override
-    public void saveUser(UserID userID) throws RemoteException {
+    public void saveUser(UserID userID) throws RemoteException, SQLException {
         AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
         adduserToDataBase.addUser(userID);
     }

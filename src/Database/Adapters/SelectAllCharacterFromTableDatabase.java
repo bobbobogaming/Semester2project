@@ -22,7 +22,7 @@ public class SelectAllCharacterFromTableDatabase {
 
         ResultSet rs = null;
         try {
-            rs = iDatabaseConnector.selectAllDataFromTable("Characters",userID);
+            rs = iDatabaseConnector.selectAllDataFromTable("viewcharacter",userID);
             while (rs.next()) {
                 int constitution = rs.getInt("constitution");
                 int wisdom = rs.getInt("wisdom");
@@ -36,7 +36,7 @@ public class SelectAllCharacterFromTableDatabase {
                 String clas = rs.getString("class");
                 int maxHp = rs.getInt("maxHp");
 
-                Stats stats = new Stats(strength,dexterity,constitution,intelligence,wisdom,charisma);
+                Stats stats = new Stats(strength,dexterity,constitution,intelligence,wisdom,charisma, maxHp);
                 arrayListCharacter.add(new Character(stats,characterName));
             }
 

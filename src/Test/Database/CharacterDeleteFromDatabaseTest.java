@@ -9,25 +9,35 @@ import Database.Adapters.SelectAllCharacterFromTableDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CharacterDeleteFromDatabaseTest {
-    private String name;
     private UserID userID;
+    private Stats stats;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        name = "something";
         userID = new UserID("Morten");
+        stats = new Stats(1,2,4,5,6,7,8);
     }
 
     @org.junit.jupiter.api.Test
     void CharacterDelete() {
        //you need to run CharacterInsertIntoDatabaseTest before this
+        String charName = "deletChartest";
+        Character character = new Character(stats,charName);
+        CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
+        try {
+            characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,userID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         CharacterDeleteFromDatabase characterDeleteFromDatabase = new CharacterDeleteFromDatabase();
-        characterDeleteFromDatabase.deleteCharacterFromDatabase(userID, name);
+        characterDeleteFromDatabase.deleteCharacterFromDatabase(userID, charName);
 
         ArrayList<Character> characterArrayList;
         SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
@@ -35,15 +45,38 @@ class CharacterDeleteFromDatabaseTest {
 
         boolean test_name = false;
 
-        for (Character character : characterArrayList)
+        for (Character charactertjek : characterArrayList)
         {
-            if (character.getName().equals(name))
+            if (charactertjek.getName().equals(charName))
             {
                 test_name = true;
             }
         }
-        assertTrue(test_name);
+        assertFalse(test_name);
     }
+
+    @Test
+    void removeACharacterThatDontISInDatabase(){
+        String charName = "deletChar3test";
+        CharacterDeleteFromDatabase characterDeleteFromDatabase = new CharacterDeleteFromDatabase();
+        characterDeleteFromDatabase.deleteCharacterFromDatabase(userID, charName);
+
+        ArrayList<Character> characterArrayList;
+        SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
+        characterArrayList = select.getAllCharacterFromTableDatabase(userID);
+
+        boolean test_name = false;
+
+        for (Character charactertjek : characterArrayList)
+        {
+            if (charactertjek.getName().equals(charName))
+            {
+                test_name = true;
+            }
+        }
+        assertFalse(test_name);
+    }
+
 
 
 
