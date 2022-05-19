@@ -7,6 +7,7 @@ import Database.Adapters.AdduserToDataBase;
 import Database.Adapters.CharacterDeleteFromDatabase;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Database.Adapters.SelectAllCharacterFromTableDatabase;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -103,7 +104,6 @@ class CharacterInsertIntoDatabaseTest {
     void insertMultipleCharacterWithSameNameSameUserIdExpectedError()
     {
         Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname);
-        System.out.println("tet");
 
         assertThrows(org.postgresql.util.PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
 
@@ -122,6 +122,36 @@ class CharacterInsertIntoDatabaseTest {
 
         assertTrue(insertMultipleCharacterWithSameNameSameUserId);
 */
+    }
+
+    @Test
+    void insertIntoDifferentUsersSameChacter() {
+
+        String userename = "hej forskel navn";
+
+        UserID userID1 = new UserID(userename);
+
+        AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
+
+        try {
+            adduserToDataBase.addUser(userID1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            insert.InsertCharacterIntoDatabase(character, userID1);
+            assertTrue(true);
+            CharacterDeleteFromDatabase deleteFromDatabase = new CharacterDeleteFromDatabase();
+            deleteFromDatabase.deleteCharacterFromDatabase(userID1, charname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            CharacterDeleteFromDatabase deleteFromDatabase = new CharacterDeleteFromDatabase();
+            deleteFromDatabase.deleteCharacterFromDatabase(userID1, charname);
+            fail();
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Test
@@ -171,6 +201,8 @@ class CharacterInsertIntoDatabaseTest {
         deleteFromDatabase.deleteCharacterFromDatabase(userID, charenam);
 
     }
+
+
 
     @AfterEach
     void removeDuplicateUsers()

@@ -15,5 +15,7 @@ class ModifierTest
     assertEquals(0,modifier.modifierValue(10));
     assertEquals(0,modifier.modifierValue(11));
     assertEquals(5,modifier.modifierValue(20));
+    assertEquals(-5,modifier.modifierValue(0));
+    assertEquals(-5,modifier.modifierValue(1));
   }
 }
