@@ -32,6 +32,20 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     support = new PropertyChangeSupport(this);
   }
 
+  @Override public void makeCharacter(Character character) throws SQLException {
+    System.out.println(character);
+    try {
+      server.saveCharacter(character, userID);
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void setCurrentCharacter(Character character) {
+    userID.setCurrentCharacter(character);
+  }
+
   @Override public ArrayList<Character> getCharacters()
   {
     try {
@@ -40,11 +54,6 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  @Override public Character getCharacter(String name) throws RemoteException
-  {
-    return server.getCharacter(name);
   }
 
   @Override public String getUsername() throws RemoteException {
@@ -138,7 +147,12 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void joinCombatAsCharacter() {
-
+    try {
+      server.addInitiative(new InitWrapper(userID.getCurrentCharacter()),userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public void onExit()

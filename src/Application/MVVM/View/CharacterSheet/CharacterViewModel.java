@@ -1,10 +1,13 @@
 package Application.MVVM.View.CharacterSheet;
 
+import Application.Client.ClientCharacterSheet;
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
-import Shared.IClientModel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.control.TextField;
+import Application.MVVM.Model.character.Character;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionModel;
 
 public class CharacterViewModel
 {
@@ -23,11 +26,13 @@ public class CharacterViewModel
   private final StringProperty charismaMod;
   private final StringProperty maxHp;
 
-  private IClientModel clientRMI;
-  private ICharacterSheetModel characterSheetModel;
+  private final ListProperty<Character> characters;
+
+  private final ClientCharacterSheet client;
+  private final ICharacterSheetModel characterSheetModel;
 
   public CharacterViewModel(ICharacterSheetModel characterSheetModel,
-      IClientModel clientRMI)
+      ClientCharacterSheet client)
   {
     characterName = new SimpleStringProperty();
     strength = new SimpleStringProperty();
@@ -58,7 +63,9 @@ public class CharacterViewModel
 
 
     this.characterSheetModel = characterSheetModel;
-    this.clientRMI = clientRMI;
+    this.client = client;
+
+    characters = new SimpleListProperty<>(FXCollections.observableArrayList(client.getCharacters()));
   }
 
   public StringProperty characterNameProperty() {
@@ -125,32 +132,30 @@ public class CharacterViewModel
     return characters;
   }
 
-  public void setStat(TextField source)
+  private String setModStat(String stat)
   {
-    if (!source.getText().isEmpty()){
-      switch (source.getId())
-      {
-        case "strField" -> strMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        case "dexField" -> dexMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        case "conField" -> conMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        case "intField" -> intMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        case "wisField" -> wisMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        case "charField" -> charMod.setValue(
-            (Integer.parseInt(source.getText()) - 10) / 2 + "");
-        default -> {
-        }
-      }
+    if (!stat.isEmpty()){
+
+      int mod = (Integer.parseInt(stat) - 10) / 2;
+      String modS = (mod >= 0)?("+" + mod):(mod + "");
+      return modS;
     }
+    return "";
   }
 
   public void createCharacterSheet(String name,String str, String dex, String con, String intel,
-      String wis, String cha){
-    characterSheetModel.makeCharacter(name,Integer.parseInt(str),Integer.parseInt(dex),Integer.parseInt(con),Integer.parseInt(intel),Integer.parseInt(wis),Integer.parseInt(cha));
+      String wis, String cha, String maxHp){
+    characterSheetModel.makeCharacter(
+        name,
+        Integer.parseInt(str),
+        Integer.parseInt(dex),
+        Integer.parseInt(con),
+        Integer.parseInt(intel),
+        Integer.parseInt(wis),
+        Integer.parseInt(cha),
+        Integer.parseInt(maxHp));
+    characters.clear();
+    characters.addAll(client.getCharacters());
   }
 
   public void saveCharacterSheet(Character character, String name,String str, String dex, String con, String intel,

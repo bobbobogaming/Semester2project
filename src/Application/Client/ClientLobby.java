@@ -10,5 +10,6 @@ public interface ClientLobby extends PropertyChangeSubject
   void getMonsters();
   void removeInitiativeFromLobby(InitWrapper initWrapper);
   void updateInitList(InitWrapper initiative);
+  void joinCombatAsCharacter();
   void onExit();
 }

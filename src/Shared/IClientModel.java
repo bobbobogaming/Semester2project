@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public interface IClientModel extends Remote
 {
-  void makeCharacter(Character character) throws RemoteException, SQLException;
-  Character getCharacter(String name) throws RemoteException;
   String getUsername() throws RemoteException;
   void updateInitiativeTable(ArrayList<InitWrapper> initWrappers) throws RemoteException;
 }

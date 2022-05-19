@@ -1,5 +1,6 @@
 package Application.MVVM.Core;
 
+import Application.Client.ClientCharacterSheet;
 import Application.MVVM.Model.CharacterSheet.CharacterSheetModel;
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Shared.IClientModel;
@@ -25,7 +26,8 @@ public class ModelFactory
     return instance;
   }
 
-  public ICharacterSheetModel getCharacterSheetModel(IClientModel clientRMI)
+  public ICharacterSheetModel getCharacterSheetModel(
+      ClientCharacterSheet client)
   {
     if (characterSheetModel == null){
       synchronized (lock){

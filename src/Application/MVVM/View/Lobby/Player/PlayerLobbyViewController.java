@@ -1,6 +1,7 @@
 package Application.MVVM.View.Lobby.Player;
 
 import Application.MVVM.Model.initWrapper.InitWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -28,5 +29,9 @@ public class PlayerLobbyViewController {
 
   public void setLobbyId(String lobbyId){
     viewModel.setLobbyId(lobbyId);
+  }
+
+  public void joinCombat(ActionEvent actionEvent) {
+    viewModel.joinCombat();
   }
 }

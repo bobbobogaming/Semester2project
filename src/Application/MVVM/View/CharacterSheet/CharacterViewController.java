@@ -1,11 +1,13 @@
 package Application.MVVM.View.CharacterSheet;
 
+import Application.MVVM.Model.character.Character;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -69,7 +71,26 @@ public class CharacterViewController
         return c;
       }
 
-      if (c.getControlNewText().length() > 3){
+      if (c.getControlNewText().length() > 2){
+        return null;
+      }
+
+      ParsePosition parsePosition = new ParsePosition(0);
+      Object object = format.parse(c.getControlNewText(),parsePosition);
+
+      if ((object == null) || ((parsePosition.getIndex()) < (c.getControlNewText().length()))){
+        return null;
+      } else {
+        return c;
+      }
+    };
+
+    UnaryOperator<TextFormatter.Change> filter2 = c -> {
+      if (c.getControlNewText().isEmpty()){
+        return c;
+      }
+
+      if (c.getControlNewText().length() > 4){
         return null;
       }
 
@@ -89,10 +110,46 @@ public class CharacterViewController
     intField.setTextFormatter(new TextFormatter<>(filter));
     wisField.setTextFormatter(new TextFormatter<>(filter));
     charField.setTextFormatter(new TextFormatter<>(filter));
+    maxHp.setTextFormatter(new TextFormatter<>(filter2));
   }
 
   public void onSaveCharacterButton(ActionEvent actionEvent)
   {
-    viewModel.createCharacterSheet(nameField.getText(),intField.getText(),dexField.getText(),conField.getText(),intField.getText(),wisField.getText(),charField.getText());
+    if (characterList.getSelectionModel().getSelectedItem() == null) {
+      viewModel.createCharacterSheet(
+          nameField.getText(),
+          intField.getText(),
+          dexField.getText(),
+          conField.getText(),
+          intField.getText(),
+          wisField.getText(),
+          charField.getText(),
+          maxHp.getText());
+      //todo fix den her lorte løsning senere, måske eller bare lad være
+      for (int i = 0; i < characterList.getItems().size()-1; i++) {
+        if (characterList.getItems().get(i).getName().equals(nameField.getText())) {
+          characterList.getSelectionModel().select(i);
+        break;
+        }
+      }
+    }
+    else {
+      //viewModel.saveCharacterSheet(); Implementeres senere
+    }
+  }
+
+  public void onCreateCharacterButton(ActionEvent actionEvent) {
+    characterList.getSelectionModel().select(-1);
+    viewModel.clearCharacterInfo();
+    characterInfo.setVisible(true);
+  }
+
+  public void onRemoveCharacterButton(ActionEvent actionEvent) {
+  }
+
+  public void onPlayAsCharacterButton(ActionEvent actionEvent) {
+    if (characterList.getSelectionModel().getSelectedItem() != null) {
+      viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
+    }
   }
 }

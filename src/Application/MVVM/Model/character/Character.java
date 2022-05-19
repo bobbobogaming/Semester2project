@@ -49,9 +49,6 @@ public class Character implements Serializable, IStatFormat
 
   @Override
   public String toString() {
-    return "Character{" +
-            "stats=" + stats +
-            ", name='" + name + '\'' +
-            '}';
+    return name;
   }
 }
