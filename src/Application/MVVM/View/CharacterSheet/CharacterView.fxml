@@ -2,74 +2,71 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.CharacterSheet.CharacterViewController">
-   <center>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+<Pane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.CharacterSheet.CharacterViewController">
+   <children>
+      <ListView fx:id="characterList" layoutX="14.0" layoutY="14.0" prefHeight="340.0" prefWidth="200.0" />
+      <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCreateCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Create New" />
+      <Button disable="true" layoutX="116.0" layoutY="359.0" mnemonicParsing="false" onAction="#onRemoveCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Remove" />
+      <Pane fx:id="characterInfo" layoutX="228.0" layoutY="16.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="70.0">
-               <children>
-                  <Label text="Strength" />
-                  <Label fx:id="strMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="strField" onAction="#onStatEnter" />
-                  <Label text="Dexterity" />
-                  <Label fx:id="dexMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="dexField" onAction="#onStatEnter" />
-                  <Label text="Constitution" />
-                  <Label fx:id="conMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="conField" onAction="#onStatEnter" />
-                  <Label text="Intelligence" />
-                  <Label fx:id="intMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="intField" onAction="#onStatEnter" />
-                  <Label text="Wisdom" />
-                  <Label fx:id="wisMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="wisField" onAction="#onStatEnter" />
-                  <Label text="Charisma" />
-                  <Label fx:id="charMod" text="Label">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="charField" onAction="#onStatEnter" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="169.0">
-               <children>
-                  <Label text="Name">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nameField" promptText="Input Name" />
-                  <Button mnemonicParsing="false" onAction="#onCreate" text="Create Character" />
-               </children>
-            </VBox>
+            <Label layoutY="12.0" text="Character Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nameField" layoutY="38.0" prefHeight="25.0" prefWidth="306.0" promptText="Character Name" />
+            <Label layoutX="3.0" layoutY="80.0" text="Strength" />
+            <TextField fx:id="strField" layoutY="101.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="strMod" layoutX="69.0" layoutY="104.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="128.0" text="Dexterity" />
+            <TextField fx:id="dexField" layoutY="145.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="dexMod" layoutX="69.0" layoutY="148.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="169.0" text="Constitution" />
+            <TextField fx:id="conField" layoutY="187.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="conMod" layoutX="69.0" layoutY="190.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="212.0" text="Intelligence" />
+            <TextField fx:id="intField" layoutY="229.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="intMod" layoutX="69.0" layoutY="232.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="254.0" text="Wisdom" />
+            <TextField fx:id="wisField" layoutY="271.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="wisMod" layoutX="69.0" layoutY="274.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="297.0" text="Charisma" />
+            <TextField fx:id="charField" layoutY="313.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="charMod" layoutX="69.0" layoutY="316.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="212.0" layoutY="80.0" text="Health" />
+            <TextField fx:id="maxHp" layoutX="212.0" layoutY="101.0" prefHeight="25.0" prefWidth="94.0" />
+            <Button layoutX="431.0" mnemonicParsing="false" onAction="#onPlayAsCharacterButton" text="Play as this character" />
+            <Button layoutX="462.0" layoutY="343.0" mnemonicParsing="false" onAction="#onSaveCharacterButton" text="Save Character" />
          </children>
-      </HBox>
-   </center>
-</BorderPane>
+      </Pane>
+   </children>
+</Pane>

@@ -1,13 +1,14 @@
 package Application.MVVM.Model.monster;
 
 import Application.MVVM.Model.character.Stats;
+import Application.MVVM.Model.initWrapper.IStatFormat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Monster implements Serializable {
+public class Monster implements Serializable, IStatFormat {
     private Stats monsterStats;
-    private int  ac;
+    private int ac;
     private String cr;
     private String monsterName;
     private ArrayList<Action> monsterAction;
@@ -49,6 +50,17 @@ public class Monster implements Serializable {
         return monsterActions;
     }
 
+    @Override
+    public String getFormattedStats(){
+        return String.format("Max HP: %d",monsterStats.getMaxHP()) + "\n"
+            + String.format("STR: %d (%d)",monsterStats.getStrength(),monsterStats.getStrengthModifier()) + "\n"
+            + String.format("DEX: %d (%d)",monsterStats.getDexterity(),monsterStats.getDexterityModifier()) +"\n"
+            + String.format("CON: %d (%d)",monsterStats.getConstitution(),monsterStats.getConstitutionModifier()) +"\n"
+            + String.format("INT: %d (%d)",monsterStats.getIntelligence(),monsterStats.getIntelligenceModifier()) +"\n"
+            + String.format("WIS: %d (%d)",monsterStats.getWisdom(),monsterStats.getWisdomModifier()) +"\n"
+            + String.format("CHA: %d (%d)",monsterStats.getCharisma(),monsterStats.getCharismaModifier());
+    }
+
     @Override public String toString() {
         return monsterName;
     }
@@ -61,7 +73,6 @@ public class Monster implements Serializable {
         && otherMonster.getMonsterAction().equals(monsterAction)
         && otherMonster.getMonsterStats().equals(monsterStats)
         && otherMonster.getAc() == ac
-        && otherMonster.getCr().equals(cr)
-        );
+        && otherMonster.getCr().equals(cr));
     }
 }

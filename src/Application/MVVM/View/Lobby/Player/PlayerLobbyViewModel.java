@@ -2,8 +2,7 @@ package Application.MVVM.View.Lobby.Player;
 
 import Application.Client.Client;
 import Application.Client.ClientLobby;
-import Application.MVVM.Model.InitWrapper;
-import Application.MVVM.Model.monster.Monster;
+import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,5 +48,9 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
 
   public ListProperty<InitWrapper> initListProperty() {
     return initList;
+  }
+
+  public void joinCombat() {
+    client.joinCombatAsCharacter();
   }
 }
