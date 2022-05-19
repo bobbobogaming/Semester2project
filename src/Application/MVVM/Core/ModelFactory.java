@@ -29,7 +29,7 @@ public class ModelFactory
   {
     if (characterSheetModel == null){
       synchronized (lock){
-        if (characterSheetModel == null) characterSheetModel = new CharacterSheetModel(clientRMI);
+        if (characterSheetModel == null) characterSheetModel = new CharacterSheetModel(client);
       }
     }
     return characterSheetModel;

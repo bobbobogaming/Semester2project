@@ -7,6 +7,7 @@ import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CharacterSheetModel implements ICharacterSheetModel
 {
@@ -28,5 +29,9 @@ public class CharacterSheetModel implements ICharacterSheetModel
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public ArrayList<Character> getCharacters() {
+    return client.getCharacters();
   }
 }

@@ -18,7 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter, ClientCharacterSheet
 {
   private final IServerModel server;
   private PropertyChangeSupport support;
@@ -32,10 +32,14 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     support = new PropertyChangeSupport(this);
   }
 
-  @Override public void makeCharacter(Character character)
-          throws RemoteException, SQLException {
-    System.out.println(character);
-    server.saveCharacter(character, userID);
+  @Override public ArrayList<Character> getCharacters()
+  {
+    try {
+      return server.getCharacters(userID);
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public Character getCharacter(String name) throws RemoteException

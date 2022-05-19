@@ -13,32 +13,55 @@ import java.util.function.UnaryOperator;
 
 public class CharacterViewController
 {
-  @FXML Label strMod;
-  @FXML TextField strField;
-  @FXML Label dexMod;
-  @FXML TextField dexField;
-  @FXML Label conMod;
-  @FXML TextField conField;
-  @FXML Label intMod;
-  @FXML TextField intField;
-  @FXML Label wisMod;
-  @FXML TextField wisField;
-  @FXML Label charMod;
-  @FXML TextField charField;
-
-  @FXML TextField nameField;
+  @FXML private Pane characterInfo;
+  @FXML private ListView<Character> characterList;
+  @FXML private Label strMod;
+  @FXML private TextField strField;
+  @FXML private Label dexMod;
+  @FXML private TextField dexField;
+  @FXML private Label conMod;
+  @FXML private TextField conField;
+  @FXML private Label intMod;
+  @FXML private TextField intField;
+  @FXML private Label wisMod;
+  @FXML private TextField wisField;
+  @FXML private Label charMod;
+  @FXML private TextField charField;
+  @FXML private TextField nameField;
+  @FXML private TextField maxHp;
 
   private CharacterViewModel viewModel;
 
   public void init(CharacterViewModel characterViewModel){
     viewModel = characterViewModel;
 
-    strMod.textProperty().bind(viewModel.strModProperty());
-    dexMod.textProperty().bind(viewModel.dexModProperty());
-    conMod.textProperty().bind(viewModel.conModProperty());
-    intMod.textProperty().bind(viewModel.intModProperty());
-    wisMod.textProperty().bind(viewModel.wisModProperty());
-    charMod.textProperty().bind(viewModel.charModProperty());
+    nameField.textProperty().bindBidirectional(viewModel.characterNameProperty());
+    maxHp.textProperty().bindBidirectional(viewModel.maxHpProperty());
+    strField.textProperty().bindBidirectional(viewModel.strengthProperty());
+    strMod.textProperty().bind(viewModel.strengthModProperty());
+    dexField.textProperty().bindBidirectional(viewModel.dexterityProperty());
+    dexMod.textProperty().bind(viewModel.dexterityModProperty());
+    conField.textProperty().bindBidirectional(viewModel.constitutionProperty());
+    conMod.textProperty().bind(viewModel.constitutionModProperty());
+    intField.textProperty().bindBidirectional(viewModel.intelligenceProperty());
+    intMod.textProperty().bind(viewModel.intelligenceModProperty());
+    wisField.textProperty().bindBidirectional(viewModel.wisdomProperty());
+    wisMod.textProperty().bind(viewModel.wisdomModProperty());
+    charField.textProperty().bindBidirectional(viewModel.charismaProperty());
+    charMod.textProperty().bind(viewModel.charismaModProperty());
+
+    characterList.itemsProperty().bind(viewModel.charactersProperty());
+
+    characterInfo.setVisible(false);
+
+    characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
+      if (newValue != null){
+        characterInfo.setVisible(true);
+        viewModel.updateCharacterInfo(newValue);
+      } else {
+        characterInfo.setVisible(false);
+      }
+    });
 
     DecimalFormat format = new DecimalFormat("#");
     UnaryOperator<TextFormatter.Change> filter = c -> {
@@ -68,12 +91,7 @@ public class CharacterViewController
     charField.setTextFormatter(new TextFormatter<>(filter));
   }
 
-  public void onStatEnter(ActionEvent actionEvent)
-  {
-    viewModel.setStat((TextField) actionEvent.getSource());
-  }
-
-  public void onCreate(ActionEvent actionEvent)
+  public void onSaveCharacterButton(ActionEvent actionEvent)
   {
     viewModel.createCharacterSheet(nameField.getText(),intField.getText(),dexField.getText(),conField.getText(),intField.getText(),wisField.getText(),charField.getText());
   }
