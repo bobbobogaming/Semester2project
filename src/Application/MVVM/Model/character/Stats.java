@@ -86,7 +86,7 @@ public class Stats implements Serializable
   @Override
   public String toString() {
     return "Stats{" +
-            "modifier=" + modifier +
+            "maxHP: " + maxHP +
             ", strength=" + strength +
             ", dexterity=" + dexterity +
             ", constitution=" + constitution +

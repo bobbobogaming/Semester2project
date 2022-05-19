@@ -18,7 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter, ClientCharacterSheet
 {
   private final IServerModel server;
   private PropertyChangeSupport support;
@@ -32,15 +32,28 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     support = new PropertyChangeSupport(this);
   }
 
-  @Override public void makeCharacter(Character character)
-          throws RemoteException, SQLException {
+  @Override public void makeCharacter(Character character) throws SQLException {
     System.out.println(character);
-    server.saveCharacter(character, userID);
+    try {
+      server.saveCharacter(character, userID);
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
-  @Override public Character getCharacter(String name) throws RemoteException
+  @Override public void setCurrentCharacter(Character character) {
+    userID.setCurrentCharacter(character);
+  }
+
+  @Override public ArrayList<Character> getCharacters()
   {
-    return server.getCharacter(name);
+    try {
+      return server.getCharacters(userID);
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public String getUsername() throws RemoteException {
@@ -134,7 +147,12 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void joinCombatAsCharacter() {
-
+    try {
+      server.addInitiative(new InitWrapper(userID.getCurrentCharacter()),userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public void onExit()

@@ -24,6 +24,6 @@
             <Font size="14.0" />
          </font>
        </Label>
-      <Button layoutX="705.0" layoutY="361.0" mnemonicParsing="false" text="Join combat" />
+      <Button layoutX="705.0" layoutY="361.0" mnemonicParsing="false" text="Join combat" onAction="#joinCombat"/>
    </children>
 </Pane>

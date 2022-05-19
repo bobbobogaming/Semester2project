@@ -49,4 +49,8 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
   public ListProperty<InitWrapper> initListProperty() {
     return initList;
   }
+
+  public void joinCombat() {
+    client.joinCombatAsCharacter();
+  }
 }

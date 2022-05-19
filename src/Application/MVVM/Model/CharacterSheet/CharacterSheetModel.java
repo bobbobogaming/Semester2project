@@ -1,32 +1,37 @@
 package Application.MVVM.Model.CharacterSheet;
 
-import Application.Client.UserID;
+import Application.Client.ClientCharacterSheet;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
 import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CharacterSheetModel implements ICharacterSheetModel
 {
-  IClientModel clientRMI;
+  ClientCharacterSheet client;
 
-  public CharacterSheetModel(IClientModel clientRMI)
+  public CharacterSheetModel(ClientCharacterSheet client)
   {
-    this.clientRMI = clientRMI;
+    this.client = client;
   }
 
   @Override public void makeCharacter(String name,int str, int dex, int con, int intel,
-      int wis, int cha)
+      int wis, int cha, int maxHp)
   {
     try
     {
-      clientRMI.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,15),name));
+      client.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,maxHp),name));
     }
-    catch (RemoteException | SQLException e)
+    catch (SQLException e)
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public ArrayList<Character> getCharacters() {
+    return client.getCharacters();
   }
 }
