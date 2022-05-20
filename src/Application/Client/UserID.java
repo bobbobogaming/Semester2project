@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class UserID implements Serializable
 {
-  private boolean isDM;
+  private final String name;
+  private boolean isInLobby = false;
   private int lobbyId;
-  private String name;
   private Character currentCharacter;
 
   public UserID(String name)
@@ -16,26 +16,24 @@ public class UserID implements Serializable
     this.name = name;
   }
 
-  public void setLobbyId(int lobbyId) {
-    this.lobbyId = lobbyId;
+  public String getName() {
+    return name;
   }
 
   public int getLobbyId() {
     return lobbyId;
   }
 
-  public void setDM(boolean DM)
-  {
-    isDM = DM;
+  public void setLobbyId(int lobbyId) {
+    this.lobbyId = lobbyId;
   }
 
-  public boolean isDM()
-  {
-    return isDM;
+  public boolean isInLobby() {
+    return isInLobby;
   }
 
-  public String getName() {
-    return name;
+  public void setInLobby(boolean inLobby) {
+    isInLobby = inLobby;
   }
 
   public Character getCurrentCharacter() {
@@ -48,6 +46,6 @@ public class UserID implements Serializable
 
   @Override public String toString()
   {
-    return "UserID{" + "isDM=" + isDM + ", name='" + name + '\'' + '}';
+    return "UserID{name='" + name + '\'' + '}';
   }
 }

@@ -10,7 +10,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Player.PlayerLobbyViewController">
    <children>
        <TableView fx:id="initList" layoutX="14.0" layoutY="14.0" prefHeight="347.0" prefWidth="295.0">
-           <placeholder><Label text="Initiative is empty"/></placeholder>
+           <placeholder><Label text="Initiative is empty" /></placeholder>
            <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
            <columns>
                <TableColumn minWidth="0.0" prefWidth="33.0" reorderable="false" resizable="false" sortable="false" text="Init" />
@@ -24,6 +24,7 @@
             <Font size="14.0" />
          </font>
        </Label>
-      <Button layoutX="705.0" layoutY="361.0" mnemonicParsing="false" text="Join combat" onAction="#joinCombat"/>
+      <Button fx:id="joinCombatButton" layoutX="686.0" layoutY="361.0" mnemonicParsing="false" onAction="#joinCombat" prefHeight="25.0" prefWidth="100.0" text="Join Combat" />
+      <Label fx:id="lobbyStatusMessage" alignment="BOTTOM_RIGHT" layoutX="314.0" layoutY="317.0" prefHeight="65.0" prefWidth="370.0" text="StatusMessage" />
    </children>
 </Pane>
