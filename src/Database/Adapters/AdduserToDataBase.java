@@ -27,7 +27,6 @@ public class AdduserToDataBase {
 
         ArrayList<String> userNameList= selectAllUserName.getAllUserName();
 
-        System.out.println(userNameList);
         if (!userNameList.contains(username)){
             dataBaseConnector.addDataToDataBase("player", insert);
         }
