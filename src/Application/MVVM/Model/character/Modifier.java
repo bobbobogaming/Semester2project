@@ -4,6 +4,6 @@ public class Modifier implements IModifier
 {
   public int modifierValue(int value)
   {
-    return value / 2 - 5;
+    return Math.floorDiv(value, 2) - 5;
   }
 }

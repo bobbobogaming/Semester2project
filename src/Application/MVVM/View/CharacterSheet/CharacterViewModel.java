@@ -5,9 +5,6 @@ import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.Model.character.Character;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionModel;
 
 public class CharacterViewModel
 {
@@ -135,10 +132,8 @@ public class CharacterViewModel
   private String setModStat(String stat)
   {
     if (!stat.isEmpty()){
-
-      int mod = (Integer.parseInt(stat) - 10) / 2;
-      String modS = (mod >= 0)?("+" + mod):(mod + "");
-      return modS;
+      int mod = Math.floorDiv(Integer.parseInt(stat) - 10, 2);
+      return (mod >= 0)?("+" + mod):(mod + "");
     }
     return "";
   }

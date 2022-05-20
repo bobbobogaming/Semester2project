@@ -65,7 +65,7 @@ public class CharacterViewController
       }
     });
 
-    DecimalFormat format = new DecimalFormat("#");
+    /*DecimalFormat format = new DecimalFormat("#");
     UnaryOperator<TextFormatter.Change> filter = c -> {
       if (c.getControlNewText().isEmpty()){
         return c;
@@ -102,7 +102,8 @@ public class CharacterViewController
       } else {
         return c;
       }
-    };
+    };*/
+    UnaryOperator<TextFormatter.Change> filter = new UnaryFilterTest(2);
 
     strField.setTextFormatter(new TextFormatter<>(filter));
     dexField.setTextFormatter(new TextFormatter<>(filter));
@@ -110,7 +111,7 @@ public class CharacterViewController
     intField.setTextFormatter(new TextFormatter<>(filter));
     wisField.setTextFormatter(new TextFormatter<>(filter));
     charField.setTextFormatter(new TextFormatter<>(filter));
-    maxHp.setTextFormatter(new TextFormatter<>(filter2));
+    maxHp.setTextFormatter(new TextFormatter<>(new UnaryFilterTest(4)));
   }
 
   public void onSaveCharacterButton(ActionEvent actionEvent)
