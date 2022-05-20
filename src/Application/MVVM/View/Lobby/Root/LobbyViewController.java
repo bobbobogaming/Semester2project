@@ -1,5 +1,7 @@
 package Application.MVVM.View.Lobby.Root;
 
+import Util.textfieldfilter.PosetiveNumberStrategy;
+import Util.textfieldfilter.UnaryFilterContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,23 +25,7 @@ public class LobbyViewController
   {
     this.lobbyViewModel = lobbyViewModel;
 
-    DecimalFormat format = new DecimalFormat("#");
-    UnaryOperator<TextFormatter.Change> filter = c -> {
-      if (c.getControlNewText().isEmpty()){
-        return c;
-      }
-
-      ParsePosition parsePosition = new ParsePosition(0);
-      Object object = format.parse(c.getControlNewText(),parsePosition);
-
-      if ((object == null) || ((parsePosition.getIndex()) < (c.getControlNewText().length()))){
-        return null;
-      } else {
-        return c;
-      }
-    };
-
-    lobbyId.setTextFormatter(new TextFormatter<>(filter));
+    lobbyId.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(8))));
   }
 
   public void createLobby(ActionEvent actionEvent)

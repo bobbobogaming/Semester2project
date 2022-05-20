@@ -1,6 +1,10 @@
 package Application.MVVM.View.CharacterSheet;
 
 import Application.MVVM.Model.character.Character;
+import Util.textfieldfilter.PosetiveNumberStrategy;
+import Util.textfieldfilter.UnaryFilterContext;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +14,7 @@ import javafx.scene.layout.Pane;
 
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class CharacterViewController
@@ -60,6 +65,7 @@ public class CharacterViewController
     characterInfo.setVisible(false);
     playAsCharacter.setVisible(false);
 
+
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
         viewModel.updatePlayAsCharacterButton(newValue);
@@ -68,48 +74,11 @@ public class CharacterViewController
         playAsCharacter.setVisible(true);
       } else {
         characterInfo.setVisible(false);
+        playAsCharacter.setVisible(false);
       }
     });
 
-    /*DecimalFormat format = new DecimalFormat("#");
-    UnaryOperator<TextFormatter.Change> filter = c -> {
-      if (c.getControlNewText().isEmpty()){
-        return c;
-      }
-
-      if (c.getControlNewText().length() > 2){
-        return null;
-      }
-
-      ParsePosition parsePosition = new ParsePosition(0);
-      Object object = format.parse(c.getControlNewText(),parsePosition);
-
-      if ((object == null) || ((parsePosition.getIndex()) < (c.getControlNewText().length()))){
-        return null;
-      } else {
-        return c;
-      }
-    };
-
-    UnaryOperator<TextFormatter.Change> filter2 = c -> {
-      if (c.getControlNewText().isEmpty()){
-        return c;
-      }
-
-      if (c.getControlNewText().length() > 4){
-        return null;
-      }
-
-      ParsePosition parsePosition = new ParsePosition(0);
-      Object object = format.parse(c.getControlNewText(),parsePosition);
-
-      if ((object == null) || ((parsePosition.getIndex()) < (c.getControlNewText().length()))){
-        return null;
-      } else {
-        return c;
-      }
-    };*/
-    UnaryOperator<TextFormatter.Change> filter = new UnaryFilterTest(2);
+    UnaryOperator<TextFormatter.Change> filter = new UnaryFilterContext(new PosetiveNumberStrategy(2));
 
     strField.setTextFormatter(new TextFormatter<>(filter));
     dexField.setTextFormatter(new TextFormatter<>(filter));
@@ -117,7 +86,7 @@ public class CharacterViewController
     intField.setTextFormatter(new TextFormatter<>(filter));
     wisField.setTextFormatter(new TextFormatter<>(filter));
     charField.setTextFormatter(new TextFormatter<>(filter));
-    maxHp.setTextFormatter(new TextFormatter<>(new UnaryFilterTest(4)));
+    maxHp.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(4))));
   }
 
   public void onSaveCharacterButton(ActionEvent actionEvent)

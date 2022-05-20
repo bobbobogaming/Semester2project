@@ -33,7 +33,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void makeCharacter(Character character) throws SQLException {
-    System.out.println(character);
+    //System.out.println(character);
     try {
       server.saveCharacter(character, userID);
     }

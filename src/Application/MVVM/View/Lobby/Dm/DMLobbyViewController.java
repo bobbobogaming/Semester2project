@@ -1,6 +1,8 @@
 package Application.MVVM.View.Lobby.Dm;
 
 import Application.MVVM.Model.initWrapper.InitWrapper;
+import Util.textfieldfilter.NegativeNumberStrategy;
+import Util.textfieldfilter.UnaryFilterContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -55,30 +57,7 @@ public class DMLobbyViewController
     proceedButton.setVisible(false);
     subtractHealthLabel.setVisible(false);
 
-    DecimalFormat format = new DecimalFormat("#");
-    UnaryOperator<TextFormatter.Change> filter = c -> {
-      if (c.getControlNewText().isEmpty()){
-        return c;
-      }
-
-      if (c.getControlNewText().length() > 8){
-        return null;
-      }
-
-      if (c.getControlNewText().equals("-")){
-        return c;
-      }
-
-      ParsePosition parsePosition = new ParsePosition(0);
-      Object object = format.parse(c.getControlNewText(),parsePosition);
-
-      if ((object == null) || ((parsePosition.getIndex()) < (c.getControlNewText().length()))){
-        return null;
-      } else {
-        return c;
-      }
-    };
-    subtractHealth.setTextFormatter(new TextFormatter<>(filter));
+    subtractHealth.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new NegativeNumberStrategy(8))));
   }
 
   public void setLobbyId(String lobbyId){
