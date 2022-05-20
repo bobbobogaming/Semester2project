@@ -22,6 +22,8 @@ public class CharacterViewModel
   private final StringProperty charisma;
   private final StringProperty charismaMod;
   private final StringProperty maxHp;
+  private final BooleanProperty isPlayAsCharacterDisabled;
+  private final StringProperty playAsCharacterText;
 
   private final ListProperty<Character> characters;
 
@@ -57,6 +59,9 @@ public class CharacterViewModel
     charisma.addListener((obs,oldValue,newValue) -> charismaMod.setValue(setModStat(newValue)));
 
     maxHp = new SimpleStringProperty();
+
+    isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
+    playAsCharacterText = new SimpleStringProperty("Play as character");
 
 
     this.characterSheetModel = characterSheetModel;
@@ -125,6 +130,14 @@ public class CharacterViewModel
     return maxHp;
   }
 
+  public BooleanProperty isPlayAsCharacterDisabledProperty() {
+    return isPlayAsCharacterDisabled;
+  }
+
+  public StringProperty playAsCharacterTextProperty() {
+    return playAsCharacterText;
+  }
+
   public ListProperty<Character> charactersProperty() {
     return characters;
   }
@@ -182,5 +195,16 @@ public class CharacterViewModel
 
   public void playAsCharacter(Character character) {
     client.setCurrentCharacter(character);
+  }
+
+  public void updatePlayAsCharacterButton(Character character) {
+    if (character.equals(client.getUserID().getCurrentCharacter())) {
+      isPlayAsCharacterDisabled.set(true);
+      playAsCharacterText.set("Playing as character");
+    }
+    else {
+      isPlayAsCharacterDisabled.set(false);
+      playAsCharacterText.set("Play as character");
+    }
   }
 }

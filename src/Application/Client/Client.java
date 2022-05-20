@@ -60,6 +60,10 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     return userID.getName();
   }
 
+  @Override public UserID getUserID() {
+    return userID;
+  }
+
   @Override public void updateInitiativeTable(ArrayList<InitWrapper> monsters) throws RemoteException {
     support.firePropertyChange("UpdateInitiativeTable", null, monsters);
   }
@@ -147,11 +151,31 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void joinCombatAsCharacter() {
-    try {
-      server.addInitiative(new InitWrapper(userID.getCurrentCharacter()),userID.getLobbyId());
+    if (userID.getCurrentCharacter() == null) {
+      //An error message is passed through newValue
+      support.firePropertyChange("joinCombatFailed", null,
+          "Please select a character before joining combat"
+              + "\n(Character Sheet -> Select character -> Play as character)");
     }
-    catch (RemoteException e) {
-      throw new RuntimeException(e);
+    else if (!userID.isInLobby()) {
+      try {
+        server.addInitiative(new InitWrapper(userID.getCurrentCharacter()),userID.getLobbyId());
+        userID.setInLobby(true);
+        support.firePropertyChange("joinCombatSuccess", null, null);
+      }
+      catch (RemoteException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    else {
+      try {
+        server.removeInitiative(new InitWrapper(userID.getCurrentCharacter()), userID.getLobbyId());
+        userID.setInLobby(false);
+        support.firePropertyChange("leaveCombatSuccess", null, null);
+      }
+      catch (RemoteException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 

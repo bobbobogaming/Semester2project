@@ -9,5 +9,6 @@ import java.util.ArrayList;
 public interface ClientCharacterSheet {
   void makeCharacter(Character character) throws SQLException;
   void setCurrentCharacter(Character character);
+  UserID getUserID();
   ArrayList<Character> getCharacters();
 }

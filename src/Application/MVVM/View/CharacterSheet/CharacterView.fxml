@@ -9,7 +9,7 @@
 
 <Pane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.CharacterSheet.CharacterViewController">
    <children>
-      <ListView fx:id="characterList" layoutX="14.0" layoutY="14.0" prefHeight="340.0" prefWidth="200.0" />
+      <ListView fx:id="characterList" layoutX="14.0" layoutY="14.0" onKeyPressed="#testMethod" prefHeight="340.0" prefWidth="200.0" />
       <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCreateCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Create New" />
       <Button disable="true" layoutX="116.0" layoutY="359.0" mnemonicParsing="false" onAction="#onRemoveCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Remove" />
       <Pane fx:id="characterInfo" layoutX="228.0" layoutY="16.0">
@@ -64,7 +64,7 @@
             </Label>
             <Label layoutX="212.0" layoutY="80.0" text="Health" />
             <TextField fx:id="maxHp" layoutX="212.0" layoutY="101.0" prefHeight="25.0" prefWidth="94.0" />
-            <Button layoutX="431.0" mnemonicParsing="false" onAction="#onPlayAsCharacterButton" text="Play as this character" />
+            <Button fx:id="playAsCharacter" layoutX="431.0" mnemonicParsing="false" onAction="#onPlayAsCharacterButton" prefHeight="25.0" prefWidth="125.0" text="Play as character" />
             <Button layoutX="462.0" layoutY="343.0" mnemonicParsing="false" onAction="#onSaveCharacterButton" text="Save Character" />
          </children>
       </Pane>

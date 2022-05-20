@@ -3,10 +3,9 @@ package Application.MVVM.View.CharacterSheet;
 import Application.MVVM.Model.character.Character;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.text.DecimalFormat;
@@ -31,6 +30,7 @@ public class CharacterViewController
   @FXML private TextField charField;
   @FXML private TextField nameField;
   @FXML private TextField maxHp;
+  @FXML private Button playAsCharacter;
 
   private CharacterViewModel viewModel;
 
@@ -54,12 +54,18 @@ public class CharacterViewController
 
     characterList.itemsProperty().bind(viewModel.charactersProperty());
 
+    playAsCharacter.disableProperty().bind(
+        viewModel.isPlayAsCharacterDisabledProperty());
+    playAsCharacter.textProperty().bind(viewModel.playAsCharacterTextProperty());
     characterInfo.setVisible(false);
+    playAsCharacter.setVisible(false);
 
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
+        viewModel.updatePlayAsCharacterButton(newValue);
         characterInfo.setVisible(true);
         viewModel.updateCharacterInfo(newValue);
+        playAsCharacter.setVisible(true);
       } else {
         characterInfo.setVisible(false);
       }
@@ -143,6 +149,7 @@ public class CharacterViewController
     characterList.getSelectionModel().select(-1);
     viewModel.clearCharacterInfo();
     characterInfo.setVisible(true);
+    //playAsCharacter.setVisible(false);
   }
 
   public void onRemoveCharacterButton(ActionEvent actionEvent) {
@@ -151,6 +158,14 @@ public class CharacterViewController
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {
     if (characterList.getSelectionModel().getSelectedItem() != null) {
       viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
+      viewModel.updatePlayAsCharacterButton(characterList.getSelectionModel().getSelectedItem());
+    }
+  }
+
+  public void testMethod(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.F)) {
+      System.out.println(characterList.getSelectionModel().getSelectedIndex());
+      System.out.println(characterList.getSelectionModel().getSelectedItem());
     }
   }
 }

@@ -11,5 +11,6 @@ public interface ClientLobby extends PropertyChangeSubject
   void removeInitiativeFromLobby(InitWrapper initWrapper);
   void updateInitList(InitWrapper initiative);
   void joinCombatAsCharacter();
+  UserID getUserID();
   void onExit();
 }
