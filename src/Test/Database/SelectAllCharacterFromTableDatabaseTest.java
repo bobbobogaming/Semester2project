@@ -26,7 +26,7 @@ class SelectAllCharacterFromTableDatabaseTest {
         String charname = "selecttest";
 
         Stats stats =new Stats(10,11,12,13,14,15,14);
-        Character character = new Character(stats,charname);
+        Character character = new Character(stats,charname,1,"Fighter");
         UserID userID = new UserID("Morten");
 
         try {
