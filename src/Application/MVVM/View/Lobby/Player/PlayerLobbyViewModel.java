@@ -3,6 +3,7 @@ package Application.MVVM.View.Lobby.Player;
 import Application.Client.Client;
 import Application.Client.ClientLobby;
 import Application.MVVM.Model.initWrapper.InitWrapper;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.scene.paint.Color;
@@ -58,25 +59,34 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
-      initList.clear();
-      initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
-    }
-    if (evt.getPropertyName().equals("joinCombatSuccess")) {
-      lobbyStatusMessageColor.set(Color.GREEN);
-      lobbyStatusMessageText.set("Joined as " + client.getUserID().getCurrentCharacter().getName());
-      joinCombatButtonText.set("Leave Combat");
+    Platform.runLater(()->{
+      if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
+        initList.clear();
+        initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
+      }
+      else if (evt.getPropertyName().equals("joinCombatSuccess")) {
+        lobbyStatusMessageColor.setValue(Color.GREEN);
+        lobbyStatusMessageText.setValue("Joined as " + client.getUserID().getCurrentCharacter().getName());
+        joinCombatButtonText.setValue("Leave Combat");
 
-    }
-    if (evt.getPropertyName().equals("leaveCombatSuccess")) {
-      lobbyStatusMessageText.set("");
-      joinCombatButtonText.set("Join Combat");
-    }
-    if (evt.getPropertyName().equals("joinCombatFailed")) {
-      lobbyStatusMessageColor.set(Color.RED);
-      lobbyStatusMessageText.set((String) evt.getNewValue());
-    }
-
+      }
+      else if (evt.getPropertyName().equals("leaveCombatSuccess")) {
+        lobbyStatusMessageText.setValue("");
+        joinCombatButtonText.setValue("Join Combat");
+      }
+      else if (evt.getPropertyName().equals("joinCombatFailed")) {
+        lobbyStatusMessageColor.setValue(Color.RED);
+        lobbyStatusMessageText.setValue((String) evt.getNewValue());
+      }
+      else if (evt.getPropertyName().equals("combatStarted")) {
+        lobbyStatusMessageColor.setValue(Color.BLACK);
+        lobbyStatusMessageText.setValue("Ongoing combat");
+      }
+      else if (evt.getPropertyName().equals("combatEnded")) {
+        lobbyStatusMessageColor.setValue(Color.BLACK);
+        lobbyStatusMessageText.setValue("");
+      }
+    });
   }
 
   public ListProperty<InitWrapper> initListProperty() {

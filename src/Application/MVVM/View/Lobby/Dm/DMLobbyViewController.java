@@ -9,12 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
-import java.util.function.UnaryOperator;
-
 public class DMLobbyViewController
 {
+  @FXML private Button combatButton;
   @FXML private Label subtractHealthLabel;
   @FXML private Button proceedButton;
   @FXML private Button removeMonsterButton;
@@ -28,6 +25,7 @@ public class DMLobbyViewController
   public void init(DMLobbyViewModel dmLobbyViewModel){
     viewModel = dmLobbyViewModel;
 
+    combatButton.textProperty().bind(viewModel.combatLockProperty());
     lobbyId.textProperty().bind(viewModel.lobbyIdProperty());
     initList.itemsProperty().bind(viewModel.initListProperty());
     initList.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("init"));
@@ -78,5 +76,9 @@ public class DMLobbyViewController
 
   public void onRemoveMonsterClick(ActionEvent actionEvent) {
     viewModel.removeMonster(initList.getSelectionModel().getSelectedItem());
+  }
+
+  public void onStartCombat(ActionEvent actionEvent) {
+    viewModel.switchCombatState();
   }
 }

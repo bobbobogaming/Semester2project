@@ -6,11 +6,12 @@ import Util.PropertyChangeSubject;
 public interface ClientLobby extends PropertyChangeSubject
 {
   void createLobby();
-  void connectToLobby(int lobbyId);
+  boolean connectToLobby(int lobbyId);
   void getMonsters();
   void removeInitiativeFromLobby(InitWrapper initWrapper);
   void updateInitList(InitWrapper initiative);
   void joinCombatAsCharacter();
+  void switchCombatState();
   UserID getUserID();
   void onExit();
 }

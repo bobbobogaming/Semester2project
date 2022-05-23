@@ -11,6 +11,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private String name;
   private int hp;
   private int ac;
+  private final boolean isMonster;
   private IStatFormat source;
 
   public InitWrapper(Monster monster){
@@ -18,6 +19,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
     name = monster.getMonsterName();
     hp = monster.getMaxHP();
     ac = monster.getAc();
+    isMonster = true;
     source = monster;
   }
 
@@ -26,6 +28,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
     name = character.getName();
     hp = character.getStats().getMaxHP();
     ac = 10 + character.getStats().getDexterityModifier();
+    isMonster = false;
     source = character;
   }
 
@@ -59,6 +62,10 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
 
   public int getAc() {
     return ac;
+  }
+
+  public boolean isMonster() {
+    return isMonster;
   }
 
   public String getFormattedStats(){

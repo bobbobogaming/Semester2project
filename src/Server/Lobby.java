@@ -5,13 +5,13 @@ import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 public class Lobby {
   private final int lobbyId;
   private final ArrayList<IClientModel> players;
   private final ArrayList<InitWrapper> initiative;
   private IClientModel dungeonMaster;
+  private boolean isCombatStarted;
 
   public Lobby(int lobbyId, IClientModel dungeonMaster) {
     this.lobbyId = lobbyId;
@@ -26,15 +26,36 @@ public class Lobby {
     }
   }
 
-  public void addPlayer(IClientModel client) {
-    players.add(client);
+  public boolean addPlayer(IClientModel client) {
+    if (!isCombatStarted){
+      players.add(client);
+      try {
+        client.updateInitiativeTable(initiative);
+        System.out.println(client.getUsername() + " joined lobby " + lobbyId);
+      }
+      catch (RemoteException e) {
+        throw new RuntimeException(e);
+      }
+    return true;
+    } else return false;
+  }
+
+  public void switchCombatState(){
+    isCombatStarted = !isCombatStarted;
     try {
-      client.updateInitiativeTable(initiative);
-      System.out.println(client.getUsername() + " joined lobby " + lobbyId);
+      dungeonMaster.combatStateChanged(isCombatStarted);
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
+    players.forEach((player) -> {
+      try {
+        player.combatStateChanged(isCombatStarted);
+      }
+      catch (RemoteException e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 
   public void addInitiative(InitWrapper initiative) {

@@ -12,4 +12,6 @@ public interface IClientModel extends Remote
 {
   String getUsername() throws RemoteException;
   void updateInitiativeTable(ArrayList<InitWrapper> initWrappers) throws RemoteException;
+
+  void combatStateChanged(boolean isStarted) throws RemoteException;
 }

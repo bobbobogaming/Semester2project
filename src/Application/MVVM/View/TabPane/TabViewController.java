@@ -4,11 +4,18 @@ import Application.MVVM.View.CharacterSheet.CharacterViewController;
 import Application.MVVM.View.CharacterSheet.CharacterViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
-public class TabViewController
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class TabViewController implements PropertyChangeListener
 {
+  @FXML private TabPane tabPane;
   @FXML private Tab lobbyTab;
   @FXML private Tab characterTab;
 
@@ -19,6 +26,7 @@ public class TabViewController
 
   public void init(LobbyViewModel lobbyViewModel, CharacterViewModel characterViewModel,TabViewModel tabViewModel){
     viewModel = tabViewModel;
+    viewModel.addPropertyChangeListener(this);
 
     lobbyViewController.init(lobbyViewModel);
     lobbyViewModel.addPropertyChangeListener(tabViewModel);
@@ -31,5 +39,18 @@ public class TabViewController
   public void onExit()
   {
     lobbyViewController.onExit();
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt) {
+    Platform.runLater(() -> {
+      if (evt.getPropertyName().equals("addCharacterSheetTabs")) {
+        Tab tab = new Tab();
+        tab.setContent((Parent) evt.getNewValue());
+        tabPane.getTabs().add(tab);
+      }
+      else if (evt.getPropertyName().equals("clearCharacterSheetTabs")){
+        tabPane.getTabs().remove(2,tabPane.getTabs().size());
+      }
+    });
   }
 }

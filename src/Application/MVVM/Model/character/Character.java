@@ -56,6 +56,9 @@ public class Character implements Serializable, IStatFormat
         + String.format("WIS: %d (%d)",stats.getWisdom(),stats.getWisdomModifier()) +"\n"
         + String.format("CHA: %d (%d)",stats.getCharisma(),stats.getCharismaModifier());
   }
+  public Character getCharacter(){
+    return this;
+  }
 
   @Override
   public boolean equals(Object o) {
