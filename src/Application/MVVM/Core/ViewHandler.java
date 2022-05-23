@@ -81,7 +81,8 @@ public class ViewHandler implements PropertyChangeListener
       e.printStackTrace();
     }
     TabViewController tabViewController = loader.getController();
-    tabViewController.init(viewModelFactory);
+    tabViewController.init(viewModelFactory.getLobbyViewModel(),
+        viewModelFactory.getCharacterViewModel(), viewModelFactory.getTabViewModel());
     currentStage.setTitle("Dnd support");
 
     currentScene = new Scene(root);
