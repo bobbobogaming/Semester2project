@@ -6,7 +6,6 @@ import Application.MVVM.Model.initWrapper.InitWrapper;
 import Application.MVVM.Model.character.Character;
 import Database.Adapters.AdduserToDataBase;
 import Application.MVVM.Model.monster.Monster;
-import Database.Adapters.CharacterInsertIntoDatabase;
 import Database.Adapters.GetMonsterFromDataBaseView;
 import Shared.IClientModel;
 import Shared.IServerModel;
@@ -40,8 +39,13 @@ public class Server implements IServerModel {
         return lobby.getLobbyId();
     }
 
-    @Override public void connectToLobby(int lobbyId, IClientModel client) {
-        lobbies.get(lobbyId).addPlayer(client);
+    @Override public boolean connectToLobby(int lobbyId, IClientModel client) {
+        try {
+            return lobbies.get(lobbyId).addPlayer(client);
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
     }
 
     @Override

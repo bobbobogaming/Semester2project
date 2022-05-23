@@ -5,7 +5,6 @@ import Shared.IClientModel;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 public class Lobby {
   private final int lobbyId;

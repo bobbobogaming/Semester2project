@@ -9,10 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
-import java.util.function.UnaryOperator;
-
 public class DMLobbyViewController
 {
   @FXML private Label subtractHealthLabel;
@@ -78,5 +74,9 @@ public class DMLobbyViewController
 
   public void onRemoveMonsterClick(ActionEvent actionEvent) {
     viewModel.removeMonster(initList.getSelectionModel().getSelectedItem());
+  }
+
+  public void onStartCombat(ActionEvent actionEvent) {
+    viewModel.switchCombatState();
   }
 }

@@ -85,9 +85,12 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   @Override public void connectToLobby(int lobbyId) {
     try
     {
-      server.connectToLobby(lobbyId, this);
-      userID.setLobbyId(lobbyId);
-      support.firePropertyChange("connectAsPlayer",null,lobbyId);
+      boolean connected = server.connectToLobby(lobbyId, this);
+      if (connected) {
+        userID.setLobbyId(lobbyId);
+        support.firePropertyChange("connectAsPlayer",null,lobbyId);
+      }
+      return connected;
     }
     catch (RemoteException e)
     {

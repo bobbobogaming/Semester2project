@@ -112,6 +112,8 @@ public class CharacterViewController
           wisField.getText(),
           charField.getText(),
           maxHp.getText());
+
+      //Lappe-løsning, da den nye tilføjede character af en eller anden grund først bliver selected når man trykker Enter
       characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
       //viewModel.saveCharacterSheet(); Implementeres senere

@@ -15,9 +15,8 @@ public interface IServerModel extends Remote
     void saveCharacter(Character character, UserID userID) throws RemoteException, SQLException;
     ArrayList<Character> getCharacters(UserID userID) throws RemoteException;
     int createLobby(IClientModel lobbyCreator) throws RemoteException;
-    void connectToLobby(int lobbyId, IClientModel client) throws RemoteException;
-
-
+    boolean connectToLobby(int lobbyId, IClientModel client) throws RemoteException;
+    void switchCombatState(int lobbyId) throws RemoteException;
     ArrayList<Monster> getMonsters() throws RemoteException, SQLException;
     void saveUser(UserID userID) throws RemoteException, SQLException;
     void addInitiative(InitWrapper initiative, int lobbyId) throws RemoteException;

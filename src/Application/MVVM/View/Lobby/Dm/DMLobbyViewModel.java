@@ -3,6 +3,7 @@ package Application.MVVM.View.Lobby.Dm;
 import Application.Client.Client;
 import Application.Client.ClientLobby;
 import Application.MVVM.Model.initWrapper.InitWrapper;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -45,11 +46,18 @@ public class DMLobbyViewModel implements PropertyChangeListener
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
-
-    if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
-      initList.clear();
-      initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
-    }
+    Platform.runLater(() -> {
+      if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
+        initList.clear();
+        initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
+      }
+      if (evt.getPropertyName().equals("combatStarted")) {
+        combatLockProperty.setValue("End combat");
+      }
+      if (evt.getPropertyName().equals("combatEnded")) {
+        combatLockProperty.setValue("Start combat");
+      }
+    });
   }
 
   public ListProperty<InitWrapper> initListProperty() {

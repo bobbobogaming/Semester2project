@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
@@ -19,6 +20,7 @@ import java.util.function.UnaryOperator;
 public class LobbyViewController
 {
   @FXML private TextField lobbyId;
+  @FXML private Label lobbyError;
   private LobbyViewModel lobbyViewModel;
 
   public void init(LobbyViewModel lobbyViewModel)
@@ -26,6 +28,7 @@ public class LobbyViewController
     this.lobbyViewModel = lobbyViewModel;
 
     lobbyId.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(8))));
+    lobbyError.textProperty().bind(lobbyViewModel.lobbyErrorPropertyProperty());
   }
 
   public void createLobby(ActionEvent actionEvent)
