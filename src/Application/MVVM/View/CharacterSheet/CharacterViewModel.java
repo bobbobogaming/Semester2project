@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 public class CharacterViewModel
 {
   private final StringProperty characterName;
+  private final StringProperty characterClass;
+  private final StringProperty level;
   private final StringProperty strength;
   private final StringProperty strengthMod;
   private final StringProperty dexterity;
@@ -58,6 +60,8 @@ public class CharacterViewModel
     charismaMod = new SimpleStringProperty();
     charisma.addListener((obs,oldValue,newValue) -> charismaMod.setValue(setModStat(newValue)));
 
+    characterClass = new SimpleStringProperty();
+    level = new SimpleStringProperty();
     maxHp = new SimpleStringProperty();
 
     isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
@@ -72,6 +76,14 @@ public class CharacterViewModel
 
   public StringProperty characterNameProperty() {
     return characterName;
+  }
+
+  public StringProperty characterClassProperty() {
+    return characterClass;
+  }
+
+  public StringProperty levelProperty() {
+    return level;
   }
 
   public StringProperty strengthProperty() {
@@ -122,10 +134,12 @@ public class CharacterViewModel
   public StringProperty charismaProperty() {
     return charisma;
   }
+
   public StringProperty charismaModProperty()
   {
     return charismaMod;
   }
+
   public StringProperty maxHpProperty() {
     return maxHp;
   }
@@ -151,17 +165,18 @@ public class CharacterViewModel
     return "";
   }
 
-  public void createCharacterSheet(String name,String str, String dex, String con, String intel,
-      String wis, String cha, String maxHp){
+  public void createCharacterSheet(){
     characterSheetModel.makeCharacter(
-        name,
-        Integer.parseInt(str),
-        Integer.parseInt(dex),
-        Integer.parseInt(con),
-        Integer.parseInt(intel),
-        Integer.parseInt(wis),
-        Integer.parseInt(cha),
-        Integer.parseInt(maxHp));
+        characterName.getValue(),
+        Integer.parseInt(strength.getValue()),
+        Integer.parseInt(dexterity.getValue()),
+        Integer.parseInt(constitution.getValue()),
+        Integer.parseInt(intelligence.getValue()),
+        Integer.parseInt(wisdom.getValue()),
+        Integer.parseInt(charisma.getValue()),
+        Integer.parseInt(level.getValue()),
+        characterClass.getValue(),
+        Integer.parseInt(maxHp.getValue()));
     characters.clear();
     characters.addAll(client.getCharacters());
   }
@@ -173,6 +188,8 @@ public class CharacterViewModel
 
   public void updateCharacterInfo(Character character) {
     characterName.set(character.getName());
+    characterClass.set(character.getcClass());
+    level.set(character.getLevel() + "");
     strength.set(character.getStats().getStrength() + "");
     dexterity.set(character.getStats().getDexterity() + "");
     constitution.set(character.getStats().getConstitution() + "");

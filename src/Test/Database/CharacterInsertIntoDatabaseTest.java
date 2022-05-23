@@ -7,13 +7,11 @@ import Database.Adapters.AdduserToDataBase;
 import Database.Adapters.CharacterDeleteFromDatabase;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Database.Adapters.SelectAllCharacterFromTableDatabase;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.postgresql.util.PSQLException;
 
-import java.lang.reflect.Array;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
@@ -213,7 +211,7 @@ class CharacterInsertIntoDatabaseTest {
         boolean testInsert = false;
 
         for (Character insertCharacter : characterArrayList) {
-            if (insertCharacter.getName().equals(charname) && insertCharacter.getClas().equals(clas)) {
+            if (insertCharacter.getName().equals(charname) && insertCharacter.getcClass().equals(clas)) {
                 testInsert = true;
             }
         }

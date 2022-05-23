@@ -14,13 +14,13 @@ public class Character implements Serializable, IStatFormat
 
   private int level;
 
-  private String clas; //I have written it with a singel s because double s is something else
+  private String cClass; //I have written it with a single s because double s is something else, it's now cClass, short for Character class
 
-  public Character(Stats stats, String name,int level,String clas)
+  public Character(Stats stats, String name,int level,String cClass)
   {
     this.stats = stats;
     this.name = name;
-    this.clas = clas;
+    this.cClass = cClass;
     this.level = level;
   }
   public Character(Stats stats, String name){
@@ -42,8 +42,8 @@ public class Character implements Serializable, IStatFormat
     return level;
   }
 
-  public String getClas() {
-    return clas;
+  public String getcClass() {
+    return cClass;
   }
 
   @Override

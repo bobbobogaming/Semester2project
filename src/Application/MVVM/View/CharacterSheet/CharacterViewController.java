@@ -21,6 +21,10 @@ public class CharacterViewController
 {
   @FXML private Pane characterInfo;
   @FXML private ListView<Character> characterList;
+  @FXML private TextField nameField;
+  @FXML private TextField classField;
+  @FXML private TextField levelField;
+  @FXML private TextField maxHp;
   @FXML private Label strMod;
   @FXML private TextField strField;
   @FXML private Label dexMod;
@@ -33,8 +37,6 @@ public class CharacterViewController
   @FXML private TextField wisField;
   @FXML private Label charMod;
   @FXML private TextField charField;
-  @FXML private TextField nameField;
-  @FXML private TextField maxHp;
   @FXML private Button playAsCharacter;
 
   private CharacterViewModel viewModel;
@@ -43,6 +45,8 @@ public class CharacterViewController
     viewModel = characterViewModel;
 
     nameField.textProperty().bindBidirectional(viewModel.characterNameProperty());
+    classField.textProperty().bindBidirectional(viewModel.characterClassProperty());
+    levelField.textProperty().bindBidirectional(viewModel.levelProperty());
     maxHp.textProperty().bindBidirectional(viewModel.maxHpProperty());
     strField.textProperty().bindBidirectional(viewModel.strengthProperty());
     strMod.textProperty().bind(viewModel.strengthModProperty());
@@ -97,21 +101,14 @@ public class CharacterViewController
     intField.setTextFormatter(new TextFormatter<>(filter));
     wisField.setTextFormatter(new TextFormatter<>(filter));
     charField.setTextFormatter(new TextFormatter<>(filter));
+    levelField.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(2))));
     maxHp.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(4))));
   }
 
   public void onSaveCharacterButton(ActionEvent actionEvent)
   {
     if (characterList.getSelectionModel().getSelectedItem() == null) {
-      viewModel.createCharacterSheet(
-          nameField.getText(),
-          intField.getText(),
-          dexField.getText(),
-          conField.getText(),
-          intField.getText(),
-          wisField.getText(),
-          charField.getText(),
-          maxHp.getText());
+      viewModel.createCharacterSheet();
       characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
       //viewModel.saveCharacterSheet(); Implementeres senere
