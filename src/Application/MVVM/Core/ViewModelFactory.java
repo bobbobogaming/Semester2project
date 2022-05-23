@@ -7,6 +7,7 @@ import Application.MVVM.View.Lobby.Player.PlayerLobbyViewModel;
 import Application.MVVM.View.Lobby.Player.characterselect.SelectCharacterViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import Application.MVVM.View.Login.LoginViewModel;
+import Application.MVVM.View.TabPane.TabViewModel;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -19,6 +20,7 @@ public class ViewModelFactory
   private final LobbyViewModel lobbyViewModel;
   private final DMLobbyViewModel dmLobbyViewModel;
   private final SelectMonsterViewModel selectMonsterViewModel;
+  private final TabViewModel tabViewModel;
 
   private final SelectCharacterViewModel selectCharacterViewModel;
 
@@ -45,6 +47,7 @@ public class ViewModelFactory
     playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClient());
     selectMonsterViewModel = new SelectMonsterViewModel(clientFactory.getClient());
     selectCharacterViewModel = new SelectCharacterViewModel(clientFactory.getClient());
+    tabViewModel = new TabViewModel(this);
   }
 
   public CharacterViewModel getCharacterViewModel()
@@ -78,5 +81,9 @@ public class ViewModelFactory
 
   public SelectCharacterViewModel getSelectCharacterViewModel() {
     return selectCharacterViewModel;
+  }
+
+  public TabViewModel getTabViewModel() {
+    return tabViewModel;
   }
 }
