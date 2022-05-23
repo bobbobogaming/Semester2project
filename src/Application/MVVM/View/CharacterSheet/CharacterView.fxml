@@ -19,7 +19,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="nameField" layoutY="38.0" prefHeight="25.0" prefWidth="306.0" promptText="Character Name" />
+            <TextField fx:id="nameField" layoutY="38.0" prefHeight="25.0" prefWidth="429.0" promptText="Character Name" />
+            <Label layoutX="111.0" layoutY="67.0" text="Class" />
+            <TextField fx:id="classField" layoutX="111.0" layoutY="86.0" promptText="Class" />
+            <Label layoutX="272.0" layoutY="67.0" text="Level" />
+            <TextField fx:id="levelField" layoutX="272.0" layoutY="86.0" prefHeight="25.0" prefWidth="49.0" />
+            <Label layoutX="335.0" layoutY="67.0" text="Max Health" />
+            <TextField fx:id="maxHp" layoutX="335.0" layoutY="86.0" prefHeight="25.0" prefWidth="94.0" />
             <Label layoutX="3.0" layoutY="80.0" text="Strength" />
             <TextField fx:id="strField" layoutY="101.0" prefHeight="25.0" prefWidth="65.0" />
             <Label fx:id="strMod" layoutX="69.0" layoutY="104.0" text="+0">
@@ -62,8 +68,6 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="212.0" layoutY="80.0" text="Health" />
-            <TextField fx:id="maxHp" layoutX="212.0" layoutY="101.0" prefHeight="25.0" prefWidth="94.0" />
             <Button fx:id="playAsCharacter" layoutX="431.0" mnemonicParsing="false" onAction="#onPlayAsCharacterButton" prefHeight="25.0" prefWidth="125.0" text="Play as character" />
             <Button layoutX="462.0" layoutY="343.0" mnemonicParsing="false" onAction="#onSaveCharacterButton" text="Save Character" />
          </children>
