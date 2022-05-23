@@ -8,6 +8,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,6 +45,14 @@ public class TabViewModel implements PropertyChangeListener,
     }else if (evt.getPropertyName().equals("combatEnded")) {
       clearCharacterSheetTaps();
     }
+  }
+
+  private void addNewTabTest() {
+    support.firePropertyChange("addCharacterSheetTabs",null, new Pane());
+  }
+
+  private void clearCharacterSheetTaps(){
+    support.firePropertyChange("clearCharacterSheetTabs",null,null);
   }
 
   private void setTabPlayerLobby(String lobbyId) {

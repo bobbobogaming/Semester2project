@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 public class DMLobbyViewController
 {
+  @FXML private Button combatButton;
   @FXML private Label subtractHealthLabel;
   @FXML private Button proceedButton;
   @FXML private Button removeMonsterButton;
@@ -24,6 +25,7 @@ public class DMLobbyViewController
   public void init(DMLobbyViewModel dmLobbyViewModel){
     viewModel = dmLobbyViewModel;
 
+    combatButton.textProperty().bind(viewModel.combatLockProperty());
     lobbyId.textProperty().bind(viewModel.lobbyIdProperty());
     initList.itemsProperty().bind(viewModel.initListProperty());
     initList.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("init"));

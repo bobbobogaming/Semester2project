@@ -3,6 +3,7 @@ package Application.MVVM.View.Lobby.Player;
 import Application.Client.Client;
 import Application.Client.ClientLobby;
 import Application.MVVM.Model.initWrapper.InitWrapper;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.scene.paint.Color;

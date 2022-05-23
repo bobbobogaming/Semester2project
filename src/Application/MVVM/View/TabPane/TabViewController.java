@@ -26,6 +26,7 @@ public class TabViewController implements PropertyChangeListener
 
   public void init(LobbyViewModel lobbyViewModel, CharacterViewModel characterViewModel,TabViewModel tabViewModel){
     viewModel = tabViewModel;
+    viewModel.addPropertyChangeListener(this);
 
     lobbyViewController.init(lobbyViewModel);
     lobbyViewModel.addPropertyChangeListener(tabViewModel);

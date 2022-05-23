@@ -48,6 +48,10 @@ public class Server implements IServerModel {
         }
     }
 
+    @Override public void switchCombatState(int lobbyId) {
+        lobbies.get(lobbyId).switchCombatState();
+    }
+
     @Override
     public ArrayList<Monster> getMonsters() {
         GetMonsterFromDataBaseView getMonsterFromDataBaseView = new GetMonsterFromDataBaseView();

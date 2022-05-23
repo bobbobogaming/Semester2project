@@ -19,7 +19,8 @@ public class DMLobbyViewModel implements PropertyChangeListener
   private StringProperty lobbyIdProperty;
   private ListProperty<InitWrapper> initList;
 
-  public ClientLobby client; //TODO should be chanced to a more fitting interface
+  private ClientLobby client; //TODO should be chanced to a more fitting interface
+  private StringProperty combatLockProperty;
 
   public DMLobbyViewModel(Client client)
   {
@@ -28,6 +29,8 @@ public class DMLobbyViewModel implements PropertyChangeListener
     lobbyIdProperty = new SimpleStringProperty();
     initList = new SimpleListProperty<>(
         FXCollections.observableArrayList(new ArrayList<>()));
+
+    combatLockProperty = new SimpleStringProperty("Begin combat");
   }
 
   public StringProperty lobbyIdProperty()
@@ -72,5 +75,14 @@ public class DMLobbyViewModel implements PropertyChangeListener
     int subtractionAmount = Integer.parseInt(amount);
     selectedItem.setHp(selectedItem.getHp() - subtractionAmount);
     client.updateInitList(selectedItem);
+  }
+
+  public void switchCombatState() {
+    client.switchCombatState();
+  }
+
+
+  public StringProperty combatLockProperty() {
+    return combatLockProperty;
   }
 }

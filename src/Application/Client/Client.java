@@ -82,7 +82,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     }
   }
 
-  @Override public void connectToLobby(int lobbyId) {
+  @Override public boolean connectToLobby(int lobbyId) {
     try
     {
       boolean connected = server.connectToLobby(lobbyId, this);
@@ -96,6 +96,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     {
       e.printStackTrace();
     }
+    return false;
   }
 
   @Override public void setUserID(UserID userID)
@@ -179,6 +180,24 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
       catch (RemoteException e) {
         throw new RuntimeException(e);
       }
+    }
+  }
+
+  @Override public void switchCombatState() {
+    try {
+      server.switchCombatState(userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void combatStateChanged(boolean isStarted) {
+    if (isStarted) {
+      support.firePropertyChange("combatStarted", null, null);
+    }
+    else {
+      support.firePropertyChange("combatEnded", null, null);
     }
   }
 
