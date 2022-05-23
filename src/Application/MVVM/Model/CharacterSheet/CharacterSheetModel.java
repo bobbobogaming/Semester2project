@@ -19,11 +19,11 @@ public class CharacterSheetModel implements ICharacterSheetModel
   }
 
   @Override public void makeCharacter(String name,int str, int dex, int con, int intel,
-      int wis, int cha, int maxHp)
+      int wis, int cha, int lvl, String cClass, int maxHp)
   {
     try
     {
-      client.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,maxHp),name));
+      client.makeCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,maxHp),name,lvl,cClass));
     }
     catch (SQLException e)
     {

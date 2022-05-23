@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface ICharacterSheetModel
 {
-  void makeCharacter(String name,int str,int dex,int con,int intel,int wis,int cha,int maxHp);
+  void makeCharacter(String name,int str,int dex,int con,int intel,int wis,int cha,int lvl,String cClass,int maxHp);
   ArrayList<Character> getCharacters();
 }
