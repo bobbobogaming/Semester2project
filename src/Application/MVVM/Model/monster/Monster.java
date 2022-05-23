@@ -62,7 +62,7 @@ public class Monster implements Serializable, IStatFormat {
     }
 
     @Override public String toString() {
-        return monsterName;
+        return "[" + cr + "] " + monsterName;
     }
     @Override public boolean equals(Object obj) {
         if (!(obj instanceof Monster)) {
