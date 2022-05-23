@@ -37,7 +37,7 @@ public class SelectAllCharacterFromTableDatabase {
                 int maxHp = rs.getInt("maxHp");
 
                 Stats stats = new Stats(strength,dexterity,constitution,intelligence,wisdom,charisma, maxHp);
-                arrayListCharacter.add(new Character(stats,characterName));
+                arrayListCharacter.add(new Character(stats,characterName,level,clas));
             }
 
         } catch (

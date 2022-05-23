@@ -23,6 +23,10 @@ public class Character implements Serializable, IStatFormat
     this.clas = clas;
     this.level = level;
   }
+  public Character(Stats stats, String name){
+    this.stats = stats;
+    this.name = name;
+  }
 
   public Stats getStats()
   {
