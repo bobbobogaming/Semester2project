@@ -28,7 +28,7 @@ class CharacterDeleteFromDatabaseTest {
     void CharacterDelete() {
        //you need to run CharacterInsertIntoDatabaseTest before this
         String charName = "deletChartest";
-        Character character = new Character(stats,charName);
+        Character character = new Character(stats,charName,1,"Monk");
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
         try {
             characterInsertIntoDatabase.InsertCharacterIntoDatabase(character,userID);

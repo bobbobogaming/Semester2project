@@ -28,10 +28,10 @@ public class Server implements IServerModel {
         UnicastRemoteObject.exportObject(this,0);
 
         characters = new ArrayList<>();
-        characters.add(new Character(new Stats(13,14,15,13,10,9,100),"Per"));
-        characters.add(new Character(new Stats(17,10,12,14,12,1,125),"Anders"));
-        characters.add(new Character(new Stats(15,11,12,14,16,2,1),"Michael"));
-        characters.add(new Character(new Stats(13,10,13,18,14,8,9999),"Morten"));
+        characters.add(new Character(new Stats(13,14,15,13,10,9,100),"Per",1,"Monk"));
+        characters.add(new Character(new Stats(17,10,12,14,12,1,125),"Anders",2,"Something"));
+        characters.add(new Character(new Stats(15,11,12,14,16,2,1),"Michael",3,"test"));
+        characters.add(new Character(new Stats(13,10,13,18,14,8,9999),"Morten",4,"ss"));
     }
 
     @Override public int createLobby(IClientModel lobbyCreator) {

@@ -12,10 +12,16 @@ public class Character implements Serializable, IStatFormat
   private Stats stats;
   private String name;
 
-  public Character(Stats stats, String name)
+  private int level;
+
+  private String clas; //I have written it with a singel s because double s is something else
+
+  public Character(Stats stats, String name,int level,String clas)
   {
     this.stats = stats;
     this.name = name;
+    this.clas = clas;
+    this.level = level;
   }
 
   public Stats getStats()
@@ -26,6 +32,14 @@ public class Character implements Serializable, IStatFormat
   public String getName()
   {
     return name;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public String getClas() {
+    return clas;
   }
 
   @Override

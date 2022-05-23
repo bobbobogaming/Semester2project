@@ -27,12 +27,14 @@ class CharacterInsertIntoDatabaseTest {
 
     private CharacterInsertIntoDatabase insert;
     private Stats stats;
+    private String clas;
 
     @BeforeEach
     void setUp() {
         stats = new Stats(10, 11, 12, 13, 14, 15,91);
         charname = "Bobby";
-        character = new Character(stats, charname);
+        clas = "Monk";
+        character = new Character(stats, charname,2,clas);
         userID = new UserID("Morten");
         AdduserToDataBase adduserToDataBase = new AdduserToDataBase();
 
@@ -74,7 +76,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void duplicateUserNameDifferentCharacterName() {
 
-        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2,15), "Allan");
+        Character allan = new Character(new Stats(2, 5, 2, 5, 5, 2,15), "Allan",1,"Monk");
         try {
             insert.InsertCharacterIntoDatabase(allan,userID);
         } catch (SQLException e) {
@@ -103,7 +105,7 @@ class CharacterInsertIntoDatabaseTest {
     @Test
     void insertMultipleCharacterWithSameNameSameUserIdExpectedError()
     {
-        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname);
+        Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname,2,"Wizard");
 
         assertThrows(org.postgresql.util.PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
 
@@ -161,7 +163,7 @@ class CharacterInsertIntoDatabaseTest {
             username += "a";
         }
 
-        Character character1 = new Character(stats,username);
+        Character character1 = new Character(stats,username, 1,"Monk");
 
         assertThrows(PSQLException.class,()->insert.InsertCharacterIntoDatabase(character1,userID));
 
@@ -173,7 +175,7 @@ class CharacterInsertIntoDatabaseTest {
         for (int i = 0; i <255 ; i++) {
             charename += "m";
         }
-        Character character1 = new Character(stats,charename);
+        Character character1 = new Character(stats,charename, 1,"Monk");
 
         try {
             insert.InsertCharacterIntoDatabase(character1,userID);
@@ -189,7 +191,7 @@ class CharacterInsertIntoDatabaseTest {
     void minInBoundName(){
         String charenam = "";
 
-        Character character1 = new Character(stats,charenam);
+        Character character1 = new Character(stats,charenam, 1, "Monk");
 
         try {
             insert.InsertCharacterIntoDatabase(character1,userID);
@@ -200,6 +202,22 @@ class CharacterInsertIntoDatabaseTest {
         CharacterDeleteFromDatabase deleteFromDatabase = new CharacterDeleteFromDatabase();
         deleteFromDatabase.deleteCharacterFromDatabase(userID, charenam);
 
+    }
+
+    @Test
+    void insertedhasclass(){  //TDD
+        ArrayList<Character> characterArrayList;
+        SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
+        characterArrayList = select.getAllCharacterFromTableDatabase(userID);
+
+        boolean testInsert = false;
+
+        for (Character insertCharacter : characterArrayList) {
+            if (insertCharacter.getName().equals(charname) && insertCharacter.getClas().equals(clas)) {
+                testInsert = true;
+            }
+        }
+        assertTrue(testInsert);
     }
 
 
