@@ -4,23 +4,21 @@ import Application.MVVM.Model.character.Character;
 import Util.textfieldfilter.PosetiveNumberStrategy;
 import Util.textfieldfilter.UnaryFilterContext;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
-import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class CharacterViewController
 {
   @FXML private Pane characterInfo;
   @FXML private ListView<Character> characterList;
+  @FXML private Button removeCharacterButton;
   @FXML private TextField nameField;
   @FXML private TextField classField;
   @FXML private TextField levelField;
@@ -38,6 +36,7 @@ public class CharacterViewController
   @FXML private Label charMod;
   @FXML private TextField charField;
   @FXML private Button playAsCharacter;
+  @FXML private Label saveStatus;
 
   private CharacterViewModel viewModel;
 
@@ -61,6 +60,9 @@ public class CharacterViewController
     charField.textProperty().bindBidirectional(viewModel.charismaProperty());
     charMod.textProperty().bind(viewModel.charismaModProperty());
 
+    saveStatus.textProperty().bind(viewModel.saveStatusTextProperty());
+    saveStatus.textFillProperty().bind(viewModel.saveStatusColorProperty());
+
     characterList.itemsProperty().bind(viewModel.charactersProperty());
 
     playAsCharacter.disableProperty().bind(
@@ -83,11 +85,13 @@ public class CharacterViewController
 
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
+        removeCharacterButton.setDisable(false);
         viewModel.updatePlayAsCharacterButton(newValue);
         characterInfo.setVisible(true);
         viewModel.updateCharacterInfo(newValue);
         playAsCharacter.setVisible(true);
       } else {
+        removeCharacterButton.setDisable(true);
         characterInfo.setVisible(false);
         playAsCharacter.setVisible(false);
       }
@@ -123,6 +127,9 @@ public class CharacterViewController
   }
 
   public void onRemoveCharacterButton(ActionEvent actionEvent) {
+    if (characterList.getSelectionModel().getSelectedItem() != null){
+      viewModel.removeCharacter(characterList.getSelectionModel().getSelectedItem());
+    }
   }
 
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {

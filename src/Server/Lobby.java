@@ -1,5 +1,6 @@
 package Server;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.initWrapper.InitWrapper;
 import Shared.IClientModel;
 
@@ -19,7 +20,7 @@ public class Lobby {
     this.initiative = new ArrayList<>();
     this.dungeonMaster = dungeonMaster;
     try {
-      System.out.println(dungeonMaster.getUsername() + " created a new lobby [LobbyID: " + lobbyId + "]");
+      System.out.println(dungeonMaster.getUserID().getName() + " created a new lobby [LobbyID: " + lobbyId + "]");
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
@@ -31,7 +32,7 @@ public class Lobby {
       players.add(client);
       try {
         client.updateInitiativeTable(initiative);
-        System.out.println(client.getUsername() + " joined lobby " + lobbyId);
+        System.out.println(client.getUserID().getName() + " joined lobby " + lobbyId);
       }
       catch (RemoteException e) {
         throw new RuntimeException(e);
@@ -40,10 +41,26 @@ public class Lobby {
     } else return false;
   }
 
+  public void removePlayer(IClientModel client) {
+    if (client == dungeonMaster)
+      setDungeonMaster(null);
+    else players.remove(client);
+  }
+
   public void switchCombatState(){
     isCombatStarted = !isCombatStarted;
     try {
       dungeonMaster.combatStateChanged(isCombatStarted);
+      ArrayList<UserID> userIDS = new ArrayList<>();
+      players.forEach((player)->{
+        try {
+          if (player.getUserID().isInCombat()) userIDS.add(player.getUserID());
+        }
+        catch (RemoteException e) {
+          throw new RuntimeException(e);
+        }
+      });
+      dungeonMaster.modifyDMCharacterViews(isCombatStarted,userIDS);
     }
     catch (RemoteException e) {
       throw new RuntimeException(e);
@@ -115,13 +132,13 @@ public class Lobby {
     }
   }
 
-  public void removePlayer(IClientModel client) {
-    players.remove(client);
-  }
-
   public int getLobbyId()
   {
     return lobbyId;
+  }
+
+  public boolean isCombatStarted() {
+    return isCombatStarted;
   }
 
   public IClientModel getDungeonMaster() {
