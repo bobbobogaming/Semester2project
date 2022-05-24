@@ -44,9 +44,7 @@ public class TabViewController implements PropertyChangeListener
   @Override public void propertyChange(PropertyChangeEvent evt) {
     Platform.runLater(() -> {
       if (evt.getPropertyName().equals("addCharacterSheetTabs")) {
-        Tab tab = new Tab();
-        tab.setContent((Parent) evt.getNewValue());
-        tabPane.getTabs().add(tab);
+        tabPane.getTabs().add((Tab) evt.getNewValue());
       }
       else if (evt.getPropertyName().equals("clearCharacterSheetTabs")){
         tabPane.getTabs().remove(2,tabPane.getTabs().size());

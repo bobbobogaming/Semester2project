@@ -5,6 +5,8 @@ import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.Model.character.Character;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class CharacterViewModel
 {

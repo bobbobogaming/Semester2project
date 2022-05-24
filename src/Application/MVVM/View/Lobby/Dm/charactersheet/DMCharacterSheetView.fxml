@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewController">
+   <children>
+      <Pane layoutX="14.0" layoutY="48.0">
+         <children>
+            <Label layoutY="12.0" text="Character Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nameField" editable="false" layoutY="38.0" prefHeight="25.0" prefWidth="429.0" promptText="Character Name" />
+            <Label layoutX="111.0" layoutY="67.0" text="Class" />
+            <TextField fx:id="classField" editable="false" layoutX="111.0" layoutY="86.0" promptText="Class" />
+            <Label layoutX="272.0" layoutY="67.0" text="Level" />
+            <TextField fx:id="levelField" editable="false" layoutX="272.0" layoutY="86.0" prefHeight="25.0" prefWidth="49.0" />
+            <Label layoutX="335.0" layoutY="67.0" text="Max Health" />
+            <TextField fx:id="maxHp" editable="false" layoutX="335.0" layoutY="86.0" prefHeight="25.0" prefWidth="94.0" />
+            <Label layoutX="3.0" layoutY="80.0" text="Strength" />
+            <TextField fx:id="strField" editable="false" layoutY="101.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="strMod" layoutX="69.0" layoutY="104.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="128.0" text="Dexterity" />
+            <TextField fx:id="dexField" editable="false" layoutY="145.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="dexMod" layoutX="69.0" layoutY="148.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="169.0" text="Constitution" />
+            <TextField fx:id="conField" editable="false" layoutY="187.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="conMod" layoutX="69.0" layoutY="190.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="212.0" text="Intelligence" />
+            <TextField fx:id="intField" editable="false" layoutY="229.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="intMod" layoutX="69.0" layoutY="232.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="254.0" text="Wisdom" />
+            <TextField fx:id="wisField" editable="false" layoutY="271.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="wisMod" layoutX="69.0" layoutY="274.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="3.0" layoutY="297.0" text="Charisma" />
+            <TextField fx:id="charField" editable="false" layoutY="313.0" prefHeight="25.0" prefWidth="65.0" />
+            <Label fx:id="charMod" layoutX="69.0" layoutY="316.0" text="+0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label fx:id="playerName" layoutX="7.0" layoutY="6.0" prefHeight="17.0" prefWidth="787.0" text="Player: " />
+   </children>
+</Pane>
