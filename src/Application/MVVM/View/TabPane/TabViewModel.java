@@ -1,5 +1,6 @@
 package Application.MVVM.View.TabPane;
 
+import Application.Client.UserID;
 import Application.MVVM.Core.ViewModelFactory;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewController;
 import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewController;
@@ -44,9 +45,10 @@ public class TabViewModel implements PropertyChangeListener,
       setTabDmLobby(evt.getNewValue() + "");
     } else if (evt.getPropertyName().equals("connectAsPlayer")){
       setTabPlayerLobby(evt.getNewValue() + "");
-    } else if (evt.getPropertyName().equals("combatStarted")) {
-      addNewTabTest();
-    }else if (evt.getPropertyName().equals("combatEnded")) {
+    } else if (evt.getPropertyName().equals("generateCharacterViews")) {
+      ArrayList<UserID> userIDS = (ArrayList<UserID>) evt.getNewValue();
+      userIDS.forEach(this::addCharacterSheetTab);
+    }else if (evt.getPropertyName().equals("clearCharacterViews")) {
       clearCharacterSheetTaps();
     }
   }

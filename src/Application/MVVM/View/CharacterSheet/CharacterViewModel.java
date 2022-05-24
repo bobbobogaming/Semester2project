@@ -28,6 +28,8 @@ public class CharacterViewModel
   private final StringProperty maxHp;
   private final BooleanProperty isPlayAsCharacterDisabled;
   private final StringProperty playAsCharacterText;
+  private final StringProperty saveStatusText;
+  private final ObjectProperty<Paint> saveStatusColor;
 
   private final ListProperty<Character> characters;
 
@@ -68,6 +70,9 @@ public class CharacterViewModel
 
     isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
     playAsCharacterText = new SimpleStringProperty("Play as character");
+
+    saveStatusText = new SimpleStringProperty();
+    saveStatusColor = new SimpleObjectProperty<>(Color.BLACK);
 
 
     this.characterSheetModel = characterSheetModel;
@@ -154,6 +159,14 @@ public class CharacterViewModel
     return playAsCharacterText;
   }
 
+  public StringProperty saveStatusTextProperty() {
+    return saveStatusText;
+  }
+
+  public ObjectProperty<Paint> saveStatusColorProperty() {
+    return saveStatusColor;
+  }
+
   public ListProperty<Character> charactersProperty() {
     return characters;
   }
@@ -168,6 +181,20 @@ public class CharacterViewModel
   }
 
   public void createCharacterSheet(){
+    if (characterName.getValue().isEmpty() ||
+        strength.getValue().isEmpty() ||
+        dexterity.getValue().isEmpty() ||
+        constitution.getValue().isEmpty() ||
+        intelligence.getValue().isEmpty() ||
+        wisdom.getValue().isEmpty() ||
+        charisma.getValue().isEmpty() ||
+        level.getValue().isEmpty() ||
+        characterClass.getValue().isEmpty() ||
+        maxHp.getValue().isEmpty()) {
+      saveStatusColor.set(Color.RED);
+      saveStatusText.setValue("All values must be set before saving");
+      return;
+    }
     characterSheetModel.makeCharacter(
         characterName.getValue(),
         Integer.parseInt(strength.getValue()),
@@ -183,12 +210,9 @@ public class CharacterViewModel
     characters.addAll(client.getCharacters());
   }
 
-  public void saveCharacterSheet(Character character, String name,String str, String dex, String con, String intel,
-      String wis, String cha, String maxHp) {
-
-  }
-
   public void updateCharacterInfo(Character character) {
+    saveStatusText.setValue("");
+
     characterName.set(character.getName());
     characterClass.set(character.getcClass());
     level.set(character.getLevel() + "");
@@ -203,6 +227,8 @@ public class CharacterViewModel
 
   public void clearCharacterInfo() {
     characterName.set("");
+    characterClass.set("");
+    level.set("");
     strength.set("");
     dexterity.set("");
     constitution.set("");
@@ -225,5 +251,11 @@ public class CharacterViewModel
       isPlayAsCharacterDisabled.set(false);
       playAsCharacterText.set("Play as character");
     }
+  }
+
+  public void removeCharacter(Character character){
+    client.deleteCharacter(character);
+    characters.clear();
+    characters.addAll(client.getCharacters());
   }
 }

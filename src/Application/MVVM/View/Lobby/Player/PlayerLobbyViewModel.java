@@ -63,6 +63,19 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
       if (evt.getPropertyName().equals("UpdateInitiativeTable")) {
         initList.clear();
         initList.addAll((ArrayList<InitWrapper>) evt.getNewValue());
+        if (client.getUserID().getCurrentCharacter() != null){
+          boolean isInList = true;
+          for (InitWrapper initWrapper : initList) {
+            if (initWrapper.getName().equals(client.getUserID().getCurrentCharacter().getName())){
+              isInList = false;
+            }
+          }
+          if (isInList) {
+            lobbyStatusMessageText.setValue("");
+            joinCombatButtonText.setValue("Join Combat");
+            client.getUserID().setInCombat(false);
+          }
+        }
       }
       else if (evt.getPropertyName().equals("joinCombatSuccess")) {
         lobbyStatusMessageColor.setValue(Color.GREEN);

@@ -4,7 +4,7 @@ import Application.MVVM.Model.monster.Monster;
 import Application.MVVM.Model.character.Character;
 
 import java.io.Serializable;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private int init;
@@ -15,7 +15,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private IStatFormat source;
 
   public InitWrapper(Monster monster){
-    init = new Random().nextInt(20);
+    init = ThreadLocalRandom.current().nextInt(20) + monster.getMonsterStats().getDexterityModifier();
     name = monster.getMonsterName();
     hp = monster.getMaxHP();
     ac = monster.getAc();
@@ -24,7 +24,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   }
 
   public InitWrapper(Character character){
-    init = new Random().nextInt(20);
+    init = ThreadLocalRandom.current().nextInt(20) + character.getStats().getDexterityModifier();
     name = character.getName();
     hp = character.getStats().getMaxHP();
     ac = 10 + character.getStats().getDexterityModifier();

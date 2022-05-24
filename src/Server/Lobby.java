@@ -1,5 +1,6 @@
 package Server;
 
+import Application.Client.UserID;
 import Application.MVVM.Model.initWrapper.InitWrapper;
 import Shared.IClientModel;
 
@@ -38,6 +39,12 @@ public class Lobby {
       }
     return true;
     } else return false;
+  }
+
+  public void removePlayer(IClientModel client) {
+    if (client == dungeonMaster)
+      setDungeonMaster(null);
+    else players.remove(client);
   }
 
   public void switchCombatState(){
@@ -123,10 +130,6 @@ public class Lobby {
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  public void removePlayer(IClientModel client) {
-    players.remove(client);
   }
 
   public int getLobbyId()

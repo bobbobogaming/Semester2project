@@ -47,6 +47,9 @@ public class Server implements IServerModel {
             return false;
         }
     }
+    @Override public void disconnectFromLobby(int lobbyId, IClientModel client){
+        lobbies.get(lobbyId).removePlayer(client);
+    }
 
     @Override public void switchCombatState(int lobbyId) {
         lobbies.get(lobbyId).switchCombatState();

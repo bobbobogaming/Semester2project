@@ -95,6 +95,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
       boolean connected = server.connectToLobby(lobbyId, this);
       if (connected) {
         userID.setLobbyId(lobbyId);
+        userID.setInLobby(true);
         support.firePropertyChange("connectAsPlayer",null,lobbyId);
       }
       return connected;
@@ -162,6 +163,15 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void joinCombatAsCharacter() {
+    boolean isLobbyStarted;
+
+    try {
+      isLobbyStarted = server.isLobbyStarted(userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+
     if (userID.getCurrentCharacter() == null) {
       //An error message is passed through newValue
       support.firePropertyChange("joinCombatFailed", null,
@@ -226,9 +236,14 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   {
     try
     {
+      if (userID != null){
+        if (userID.isInLobby()) {
+          server.disconnectFromLobby(userID.getLobbyId(), this);
+        }
+      }
       UnicastRemoteObject.unexportObject(this,true);
     }
-    catch (NoSuchObjectException e)
+    catch (RemoteException e)
     {
       e.printStackTrace();
     }

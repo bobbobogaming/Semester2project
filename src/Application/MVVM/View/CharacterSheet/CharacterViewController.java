@@ -127,6 +127,9 @@ public class CharacterViewController
   }
 
   public void onRemoveCharacterButton(ActionEvent actionEvent) {
+    if (characterList.getSelectionModel().getSelectedItem() != null){
+      viewModel.removeCharacter(characterList.getSelectionModel().getSelectedItem());
+    }
   }
 
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {
