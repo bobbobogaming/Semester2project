@@ -9,6 +9,6 @@ public class DndApp extends Application
   @Override public void start(Stage stage) throws Exception
   {
     ViewHandler viewHandler = ViewHandler.getInstance(stage);
-    viewHandler.start("test");
+    viewHandler.start();
   }
 }

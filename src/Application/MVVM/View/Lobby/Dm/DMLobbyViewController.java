@@ -48,10 +48,6 @@ public class DMLobbyViewController
     initList.getSelectionModel().selectedItemProperty().addListener(viewModel::onTableSelectionChanged);
   }
 
-  public void setLobbyId(String lobbyId){
-    viewModel.setLobbyId(lobbyId);
-  }
-
   public void onLowerHealth(ActionEvent actionEvent){
     viewModel.lowerHealth(initList.getSelectionModel().getSelectedItem());
   }

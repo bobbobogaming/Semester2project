@@ -7,8 +7,8 @@ import java.text.ParsePosition;
 
 public class PosetiveNumberStrategy implements FilterStrategy {
 
-  private int length;
-  private DecimalFormat format;
+  private final int length;
+  private final DecimalFormat format;
 
   public PosetiveNumberStrategy(int length) {
     this.length = length;

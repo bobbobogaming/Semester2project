@@ -1,12 +1,11 @@
 package Application.MVVM.Model.character;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Stats implements Serializable
 {
   private final IModifier modifier;
-  private int strength,dexterity,constitution,intelligence,wisdom,charisma, maxHP;
+  private final int strength,dexterity,constitution,intelligence,wisdom,charisma, maxHP;
 
   public Stats(int strength, int dexterity, int constitution, int intelligence,
       int wisdom, int charisma, int maxHP)

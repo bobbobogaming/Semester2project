@@ -7,11 +7,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Monster implements Serializable, IStatFormat {
-    private Stats monsterStats;
-    private int ac;
-    private String cr;
-    private String monsterName;
-    private ArrayList<Action> monsterAction;
+    private final Stats monsterStats;
+    private final int ac;
+    private final String cr;
+    private final String monsterName;
+    private final ArrayList<Action> monsterAction;
 
     public Monster(Stats monsterStats, int ac, String cr, String monsterName, ArrayList<Action> monsterAction) {
         this.monsterStats = monsterStats;

@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel implements PropertyChangeSubject
 {

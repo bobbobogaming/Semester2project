@@ -27,10 +27,12 @@ public class TabViewModel implements PropertyChangeListener,
   private final ObjectProperty<Node> lobbyTabProperty;
   private final PropertyChangeSupport support;
 
-  public TabViewModel(ViewModelFactory viewModelFactory) {
+  public TabViewModel(ViewModelFactory viewModelFactory,PropertyChangeSubject client) {
     this.viewModelFactory = viewModelFactory;
     lobbyTabProperty = new SimpleObjectProperty<>();
+
     support = new PropertyChangeSupport(this);
+    client.addPropertyChangeListener(this);
   }
 
   public ObjectProperty<Node> lobbyTabProperty() {
@@ -49,12 +51,6 @@ public class TabViewModel implements PropertyChangeListener,
     }else if (evt.getPropertyName().equals("clearCharacterViews")) {
       clearCharacterSheetTaps();
     }
-  }
-
-  private void addNewTabTest() {
-    Tab tab = new Tab();
-    tab.setContent(new Pane());
-    support.firePropertyChange("addCharacterSheetTabs",null, tab);
   }
 
   private void addCharacterSheetTab(UserID userID) {
@@ -93,7 +89,7 @@ public class TabViewModel implements PropertyChangeListener,
 
       PlayerLobbyViewController playerLobbyViewController = loader.getController();
       playerLobbyViewController.init(viewModelFactory.getPlayerLobbyViewModel());
-      playerLobbyViewController.setLobbyId(lobbyId);
+      viewModelFactory.getPlayerLobbyViewModel().setLobbyId(lobbyId);
     }
     catch (IOException e)
     {
@@ -111,16 +107,12 @@ public class TabViewModel implements PropertyChangeListener,
 
       DMLobbyViewController dmLobbyViewController = loader.getController();
       dmLobbyViewController.init(viewModelFactory.getDmLobbyViewModel());
-      dmLobbyViewController.setLobbyId(lobbyId);
+      viewModelFactory.getDmLobbyViewModel().setLobbyId(lobbyId);
     }
     catch (IOException e)
     {
       e.printStackTrace();
     }
-  }
-
-  private void addCharacterSheetTabs(ArrayList<Character> characters) {
-
   }
 
   @Override public void addPropertyChangeListener(

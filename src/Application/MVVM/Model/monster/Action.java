@@ -3,12 +3,12 @@ package Application.MVVM.Model.monster;
 import java.io.Serializable;
 
 public class Action implements Serializable {
-    private String description;
-    private String actionName;
+    private final String description;
+    private final String actionName;
 
     public Action(String description, String actionName) {
-        if (description==null)
-            this.description ="";
+        if (description == null)
+            this.description = "";
         else {
             this.description = description;
         }

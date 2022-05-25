@@ -4,7 +4,6 @@ import Application.MVVM.View.CharacterSheet.CharacterViewModel;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewModel;
 import Application.MVVM.View.Lobby.Dm.MonsterSearch.SelectMonsterViewModel;
 import Application.MVVM.View.Lobby.Player.PlayerLobbyViewModel;
-import Application.MVVM.View.Lobby.Player.characterselect.SelectCharacterViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import Application.MVVM.View.Login.LoginViewModel;
 import Application.MVVM.View.TabPane.TabViewModel;
@@ -22,32 +21,28 @@ public class ViewModelFactory
   private final SelectMonsterViewModel selectMonsterViewModel;
   private final TabViewModel tabViewModel;
 
-  private final SelectCharacterViewModel selectCharacterViewModel;
-
   private static ViewModelFactory instance;
-  private static Lock lock = new ReentrantLock();
+  private static final Lock lock = new ReentrantLock();
 
   public static ViewModelFactory getInstance()
   {
     if (instance == null){
       synchronized (lock){
-        if (instance == null) instance = new ViewModelFactory(ModelFactory.getInstance(),ClientFactory.getInstance());
+        if (instance == null) instance = new ViewModelFactory(ClientFactory.getInstance());
       }
     }
     return instance;
   }
 
-  private ViewModelFactory(ModelFactory modelFactory, ClientFactory clientFactory)
+  private ViewModelFactory(ClientFactory clientFactory)
   {
-    characterViewModel = new CharacterViewModel(modelFactory.getCharacterSheetModel(
-        clientFactory.getClient()),clientFactory.getClient());
+    characterViewModel = new CharacterViewModel(clientFactory.getClient());
     loginViewModel = new LoginViewModel(clientFactory.getClient());
     lobbyViewModel = new LobbyViewModel(clientFactory.getClient());
     dmLobbyViewModel = new DMLobbyViewModel(clientFactory.getClient());
     playerLobbyViewModel = new PlayerLobbyViewModel(clientFactory.getClient());
     selectMonsterViewModel = new SelectMonsterViewModel(clientFactory.getClient());
-    selectCharacterViewModel = new SelectCharacterViewModel(clientFactory.getClient());
-    tabViewModel = new TabViewModel(this);
+    tabViewModel = new TabViewModel(this,clientFactory.getClient());
   }
 
   public CharacterViewModel getCharacterViewModel()
@@ -55,9 +50,8 @@ public class ViewModelFactory
     return characterViewModel;
   }
 
-  public LoginViewModel getLoginViewModel(ViewHandler viewHandler)
+  public LoginViewModel getLoginViewModel()
   {
-    loginViewModel.addPropertyChangeListener(viewHandler);
     return loginViewModel;
   }
 
@@ -77,10 +71,6 @@ public class ViewModelFactory
 
   public SelectMonsterViewModel getSelectMonsterViewModel() {
     return selectMonsterViewModel;
-  }
-
-  public SelectCharacterViewModel getSelectCharacterViewModel() {
-    return selectCharacterViewModel;
   }
 
   public TabViewModel getTabViewModel() {

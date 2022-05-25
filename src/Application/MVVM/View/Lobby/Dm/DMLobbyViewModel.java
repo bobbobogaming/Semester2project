@@ -1,7 +1,7 @@
 package Application.MVVM.View.Lobby.Dm;
 
 import Application.Client.Client;
-import Application.Client.ClientLobby;
+import Application.Client.ClientLobbyDM;
 import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.application.Platform;
 import javafx.beans.property.*;

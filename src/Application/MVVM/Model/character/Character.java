@@ -9,12 +9,12 @@ public class Character implements Serializable, IStatFormat
 {
 
 
-  private Stats stats;
-  private String name;
+  private final Stats stats;
+  private final String name;
 
-  private int level;
+  private final int level;
 
-  private String cClass; //I have written it with a single s because double s is something else, it's now cClass, short for Character class
+  private final String cClass; //I have written it with a single s because double s is something else, it's now cClass, short for Character class
 
   public Character(Stats stats, String name,int level,String cClass)
   {

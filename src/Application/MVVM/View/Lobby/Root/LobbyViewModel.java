@@ -1,12 +1,11 @@
 package Application.MVVM.View.Lobby.Root;
 
 import Application.Client.ClientLobby;
-import Util.PropertyChangeSubject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
-public class LobbyViewModel implements PropertyChangeSubject
+public class LobbyViewModel
 {
   private final StringProperty lobbyErrorProperty;
   private final StringProperty lobbyIdTextProperty;
@@ -23,29 +22,19 @@ public class LobbyViewModel implements PropertyChangeSubject
     lobby.createLobby();
   }
 
-  @Override public void addPropertyChangeListener(
-      PropertyChangeListener listener)
-  {
-    lobby.addPropertyChangeListener(listener);
-  }
-
-  @Override public void removePropertyChangeListener(
-      PropertyChangeListener listener)
-  {
-    lobby.removePropertyChangeListener(listener);
-  }
-
   public void onExit(){
     lobby.onExit();
   }
 
-  public void joinLobby(int lobbyId) {
-    boolean connected = lobby.connectToLobby(lobbyId);
-    if (!connected) {
-      lobbyErrorProperty.set("Could not connect to lobby");
-    }
-    else {
-      lobbyErrorProperty.set("");
+  public void joinLobby() {
+    if (!lobbyIdTextProperty.get().isEmpty()){
+      boolean connected = lobby.connectToLobby(Integer.parseInt(lobbyIdTextProperty.get()));
+      if (!connected) {
+        lobbyErrorProperty.set("Could not connect to lobby");
+      }
+      else {
+        lobbyErrorProperty.set("");
+      }
     }
   }
 

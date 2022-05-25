@@ -1,4 +1,4 @@
-package Test.Character;
+/*package Test.Character;
 
 import Application.Client.Client;
 import Application.MVVM.Core.ClientFactory;
@@ -143,4 +143,4 @@ class CharacterViewModelTest {
 
         assertEquals("+4",result);
     }
-}
+}*/

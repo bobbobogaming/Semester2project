@@ -28,16 +28,10 @@ public class TabViewController implements PropertyChangeListener
     viewModel.addPropertyChangeListener(this);
 
     lobbyViewController.init(lobbyViewModel);
-    lobbyViewModel.addPropertyChangeListener(tabViewModel);
     characterViewController.init(characterViewModel);
 
     viewModel.lobbyTabProperty().setValue(lobbyTab.getContent());
     lobbyTab.contentProperty().bind(viewModel.lobbyTabProperty());
-  }
-
-  public void onExit()
-  {
-    lobbyViewController.onExit();
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
@@ -49,5 +43,10 @@ public class TabViewController implements PropertyChangeListener
         tabPane.getTabs().remove(2,tabPane.getTabs().size());
       }
     });
+  }
+
+  public void onExit()
+  {
+    lobbyViewController.onExit();
   }
 }
