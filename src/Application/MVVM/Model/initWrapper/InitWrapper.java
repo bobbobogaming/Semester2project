@@ -77,8 +77,14 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
       return false;
     }
     InitWrapper otherInit = (InitWrapper) obj;
-    return (/*otherInit.init == init
-        && */otherInit.name.equals(name)
+
+    if (isMonster != otherInit.isMonster) return false;
+
+    if (isMonster)
+    return (otherInit.init == init
+        && otherInit.name.equals(name)
+        && otherInit.ac == ac);
+    else return (otherInit.name.equals(name)
         && otherInit.ac == ac);
   }
 

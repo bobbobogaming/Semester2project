@@ -5,8 +5,11 @@ import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.Model.character.Character;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
+import java.util.ArrayList;
 
 public class CharacterViewModel
 {
@@ -35,6 +38,7 @@ public class CharacterViewModel
 
   private final ClientCharacterSheet client;
   private final ICharacterSheetModel characterSheetModel;
+  private final IntegerProperty indexProperty;
 
   public CharacterViewModel(ICharacterSheetModel characterSheetModel,
       ClientCharacterSheet client)
@@ -74,6 +78,7 @@ public class CharacterViewModel
     saveStatusText = new SimpleStringProperty();
     saveStatusColor = new SimpleObjectProperty<>(Color.BLACK);
 
+    indexProperty = new SimpleIntegerProperty();
 
     this.characterSheetModel = characterSheetModel;
     this.client = client;
@@ -207,7 +212,11 @@ public class CharacterViewModel
         characterClass.getValue(),
         Integer.parseInt(maxHp.getValue()));
     characters.clear();
-    characters.addAll(client.getCharacters());
+    ArrayList<Character> newCharacters = client.getCharacters();
+    characters.addAll(newCharacters);
+    for (int i = 0; i < newCharacters.size(); i++) {
+      if (newCharacters.get(i).getName().equals(characterName.getValue())) indexProperty.set(i);
+    }
   }
 
   public void updateCharacterInfo(Character character) {
@@ -236,6 +245,8 @@ public class CharacterViewModel
     wisdom.set("");
     charisma.set("");
     maxHp.set("");
+
+    indexProperty.set(-1);
   }
 
   public void playAsCharacter(Character character) {
@@ -257,5 +268,20 @@ public class CharacterViewModel
     client.deleteCharacter(character);
     characters.clear();
     characters.addAll(client.getCharacters());
+  }
+
+  public IntegerProperty indexProperty() {
+    return indexProperty;
+  }
+
+  public void bindBidirectionalIndexProperty(
+      MultipleSelectionModel<Character> selectionModel){
+    selectionModel.selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) -> {
+      if (newIndex.intValue() != indexProperty.get()) indexProperty.setValue(newIndex.intValue());
+    });
+
+    indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
+      if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
+    });
   }
 }
