@@ -71,18 +71,6 @@ public class CharacterViewController
 
     viewModel.bindBidirectionalIndexProperty(characterList.getSelectionModel());
 
-    /*characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
-      while (change.next()){
-      System.out.println(change.getList());
-        if (!change.getList().isEmpty())
-        {
-          for (int i = 0; i < change.getList().size(); i++) {
-            if (change.getList().get(i).getName().equals(nameField.getText())) characterList.getSelectionModel().clearAndSelect(i);
-          }
-        }
-      }
-    });*/
-
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
         removeCharacterButton.setDisable(false);
@@ -113,9 +101,8 @@ public class CharacterViewController
   {
     if (characterList.getSelectionModel().getSelectedItem() == null) {
       viewModel.createCharacterSheet();
-      //characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
-      //viewModel.saveCharacterSheet(); Implementeres senere
+      //viewModel.saveCharacterSheet(); Implementeres aldrig
     }
   }
 

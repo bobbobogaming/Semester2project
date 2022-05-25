@@ -6,7 +6,6 @@ import Application.MVVM.View.Lobby.Root.LobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 

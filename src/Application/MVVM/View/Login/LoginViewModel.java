@@ -13,16 +13,13 @@ import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel implements PropertyChangeSubject
 {
-  private StringProperty userInput;
-  private BooleanProperty confirmAvailability;
+  private final StringProperty userInput;
+  private final BooleanProperty confirmAvailability;
+  private final ClientLogin client;
 
-  private ClientLogin client;
-  private PropertyChangeSupport support;
-
-  public LoginViewModel(ClientLogin clientRMI)
+  public LoginViewModel(ClientLogin client)
   {
-    this.client = clientRMI;
-    support = new PropertyChangeSupport(this);
+    this.client = client;
 
     userInput = new SimpleStringProperty("");
     confirmAvailability = new SimpleBooleanProperty(true);
@@ -60,6 +57,6 @@ public class LoginViewModel implements PropertyChangeSubject
   public void onExit()
   {
     if (client != null)
-    client.onExit();
+      client.onExit();
   }
 }

@@ -5,7 +5,6 @@ import Application.MVVM.Core.ViewModelFactory;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewController;
 import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewController;
 import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewFactory;
-import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewModel;
 import Application.MVVM.View.Lobby.Player.PlayerLobbyViewController;
 import Util.PropertyChangeSubject;
 import javafx.beans.property.ObjectProperty;
@@ -13,7 +12,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -26,7 +24,7 @@ public class TabViewModel implements PropertyChangeListener,
 
   private final ViewModelFactory viewModelFactory;
 
-  private ObjectProperty<Node> lobbyTabProperty;
+  private final ObjectProperty<Node> lobbyTabProperty;
   private final PropertyChangeSupport support;
 
   public TabViewModel(ViewModelFactory viewModelFactory) {

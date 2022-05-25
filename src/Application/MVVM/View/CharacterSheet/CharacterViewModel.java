@@ -274,14 +274,105 @@ public class CharacterViewModel
     return indexProperty;
   }
 
-  public void bindBidirectionalIndexProperty(
-      MultipleSelectionModel<Character> selectionModel){
-    selectionModel.selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) -> {
-      if (newIndex.intValue() != indexProperty.get()) indexProperty.setValue(newIndex.intValue());
-    });
+  public void onTableSelectionChanged(ObservableValue<? extends Character> obs, Character oldValue,Character newValue){
+    if (newValue != null){
+      removeCharacterButtonDisabled.set(false);
+      updatePlayAsCharacterButton(newValue);
+      updateCharacterInfo(newValue);
+    } else {
+      removeCharacterButtonDisabled.set(true);
+      characterInfoVisible.set(false);
+      playAsCharacterVisible.set(false);
+    }
+  }
 
-    indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
-      if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
-    });
+  public StringProperty characterNameProperty() {
+    return characterName;
+  }
+
+  public StringProperty characterClassProperty() {
+    return characterClass;
+  }
+
+  public StringProperty levelProperty() {
+    return level;
+  }
+
+  public StringProperty strengthProperty() {
+    return strength;
+  }
+
+  public StringProperty strengthModProperty()
+  {
+    return strengthMod;
+  }
+
+  public StringProperty dexterityProperty() {
+    return dexterity;
+  }
+
+  public StringProperty dexterityModProperty()
+  {
+    return dexterityMod;
+  }
+
+  public StringProperty constitutionProperty() {
+    return constitution;
+  }
+
+  public StringProperty constitutionModProperty()
+  {
+    return constitutionMod;
+  }
+
+  public StringProperty intelligenceProperty() {
+    return intelligence;
+  }
+
+  public StringProperty intelligenceModProperty()
+  {
+    return intelligenceMod;
+  }
+
+  public StringProperty wisdomProperty() {
+    return wisdom;
+  }
+
+  public StringProperty wisdomModProperty()
+  {
+    return wisdomMod;
+  }
+
+  public StringProperty charismaProperty() {
+    return charisma;
+  }
+
+  public StringProperty charismaModProperty()
+  {
+    return charismaMod;
+  }
+
+  public StringProperty maxHpProperty() {
+    return maxHp;
+  }
+
+  public BooleanProperty isPlayAsCharacterDisabledProperty() {
+    return isPlayAsCharacterDisabled;
+  }
+
+  public StringProperty playAsCharacterTextProperty() {
+    return playAsCharacterText;
+  }
+
+  public StringProperty saveStatusTextProperty() {
+    return saveStatusText;
+  }
+
+  public ObjectProperty<Paint> saveStatusColorProperty() {
+    return saveStatusColor;
+  }
+
+  public ListProperty<Character> charactersProperty() {
+    return characters;
   }
 }

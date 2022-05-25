@@ -5,16 +5,16 @@ import Util.PropertyChangeSubject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class LobbyViewModel implements PropertyChangeSubject
 {
   private final StringProperty lobbyErrorProperty;
+  private final StringProperty lobbyIdTextProperty;
   private final ClientLobby lobby;
   public LobbyViewModel(ClientLobby clientLobby)
   {
     lobbyErrorProperty = new SimpleStringProperty("");
+    lobbyIdTextProperty = new SimpleStringProperty("");
     this.lobby = clientLobby;
   }
 
@@ -49,7 +49,11 @@ public class LobbyViewModel implements PropertyChangeSubject
     }
   }
 
-  public StringProperty lobbyErrorPropertyProperty() {
+  public StringProperty lobbyErrorProperty() {
     return lobbyErrorProperty;
+  }
+
+  public StringProperty lobbyIdTextProperty() {
+    return lobbyIdTextProperty;
   }
 }

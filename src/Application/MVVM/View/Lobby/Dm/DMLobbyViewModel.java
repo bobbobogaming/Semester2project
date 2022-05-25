@@ -5,6 +5,7 @@ import Application.Client.ClientLobby;
 import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableView;
 
@@ -14,15 +15,21 @@ import java.util.ArrayList;
 
 public class DMLobbyViewModel implements PropertyChangeListener
 {
-  private final StringProperty lobbyIdProperty;
-  private final ListProperty<InitWrapper> initList;
 
-  private final IntegerProperty indexProperty;
   private int localIndexCrossMethodeValue;
   private boolean fromLowerHealth;
 
-  private final ClientLobby client; //TODO should be chanced to a more fitting interface
+  private final ClientLobbyDM client;
+
+  private final StringProperty lobbyIdProperty;
+  private final ListProperty<InitWrapper> initList;
+  private final IntegerProperty indexProperty;
   private final StringProperty combatLockProperty;
+  private final BooleanProperty removeInitButtonDisableProperty;
+  private final StringProperty statsInfoTextProperty;
+  private final BooleanProperty statsInfoVisibleProperty;
+  private final StringProperty subtractHealthTextProperty;
+  private final BooleanProperty subtractHealthPaneVisibleProperty;
 
   public DMLobbyViewModel(Client client)
   {
@@ -34,15 +41,11 @@ public class DMLobbyViewModel implements PropertyChangeListener
 
     combatLockProperty = new SimpleStringProperty("Begin combat");
     indexProperty = new SimpleIntegerProperty();
-  }
-
-  public StringProperty lobbyIdProperty()
-  {
-    return lobbyIdProperty;
-  }
-
-  public IntegerProperty indexProperty() {
-    return indexProperty;
+    removeInitButtonDisableProperty = new SimpleBooleanProperty(false);
+    statsInfoTextProperty = new SimpleStringProperty();
+    statsInfoVisibleProperty = new SimpleBooleanProperty(false);
+    subtractHealthPaneVisibleProperty = new SimpleBooleanProperty(false);
+    subtractHealthTextProperty = new SimpleStringProperty("");
   }
 
   public void setLobbyId(String lobbyId)
@@ -74,29 +77,22 @@ public class DMLobbyViewModel implements PropertyChangeListener
     });
   }
 
-  public ListProperty<InitWrapper> initListProperty() {
-    return initList;
-  }
-
-  public void removeMonster(InitWrapper initWrapper) {
+  public void removeInitiative(InitWrapper initWrapper) {
     client.removeInitiativeFromLobby(initWrapper);
   }
 
-  public void lowerHealth(InitWrapper selectedItem,String amount) {
-    localIndexCrossMethodeValue = indexProperty.get();
-    fromLowerHealth = true;
-    int subtractionAmount = Integer.parseInt(amount);
-    selectedItem.setHp(selectedItem.getHp() - subtractionAmount);
-    client.updateInitList(selectedItem);
+  public void lowerHealth(InitWrapper selectedItem) {
+    if (!subtractHealthTextProperty.get().isEmpty() && !subtractHealthTextProperty.get().equals("-")) {
+      localIndexCrossMethodeValue = indexProperty.get();
+      fromLowerHealth = true;
+      int subtractionAmount = Integer.parseInt(subtractHealthTextProperty.get());
+      selectedItem.setHp(selectedItem.getHp() - subtractionAmount);
+      client.updateInitList(selectedItem);
+    }
   }
 
   public void switchCombatState() {
     client.switchCombatState();
-  }
-
-
-  public StringProperty combatLockProperty() {
-    return combatLockProperty;
   }
 
   public void bindBidirectionalIndexProperty(
@@ -108,5 +104,51 @@ public class DMLobbyViewModel implements PropertyChangeListener
     indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
       if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
     });
+  }
+
+  public void onTableSelectionChanged(ObservableValue<? extends InitWrapper> observableValue, InitWrapper oldSelection, InitWrapper newSelection) {
+    if (newSelection != null) {
+      removeInitButtonDisableProperty.set(false);
+      statsInfoTextProperty.set(newSelection.getFormattedStats());
+      statsInfoVisibleProperty.set(true);
+      subtractHealthPaneVisibleProperty.set(true);
+    } else {
+      removeInitButtonDisableProperty.set(true);
+      statsInfoVisibleProperty.set(false);
+      subtractHealthPaneVisibleProperty.set(false);
+    }
+  }
+
+  public StringProperty lobbyIdProperty()
+  {
+    return lobbyIdProperty;
+  }
+
+  public ListProperty<InitWrapper> initListProperty() {
+    return initList;
+  }
+
+  public StringProperty combatLockProperty() {
+    return combatLockProperty;
+  }
+
+  public BooleanProperty removeInitButtonDisableProperty() {
+    return removeInitButtonDisableProperty;
+  }
+
+  public StringProperty statsInfoTextProperty() {
+    return statsInfoTextProperty;
+  }
+
+  public BooleanProperty statsInfoVisibleProperty() {
+    return statsInfoVisibleProperty;
+  }
+
+  public BooleanProperty subtractHealthPaneVisibleProperty() {
+    return subtractHealthPaneVisibleProperty;
+  }
+
+  public StringProperty subtractHealthTextProperty() {
+    return subtractHealthTextProperty;
   }
 }

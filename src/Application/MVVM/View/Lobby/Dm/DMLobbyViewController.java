@@ -7,18 +7,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class DMLobbyViewController
 {
   @FXML private Button combatButton;
-  @FXML private Label subtractHealthLabel;
-  @FXML private Button proceedButton;
-  @FXML private Button removeMonsterButton;
-  @FXML private Text textArea;
+  @FXML private Button removeInitButton;
+  @FXML private Text statsInfo;
   @FXML private TableView<InitWrapper> initList;
   @FXML private Label lobbyId;
   @FXML private TextField subtractHealth;
+  @FXML private Pane subtractHealthPane;
 
   private DMLobbyViewModel viewModel;
 
@@ -35,29 +35,17 @@ public class DMLobbyViewController
 
     viewModel.bindBidirectionalIndexProperty(initList.getSelectionModel());
 
-    initList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)->{
-      if (newSelection != null) {
-        removeMonsterButton.setDisable(false);
-        textArea.setText(newSelection.getFormattedStats());
-        textArea.setVisible(true);
-        subtractHealth.setVisible(true);
-        proceedButton.setVisible(true);
-        subtractHealthLabel.setVisible(true);
-      } else {
-        removeMonsterButton.setDisable(true);
-        textArea.setVisible(false);
-        subtractHealth.setVisible(false);
-        proceedButton.setVisible(false);
-        subtractHealthLabel.setVisible(false);
-      }
-    });
+    removeInitButton.disableProperty().bind(viewModel.removeInitButtonDisableProperty());
+    statsInfo.textProperty().bind(viewModel.statsInfoTextProperty());
+    statsInfo.visibleProperty().bind(viewModel.statsInfoVisibleProperty());
+    subtractHealthPane.visibleProperty().bind(
+        viewModel.subtractHealthPaneVisibleProperty());
 
-    textArea.setVisible(false);
-    subtractHealth.setVisible(false);
-    proceedButton.setVisible(false);
-    subtractHealthLabel.setVisible(false);
+    subtractHealth.textProperty().bindBidirectional(viewModel.subtractHealthTextProperty());
 
     subtractHealth.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new NegativeNumberStrategy(8))));
+
+    initList.getSelectionModel().selectedItemProperty().addListener(viewModel::onTableSelectionChanged);
   }
 
   public void setLobbyId(String lobbyId){
@@ -65,11 +53,7 @@ public class DMLobbyViewController
   }
 
   public void onLowerHealth(ActionEvent actionEvent){
-    if (!subtractHealth.getText().isEmpty() && !subtractHealth.getText().equals("-")){
-      //int index = initList.getSelectionModel().selectedIndexProperty().get();
-      viewModel.lowerHealth(initList.getSelectionModel().getSelectedItem(),subtractHealth.getText());
-      //initList.getSelectionModel().clearAndSelect(index);
-    }
+    viewModel.lowerHealth(initList.getSelectionModel().getSelectedItem());
   }
 
   public void openMonsterList(ActionEvent actionEvent) {
@@ -77,7 +61,7 @@ public class DMLobbyViewController
   }
 
   public void onRemoveMonsterClick(ActionEvent actionEvent) {
-    viewModel.removeMonster(initList.getSelectionModel().getSelectedItem());
+    viewModel.removeInitiative(initList.getSelectionModel().getSelectedItem());
   }
 
   public void onStartCombat(ActionEvent actionEvent) {

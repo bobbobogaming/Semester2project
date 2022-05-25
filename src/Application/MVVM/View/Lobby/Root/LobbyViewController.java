@@ -28,7 +28,7 @@ public class LobbyViewController
     this.lobbyViewModel = lobbyViewModel;
 
     lobbyId.setTextFormatter(new TextFormatter<>(new UnaryFilterContext(new PosetiveNumberStrategy(8))));
-    lobbyError.textProperty().bind(lobbyViewModel.lobbyErrorPropertyProperty());
+    lobbyError.textProperty().bind(lobbyViewModel.lobbyErrorProperty());
   }
 
   public void createLobby(ActionEvent actionEvent)
