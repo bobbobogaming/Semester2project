@@ -33,6 +33,8 @@ public class DMLobbyViewController
     initList.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("hp"));
     initList.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("ac"));
 
+    viewModel.bindBidirectionalIndexProperty(initList.getSelectionModel());
+
     initList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)->{
       if (newSelection != null) {
         removeMonsterButton.setDisable(false);
@@ -64,9 +66,9 @@ public class DMLobbyViewController
 
   public void onLowerHealth(ActionEvent actionEvent){
     if (!subtractHealth.getText().isEmpty() && !subtractHealth.getText().equals("-")){
-      int index = initList.getSelectionModel().getSelectedIndex();
+      //int index = initList.getSelectionModel().selectedIndexProperty().get();
       viewModel.lowerHealth(initList.getSelectionModel().getSelectedItem(),subtractHealth.getText());
-      initList.getSelectionModel().select(index);
+      //initList.getSelectionModel().clearAndSelect(index);
     }
   }
 

@@ -3,14 +3,12 @@ package Application.MVVM.View.CharacterSheet;
 import Application.MVVM.Model.character.Character;
 import Util.textfieldfilter.PosetiveNumberStrategy;
 import Util.textfieldfilter.UnaryFilterContext;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.function.UnaryOperator;
 
@@ -71,7 +69,9 @@ public class CharacterViewController
     characterInfo.setVisible(false);
     playAsCharacter.setVisible(false);
 
-    characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
+    viewModel.bindBidirectionalIndexProperty(characterList.getSelectionModel());
+
+    /*characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
       while (change.next()){
       System.out.println(change.getList());
         if (!change.getList().isEmpty())
@@ -81,7 +81,7 @@ public class CharacterViewController
           }
         }
       }
-    });
+    });*/
 
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
@@ -113,14 +113,14 @@ public class CharacterViewController
   {
     if (characterList.getSelectionModel().getSelectedItem() == null) {
       viewModel.createCharacterSheet();
-      characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
+      //characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
       //viewModel.saveCharacterSheet(); Implementeres senere
     }
   }
 
   public void onCreateCharacterButton(ActionEvent actionEvent) {
-    characterList.getSelectionModel().select(-1);
+    //characterList.getSelectionModel().select(-1);
     viewModel.clearCharacterInfo();
     characterInfo.setVisible(true);
     //playAsCharacter.setVisible(false);
