@@ -11,4 +11,5 @@ public interface ClientCharacterSheet {
   void setCurrentCharacter(Character character);
   UserID getUserID();
   ArrayList<Character> getCharacters();
+  void deleteCharacter(Character character);
 }

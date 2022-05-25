@@ -1,13 +1,18 @@
 package Application.MVVM.View.TabPane;
 
+import Application.Client.UserID;
 import Application.MVVM.Core.ViewModelFactory;
 import Application.MVVM.View.Lobby.Dm.DMLobbyViewController;
+import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewController;
+import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewFactory;
+import Application.MVVM.View.Lobby.Dm.charactersheet.DMCharacterSheetViewModel;
 import Application.MVVM.View.Lobby.Player.PlayerLobbyViewController;
 import Util.PropertyChangeSubject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 
 import java.beans.PropertyChangeEvent;
@@ -40,15 +45,40 @@ public class TabViewModel implements PropertyChangeListener,
       setTabDmLobby(evt.getNewValue() + "");
     } else if (evt.getPropertyName().equals("connectAsPlayer")){
       setTabPlayerLobby(evt.getNewValue() + "");
-    } else if (evt.getPropertyName().equals("combatStarted")) {
-      addNewTabTest();
-    }else if (evt.getPropertyName().equals("combatEnded")) {
+    } else if (evt.getPropertyName().equals("generateCharacterViews")) {
+      ArrayList<UserID> userIDS = (ArrayList<UserID>) evt.getNewValue();
+      userIDS.forEach(this::addCharacterSheetTab);
+    }else if (evt.getPropertyName().equals("clearCharacterViews")) {
       clearCharacterSheetTaps();
     }
   }
 
   private void addNewTabTest() {
-    support.firePropertyChange("addCharacterSheetTabs",null, new Pane());
+    Tab tab = new Tab();
+    tab.setContent(new Pane());
+    support.firePropertyChange("addCharacterSheetTabs",null, tab);
+  }
+
+  private void addCharacterSheetTab(UserID userID) {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource(
+        "/Application/MVVM/View/Lobby/Dm/charactersheet/DMCharacterSheetView.fxml"));
+    try
+    {
+      Tab tab = new Tab();
+      tab.setContent(loader.load());
+      tab.setText(userID.getCurrentCharacter().getName());
+
+      DMCharacterSheetViewController DMCharacterSheetViewController = loader.getController();
+      DMCharacterSheetViewController.init(DMCharacterSheetViewFactory.getInstance()
+          .getCharacterSheetViewModelInstance(userID));
+
+      support.firePropertyChange("addCharacterSheetTabs",null, tab);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   private void clearCharacterSheetTaps(){

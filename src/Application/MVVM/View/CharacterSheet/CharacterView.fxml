@@ -11,7 +11,7 @@
    <children>
       <ListView fx:id="characterList" layoutX="14.0" layoutY="14.0" onKeyPressed="#testMethod" prefHeight="340.0" prefWidth="200.0" />
       <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCreateCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Create New" />
-      <Button disable="true" layoutX="116.0" layoutY="359.0" mnemonicParsing="false" onAction="#onRemoveCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Remove" />
+      <Button fx:id="removeCharacterButton" disable="true" layoutX="116.0" layoutY="359.0" mnemonicParsing="false" onAction="#onRemoveCharacterButton" prefHeight="25.0" prefWidth="98.0" text="Remove" />
       <Pane fx:id="characterInfo" layoutX="228.0" layoutY="16.0">
          <children>
             <Label layoutY="12.0" text="Character Name">
@@ -70,6 +70,7 @@
             </Label>
             <Button fx:id="playAsCharacter" layoutX="431.0" mnemonicParsing="false" onAction="#onPlayAsCharacterButton" prefHeight="25.0" prefWidth="125.0" text="Play as character" />
             <Button layoutX="462.0" layoutY="343.0" mnemonicParsing="false" onAction="#onSaveCharacterButton" text="Save Character" />
+            <Label fx:id="saveStatus" alignment="BOTTOM_RIGHT" layoutX="159.0" layoutY="284.0" prefHeight="80.0" prefWidth="300.0" text="status" />
          </children>
       </Pane>
    </children>

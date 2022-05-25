@@ -24,6 +24,10 @@ public class PosetiveNumberStrategy implements FilterStrategy {
       return null;
     }
 
+    if (change.getControlNewText().contains("-")){
+      return null;
+    }
+
     ParsePosition parsePosition = new ParsePosition(0);
     Object object = format.parse(change.getControlNewText(),parsePosition);
 

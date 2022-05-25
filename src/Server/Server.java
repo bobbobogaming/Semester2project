@@ -47,6 +47,9 @@ public class Server implements IServerModel {
             return false;
         }
     }
+    @Override public void disconnectFromLobby(int lobbyId, IClientModel client){
+        lobbies.get(lobbyId).removePlayer(client);
+    }
 
     @Override public void switchCombatState(int lobbyId) {
         lobbies.get(lobbyId).switchCombatState();
@@ -77,11 +80,20 @@ public class Server implements IServerModel {
         lobbies.get(lobbyId).updateInitiative(initiative);
     }
 
+    @Override public boolean isLobbyStarted(int lobbyId) {
+        return lobbies.get(lobbyId).isCombatStarted();
+    }
+
     public void saveCharacter(Character character, UserID userID) throws RemoteException, SQLException {
         System.out.println(character);
         characters.add(character);
         //CharacterInsertIntoDatabase insertData = new CharacterInsertIntoDatabase();
         //insertData.InsertCharacterIntoDatabase(character,userID);
+    }
+
+    @Override public void deleteCharacter(Character character, UserID userID)
+        throws RemoteException, SQLException {
+        characters.remove(character);
     }
 
     public ArrayList<Character> getCharacters(UserID userID) throws RemoteException {

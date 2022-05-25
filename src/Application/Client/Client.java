@@ -9,7 +9,6 @@ import Shared.IServerModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -56,8 +55,16 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     }
   }
 
-  @Override public String getUsername() throws RemoteException {
-    return userID.getName();
+  @Override public void deleteCharacter(Character character) {
+    try {
+      server.deleteCharacter(character, userID);
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+    catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override public UserID getUserID() {
@@ -88,6 +95,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
       boolean connected = server.connectToLobby(lobbyId, this);
       if (connected) {
         userID.setLobbyId(lobbyId);
+        userID.setInLobby(true);
         support.firePropertyChange("connectAsPlayer",null,lobbyId);
       }
       return connected;
@@ -155,16 +163,30 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
   }
 
   @Override public void joinCombatAsCharacter() {
+    boolean isLobbyStarted;
+
+    try {
+      isLobbyStarted = server.isLobbyStarted(userID.getLobbyId());
+    }
+    catch (RemoteException e) {
+      throw new RuntimeException(e);
+    }
+
     if (userID.getCurrentCharacter() == null) {
       //An error message is passed through newValue
       support.firePropertyChange("joinCombatFailed", null,
           "Please select a character before joining combat"
               + "\n(Character Sheet -> Select character -> Play as character)");
     }
-    else if (!userID.isInLobby()) {
+    else if (isLobbyStarted) {
+      //An error message is passed through newValue
+      support.firePropertyChange("joinCombatFailed", null,
+          "Can't join combat. A combat is currently ongoing");
+    }
+    else if (!userID.isInCombat()) {
       try {
         server.addInitiative(new InitWrapper(userID.getCurrentCharacter()),userID.getLobbyId());
-        userID.setInLobby(true);
+        userID.setInCombat(true);
         support.firePropertyChange("joinCombatSuccess", null, null);
       }
       catch (RemoteException e) {
@@ -174,7 +196,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     else {
       try {
         server.removeInitiative(new InitWrapper(userID.getCurrentCharacter()), userID.getLobbyId());
-        userID.setInLobby(false);
+        userID.setInCombat(false);
         support.firePropertyChange("leaveCombatSuccess", null, null);
       }
       catch (RemoteException e) {
@@ -201,13 +223,27 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     }
   }
 
+  @Override public void modifyDMCharacterViews(boolean isStarted, ArrayList<UserID> userIDS) {
+    if (isStarted) {
+      support.firePropertyChange("generateCharacterViews", null, userIDS);
+    }
+    else {
+      support.firePropertyChange("clearCharacterViews", null, null);
+    }
+  }
+
   @Override public void onExit()
   {
     try
     {
+      if (userID != null){
+        if (userID.isInLobby()) {
+          server.disconnectFromLobby(userID.getLobbyId(), this);
+        }
+      }
       UnicastRemoteObject.unexportObject(this,true);
     }
-    catch (NoSuchObjectException e)
+    catch (RemoteException e)
     {
       e.printStackTrace();
     }

@@ -3,8 +3,6 @@ package Application.MVVM.View.CharacterSheet;
 import Application.MVVM.Model.character.Character;
 import Util.textfieldfilter.PosetiveNumberStrategy;
 import Util.textfieldfilter.UnaryFilterContext;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,15 +10,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
-import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class CharacterViewController
 {
   @FXML private Pane characterInfo;
   @FXML private ListView<Character> characterList;
+  @FXML private Button removeCharacterButton;
   @FXML private TextField nameField;
   @FXML private TextField classField;
   @FXML private TextField levelField;
@@ -38,6 +34,7 @@ public class CharacterViewController
   @FXML private Label charMod;
   @FXML private TextField charField;
   @FXML private Button playAsCharacter;
+  @FXML private Label saveStatus;
 
   private CharacterViewModel viewModel;
 
@@ -61,6 +58,9 @@ public class CharacterViewController
     charField.textProperty().bindBidirectional(viewModel.charismaProperty());
     charMod.textProperty().bind(viewModel.charismaModProperty());
 
+    saveStatus.textProperty().bind(viewModel.saveStatusTextProperty());
+    saveStatus.textFillProperty().bind(viewModel.saveStatusColorProperty());
+
     characterList.itemsProperty().bind(viewModel.charactersProperty());
 
     playAsCharacter.disableProperty().bind(
@@ -69,7 +69,9 @@ public class CharacterViewController
     characterInfo.setVisible(false);
     playAsCharacter.setVisible(false);
 
-    characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
+    viewModel.bindBidirectionalIndexProperty(characterList.getSelectionModel());
+
+    /*characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
       while (change.next()){
       System.out.println(change.getList());
         if (!change.getList().isEmpty())
@@ -79,15 +81,17 @@ public class CharacterViewController
           }
         }
       }
-    });
+    });*/
 
     characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
       if (newValue != null){
+        removeCharacterButton.setDisable(false);
         viewModel.updatePlayAsCharacterButton(newValue);
         characterInfo.setVisible(true);
         viewModel.updateCharacterInfo(newValue);
         playAsCharacter.setVisible(true);
       } else {
+        removeCharacterButton.setDisable(true);
         characterInfo.setVisible(false);
         playAsCharacter.setVisible(false);
       }
@@ -109,20 +113,23 @@ public class CharacterViewController
   {
     if (characterList.getSelectionModel().getSelectedItem() == null) {
       viewModel.createCharacterSheet();
-      characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
+      //characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
       //viewModel.saveCharacterSheet(); Implementeres senere
     }
   }
 
   public void onCreateCharacterButton(ActionEvent actionEvent) {
-    characterList.getSelectionModel().select(-1);
+    //characterList.getSelectionModel().select(-1);
     viewModel.clearCharacterInfo();
     characterInfo.setVisible(true);
     //playAsCharacter.setVisible(false);
   }
 
   public void onRemoveCharacterButton(ActionEvent actionEvent) {
+    if (characterList.getSelectionModel().getSelectedItem() != null){
+      viewModel.removeCharacter(characterList.getSelectionModel().getSelectedItem());
+    }
   }
 
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {

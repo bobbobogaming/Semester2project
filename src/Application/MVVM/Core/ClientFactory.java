@@ -25,8 +25,7 @@ public class ClientFactory
     return instance;
   }
 
-  public Client getClient()
-  {
+  public Client getClient() {
     if (client == null)
     {
       synchronized (lock){

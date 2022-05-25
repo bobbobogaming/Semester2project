@@ -5,6 +5,11 @@ import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.Model.character.Character;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
+import java.util.ArrayList;
 
 public class CharacterViewModel
 {
@@ -26,11 +31,14 @@ public class CharacterViewModel
   private final StringProperty maxHp;
   private final BooleanProperty isPlayAsCharacterDisabled;
   private final StringProperty playAsCharacterText;
+  private final StringProperty saveStatusText;
+  private final ObjectProperty<Paint> saveStatusColor;
 
   private final ListProperty<Character> characters;
 
   private final ClientCharacterSheet client;
   private final ICharacterSheetModel characterSheetModel;
+  private final IntegerProperty indexProperty;
 
   public CharacterViewModel(ICharacterSheetModel characterSheetModel,
       ClientCharacterSheet client)
@@ -67,6 +75,10 @@ public class CharacterViewModel
     isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
     playAsCharacterText = new SimpleStringProperty("Play as character");
 
+    saveStatusText = new SimpleStringProperty();
+    saveStatusColor = new SimpleObjectProperty<>(Color.BLACK);
+
+    indexProperty = new SimpleIntegerProperty();
 
     this.characterSheetModel = characterSheetModel;
     this.client = client;
@@ -152,6 +164,14 @@ public class CharacterViewModel
     return playAsCharacterText;
   }
 
+  public StringProperty saveStatusTextProperty() {
+    return saveStatusText;
+  }
+
+  public ObjectProperty<Paint> saveStatusColorProperty() {
+    return saveStatusColor;
+  }
+
   public ListProperty<Character> charactersProperty() {
     return characters;
   }
@@ -166,6 +186,20 @@ public class CharacterViewModel
   }
 
   public void createCharacterSheet(){
+    if (characterName.getValue().isEmpty() ||
+        strength.getValue().isEmpty() ||
+        dexterity.getValue().isEmpty() ||
+        constitution.getValue().isEmpty() ||
+        intelligence.getValue().isEmpty() ||
+        wisdom.getValue().isEmpty() ||
+        charisma.getValue().isEmpty() ||
+        level.getValue().isEmpty() ||
+        characterClass.getValue().isEmpty() ||
+        maxHp.getValue().isEmpty()) {
+      saveStatusColor.set(Color.RED);
+      saveStatusText.setValue("All values must be set before saving");
+      return;
+    }
     characterSheetModel.makeCharacter(
         characterName.getValue(),
         Integer.parseInt(strength.getValue()),
@@ -178,15 +212,16 @@ public class CharacterViewModel
         characterClass.getValue(),
         Integer.parseInt(maxHp.getValue()));
     characters.clear();
-    characters.addAll(client.getCharacters());
-  }
-
-  public void saveCharacterSheet(Character character, String name,String str, String dex, String con, String intel,
-      String wis, String cha, String maxHp) {
-
+    ArrayList<Character> newCharacters = client.getCharacters();
+    characters.addAll(newCharacters);
+    for (int i = 0; i < newCharacters.size(); i++) {
+      if (newCharacters.get(i).getName().equals(characterName.getValue())) indexProperty.set(i);
+    }
   }
 
   public void updateCharacterInfo(Character character) {
+    saveStatusText.setValue("");
+
     characterName.set(character.getName());
     characterClass.set(character.getcClass());
     level.set(character.getLevel() + "");
@@ -201,6 +236,8 @@ public class CharacterViewModel
 
   public void clearCharacterInfo() {
     characterName.set("");
+    characterClass.set("");
+    level.set("");
     strength.set("");
     dexterity.set("");
     constitution.set("");
@@ -208,6 +245,8 @@ public class CharacterViewModel
     wisdom.set("");
     charisma.set("");
     maxHp.set("");
+
+    indexProperty.set(-1);
   }
 
   public void playAsCharacter(Character character) {
@@ -223,5 +262,26 @@ public class CharacterViewModel
       isPlayAsCharacterDisabled.set(false);
       playAsCharacterText.set("Play as character");
     }
+  }
+
+  public void removeCharacter(Character character){
+    client.deleteCharacter(character);
+    characters.clear();
+    characters.addAll(client.getCharacters());
+  }
+
+  public IntegerProperty indexProperty() {
+    return indexProperty;
+  }
+
+  public void bindBidirectionalIndexProperty(
+      MultipleSelectionModel<Character> selectionModel){
+    selectionModel.selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) -> {
+      if (newIndex.intValue() != indexProperty.get()) indexProperty.setValue(newIndex.intValue());
+    });
+
+    indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
+      if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
+    });
   }
 }

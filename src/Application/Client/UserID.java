@@ -8,6 +8,7 @@ public class UserID implements Serializable
 {
   private final String name;
   private boolean isInLobby = false;
+  private boolean isInCombat = false;
   private int lobbyId;
   private Character currentCharacter;
 
@@ -26,6 +27,14 @@ public class UserID implements Serializable
 
   public void setLobbyId(int lobbyId) {
     this.lobbyId = lobbyId;
+  }
+
+  public boolean isInCombat() {
+    return isInCombat;
+  }
+
+  public void setInCombat(boolean inCombat) {
+    isInCombat = inCombat;
   }
 
   public boolean isInLobby() {

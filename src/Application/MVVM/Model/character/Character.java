@@ -24,7 +24,6 @@ public class Character implements Serializable, IStatFormat
     this.level = level;
   }
 
-
   public Stats getStats()
   {
     return stats;
@@ -52,9 +51,6 @@ public class Character implements Serializable, IStatFormat
         + String.format("INT: %d (%d)",stats.getIntelligence(),stats.getIntelligenceModifier()) +"\n"
         + String.format("WIS: %d (%d)",stats.getWisdom(),stats.getWisdomModifier()) +"\n"
         + String.format("CHA: %d (%d)",stats.getCharisma(),stats.getCharismaModifier());
-  }
-  public Character getCharacter(){
-    return this;
   }
 
   @Override
