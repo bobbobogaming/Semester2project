@@ -107,19 +107,27 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLob
   @Override public void setUserID(UserID userID)
   {
     this.userID = userID;
-
+    try {
+      server.saveUser(userID);
+    } catch (RemoteException e) {
+      throw new RuntimeException(e);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
     support.firePropertyChange("Tabs",null,null);
   }
 
   @Override public void getMonsters() {
     ArrayList<Monster> arrayList = new ArrayList<>();
-
+/*
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","per",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10,20),10,"10","cat",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","dog",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","simon",new ArrayList<>()));
 
-    /*
+ */
+
+
     try {
       arrayList = server.getMonsters();
     } catch (RemoteException e) {
@@ -127,7 +135,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLob
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-    */
+
     support.firePropertyChange("MonsterView",null,arrayList);
   }
 
