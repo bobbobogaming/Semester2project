@@ -17,10 +17,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAddMonster, ClientChooseCharacter, ClientCharacterSheet
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLobbyDM, ClientLobbyPlayer, ClientAddMonster, ClientChooseCharacter, ClientCharacterSheet
 {
   private final IServerModel server;
-  private PropertyChangeSupport support;
+  private final PropertyChangeSupport support;
   private UserID userID;
 
   public Client() throws RemoteException, NotBoundException
@@ -31,12 +31,12 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     support = new PropertyChangeSupport(this);
   }
 
-  @Override public void makeCharacter(Character character) throws SQLException {
-    //System.out.println(character);
+  @Override public void makeCharacter(String name,int str, int dex, int con, int intel,
+      int wis, int cha, int lvl, String cClass, int maxHp) {
     try {
-      server.saveCharacter(character, userID);
+      server.saveCharacter(new Character(new Stats(str,dex,con,intel,wis,cha,maxHp),name,lvl,cClass), userID);
     }
-    catch (RemoteException e) {
+    catch (RemoteException | SQLException e) {
       throw new RuntimeException(e);
     }
   }
@@ -59,10 +59,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     try {
       server.deleteCharacter(character, userID);
     }
-    catch (RemoteException e) {
-      throw new RuntimeException(e);
-    }
-    catch (SQLException e) {
+    catch (RemoteException | SQLException e) {
       throw new RuntimeException(e);
     }
   }
@@ -150,7 +147,7 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientAdd
     catch (RemoteException e) {
       throw new RuntimeException(e);
     }
-  };
+  }
 
   @Override
   public void addInitiativeToLobby(InitWrapper initiative) {

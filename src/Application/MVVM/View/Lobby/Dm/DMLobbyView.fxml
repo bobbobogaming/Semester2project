@@ -27,15 +27,19 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="366.0" mnemonicParsing="false" onAction="#openMonsterList" prefHeight="25.0" prefWidth="135.0" text="Add monster" />
-      <Button fx:id="removeMonsterButton" disable="true" layoutX="174.0" layoutY="366.0" mnemonicParsing="false" onAction="#onRemoveMonsterClick" prefHeight="25.0" prefWidth="135.0" text="Remove init" />
+      <Button fx:id="removeInitButton" disable="true" layoutX="174.0" layoutY="366.0" mnemonicParsing="false" onAction="#onRemoveMonsterClick" prefHeight="25.0" prefWidth="135.0" text="Remove init" />
       <Button fx:id="combatButton" layoutX="689.0" layoutY="358.0" mnemonicParsing="false" onAction="#onStartCombat" prefHeight="33.0" prefWidth="101.0" text="Start combat" />
-       <Text fx:id="textArea" layoutX="312.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="114.0">
+       <Text fx:id="statsInfo" layoutX="312.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="114.0">
            <font>
                <Font size="18.0" />
            </font>
        </Text>
-      <TextField fx:id="subtractHealth" layoutX="540.0" layoutY="33.0" onAction="#onLowerHealth" prefHeight="25.0" prefWidth="87.0" promptText="Subtract HP" />
-      <Label fx:id="subtractHealthLabel" layoutX="470.0" layoutY="37.0" text="Subtract HP" />
-      <Button fx:id="proceedButton" layoutX="628.0" layoutY="33.0" mnemonicParsing="false" onAction="#onLowerHealth" prefHeight="25.0" prefWidth="63.0" text="Proceed" />
+      <Pane fx:id="subtractHealthPane" layoutX="470.0" layoutY="33.0">
+         <children>
+            <TextField fx:id="subtractHealth" layoutX="70.0" onAction="#onLowerHealth" prefHeight="25.0" prefWidth="87.0" promptText="Subtract HP" />
+            <Label layoutY="4.0" text="Subtract HP" />
+            <Button layoutX="158.0" mnemonicParsing="false" onAction="#onLowerHealth" prefHeight="25.0" prefWidth="63.0" text="Proceed" />
+         </children>
+      </Pane>
    </children>
 </Pane>

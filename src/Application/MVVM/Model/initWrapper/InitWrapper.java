@@ -12,7 +12,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private int hp;
   private int ac;
   private final boolean isMonster;
-  private IStatFormat source;
+  private final IStatFormat source;
 
   public InitWrapper(Monster monster){
     init = ThreadLocalRandom.current().nextInt(20) + monster.getMonsterStats().getDexterityModifier();

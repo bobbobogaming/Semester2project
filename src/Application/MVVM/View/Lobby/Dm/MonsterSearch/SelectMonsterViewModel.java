@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class SelectMonsterViewModel {
 
-  private ListProperty<Monster> monsterList;
+  private final ListProperty<Monster> monsterList;
   private ArrayList<Monster> monsterListItems;
-  private ClientAddMonster clientAddMonster;
+  private final ClientAddMonster clientAddMonster;
 
   public SelectMonsterViewModel(ClientAddMonster clientAddMonster) {
     this.clientAddMonster = clientAddMonster;
@@ -41,6 +41,8 @@ public class SelectMonsterViewModel {
     monsterList.addAll(monsterListItems);
   }
   public void addMonster(Monster monster){
-    clientAddMonster.addInitiativeToLobby(new InitWrapper(monster));
+    if (monster != null){
+      clientAddMonster.addInitiativeToLobby(new InitWrapper(monster));
+    }
   }
 }

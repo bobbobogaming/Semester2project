@@ -1,9 +1,10 @@
 package Application.MVVM.View.CharacterSheet;
 
 import Application.Client.ClientCharacterSheet;
-import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
+
 import Application.MVVM.Model.character.Character;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.paint.Color;
@@ -34,14 +35,16 @@ public class CharacterViewModel
   private final StringProperty saveStatusText;
   private final ObjectProperty<Paint> saveStatusColor;
 
+  private final BooleanProperty removeCharacterButtonDisabled;
+  private final BooleanProperty characterInfoVisible;
+  private final BooleanProperty playAsCharacterVisible;
+
   private final ListProperty<Character> characters;
 
   private final ClientCharacterSheet client;
-  private final ICharacterSheetModel characterSheetModel;
   private final IntegerProperty indexProperty;
 
-  public CharacterViewModel(ICharacterSheetModel characterSheetModel,
-      ClientCharacterSheet client)
+  public CharacterViewModel(ClientCharacterSheet client)
   {
     characterName = new SimpleStringProperty();
     strength = new SimpleStringProperty();
@@ -75,15 +78,146 @@ public class CharacterViewModel
     isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
     playAsCharacterText = new SimpleStringProperty("Play as character");
 
+    removeCharacterButtonDisabled = new SimpleBooleanProperty();
+    characterInfoVisible = new SimpleBooleanProperty(false);
+    playAsCharacterVisible = new SimpleBooleanProperty(false);
+
     saveStatusText = new SimpleStringProperty();
     saveStatusColor = new SimpleObjectProperty<>(Color.BLACK);
 
     indexProperty = new SimpleIntegerProperty();
 
-    this.characterSheetModel = characterSheetModel;
     this.client = client;
 
     characters = new SimpleListProperty<>(FXCollections.observableArrayList(client.getCharacters()));
+  }
+
+  private String setModStat(String stat)
+  {
+    if (!stat.isEmpty()){
+      int mod = Math.floorDiv(Integer.parseInt(stat) - 10, 2);
+      return (mod >= 0)?("+" + mod):(mod + "");
+    }
+    return "";
+  }
+
+  public void createCharacterSheet(){
+    if (characterName.getValue().isEmpty() ||
+        strength.getValue().isEmpty() ||
+        dexterity.getValue().isEmpty() ||
+        constitution.getValue().isEmpty() ||
+        intelligence.getValue().isEmpty() ||
+        wisdom.getValue().isEmpty() ||
+        charisma.getValue().isEmpty() ||
+        level.getValue().isEmpty() ||
+        characterClass.getValue().isEmpty() ||
+        maxHp.getValue().isEmpty()) {
+      saveStatusColor.set(Color.RED);
+      saveStatusText.setValue("All values must be set before saving");
+      return;
+    }
+
+    client.makeCharacter(
+        characterName.getValue(),
+        Integer.parseInt(strength.getValue()),
+        Integer.parseInt(dexterity.getValue()),
+        Integer.parseInt(constitution.getValue()),
+        Integer.parseInt(intelligence.getValue()),
+        Integer.parseInt(wisdom.getValue()),
+        Integer.parseInt(charisma.getValue()),
+        Integer.parseInt(level.getValue()),
+        characterClass.getValue(),
+        Integer.parseInt(maxHp.getValue()));
+
+    characters.clear();
+    ArrayList<Character> newCharacters = client.getCharacters();
+    characters.addAll(newCharacters);
+    for (int i = 0; i < newCharacters.size(); i++) {
+      if (newCharacters.get(i).getName().equals(characterName.getValue())) indexProperty.set(i);
+    }
+  }
+
+  public void updateCharacterInfo(Character character) {
+    characterInfoVisible.set(true);
+    saveStatusText.setValue("");
+
+    characterName.set(character.getName());
+    characterClass.set(character.getcClass());
+    level.set(character.getLevel() + "");
+    strength.set(character.getStats().getStrength() + "");
+    dexterity.set(character.getStats().getDexterity() + "");
+    constitution.set(character.getStats().getConstitution() + "");
+    intelligence.set(character.getStats().getIntelligence() + "");
+    wisdom.set(character.getStats().getWisdom() + "");
+    charisma.set(character.getStats().getCharisma() + "");
+    maxHp.setValue(character.getStats().getMaxHP() + "");
+  }
+
+  public void clearCharacterInfo() {
+    characterName.set("");
+    characterClass.set("");
+    level.set("");
+    strength.set("");
+    dexterity.set("");
+    constitution.set("");
+    intelligence.set("");
+    wisdom.set("");
+    charisma.set("");
+    maxHp.set("");
+
+    indexProperty.set(-1);
+    characterInfoVisible.set(true);
+  }
+
+  public void playAsCharacter(Character character) {
+    if (character != null) {
+      client.setCurrentCharacter(character);
+    }
+  }
+
+  public void updatePlayAsCharacterButton(Character character) {
+    if (character != null) {
+      if (character.equals(client.getUserID().getCurrentCharacter())) {
+        isPlayAsCharacterDisabled.set(true);
+        playAsCharacterText.set("Playing as character");
+      }
+      else {
+        isPlayAsCharacterDisabled.set(false);
+        playAsCharacterText.set("Play as character");
+      }
+      playAsCharacterVisible.set(true);
+    }
+  }
+
+  public void removeCharacter(Character character){
+    if (character != null) {
+      client.deleteCharacter(character);
+      characters.clear();
+      characters.addAll(client.getCharacters());
+    }
+  }
+
+  public void bindBidirectionalIndexProperty(
+      MultipleSelectionModel<Character> selectionModel){
+    selectionModel.selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) -> {
+      if (newIndex.intValue() != indexProperty.get()) indexProperty.setValue(newIndex.intValue());
+    });
+
+    indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
+      if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
+    });
+  }
+
+  public void onTableSelectionChanged(ObservableValue<? extends Character> obs, Character oldValue,Character newValue){
+    if (newValue != null){
+      removeCharacterButtonDisabled.set(false);
+      updatePlayAsCharacterButton(newValue);
+      updateCharacterInfo(newValue);
+    } else {
+      removeCharacterButtonDisabled.set(true);
+      characterInfoVisible.set(false);
+      playAsCharacterVisible.set(false);
+    }
   }
 
   public StringProperty characterNameProperty() {
@@ -176,112 +310,15 @@ public class CharacterViewModel
     return characters;
   }
 
-  private String setModStat(String stat)
-  {
-    if (!stat.isEmpty()){
-      int mod = Math.floorDiv(Integer.parseInt(stat) - 10, 2);
-      return (mod >= 0)?("+" + mod):(mod + "");
-    }
-    return "";
+  public BooleanProperty removeCharacterButtonDisabledProperty() {
+    return removeCharacterButtonDisabled;
   }
 
-  public void createCharacterSheet(){
-    if (characterName.getValue().isEmpty() ||
-        strength.getValue().isEmpty() ||
-        dexterity.getValue().isEmpty() ||
-        constitution.getValue().isEmpty() ||
-        intelligence.getValue().isEmpty() ||
-        wisdom.getValue().isEmpty() ||
-        charisma.getValue().isEmpty() ||
-        level.getValue().isEmpty() ||
-        characterClass.getValue().isEmpty() ||
-        maxHp.getValue().isEmpty()) {
-      saveStatusColor.set(Color.RED);
-      saveStatusText.setValue("All values must be set before saving");
-      return;
-    }
-    characterSheetModel.makeCharacter(
-        characterName.getValue(),
-        Integer.parseInt(strength.getValue()),
-        Integer.parseInt(dexterity.getValue()),
-        Integer.parseInt(constitution.getValue()),
-        Integer.parseInt(intelligence.getValue()),
-        Integer.parseInt(wisdom.getValue()),
-        Integer.parseInt(charisma.getValue()),
-        Integer.parseInt(level.getValue()),
-        characterClass.getValue(),
-        Integer.parseInt(maxHp.getValue()));
-    characters.clear();
-    ArrayList<Character> newCharacters = client.getCharacters();
-    characters.addAll(newCharacters);
-    for (int i = 0; i < newCharacters.size(); i++) {
-      if (newCharacters.get(i).getName().equals(characterName.getValue())) indexProperty.set(i);
-    }
+  public BooleanProperty characterInfoVisibleProperty() {
+    return characterInfoVisible;
   }
 
-  public void updateCharacterInfo(Character character) {
-    saveStatusText.setValue("");
-
-    characterName.set(character.getName());
-    characterClass.set(character.getcClass());
-    level.set(character.getLevel() + "");
-    strength.set(character.getStats().getStrength() + "");
-    dexterity.set(character.getStats().getDexterity() + "");
-    constitution.set(character.getStats().getConstitution() + "");
-    intelligence.set(character.getStats().getIntelligence() + "");
-    wisdom.set(character.getStats().getWisdom() + "");
-    charisma.set(character.getStats().getCharisma() + "");
-    maxHp.setValue(character.getStats().getMaxHP() + "");
-  }
-
-  public void clearCharacterInfo() {
-    characterName.set("");
-    characterClass.set("");
-    level.set("");
-    strength.set("");
-    dexterity.set("");
-    constitution.set("");
-    intelligence.set("");
-    wisdom.set("");
-    charisma.set("");
-    maxHp.set("");
-
-    indexProperty.set(-1);
-  }
-
-  public void playAsCharacter(Character character) {
-    client.setCurrentCharacter(character);
-  }
-
-  public void updatePlayAsCharacterButton(Character character) {
-    if (character.equals(client.getUserID().getCurrentCharacter())) {
-      isPlayAsCharacterDisabled.set(true);
-      playAsCharacterText.set("Playing as character");
-    }
-    else {
-      isPlayAsCharacterDisabled.set(false);
-      playAsCharacterText.set("Play as character");
-    }
-  }
-
-  public void removeCharacter(Character character){
-    client.deleteCharacter(character);
-    characters.clear();
-    characters.addAll(client.getCharacters());
-  }
-
-  public IntegerProperty indexProperty() {
-    return indexProperty;
-  }
-
-  public void bindBidirectionalIndexProperty(
-      MultipleSelectionModel<Character> selectionModel){
-    selectionModel.selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) -> {
-      if (newIndex.intValue() != indexProperty.get()) indexProperty.setValue(newIndex.intValue());
-    });
-
-    indexProperty.addListener((observableValue, oldNumber, newNumber) -> {
-      if (selectionModel.getSelectedIndex() != newNumber.intValue()) selectionModel.clearAndSelect(newNumber.intValue());
-    });
+  public BooleanProperty playAsCharacterVisibleProperty() {
+    return playAsCharacterVisible;
   }
 }

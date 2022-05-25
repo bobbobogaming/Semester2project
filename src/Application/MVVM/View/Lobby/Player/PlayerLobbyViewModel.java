@@ -1,7 +1,7 @@
 package Application.MVVM.View.Lobby.Player;
 
 import Application.Client.Client;
-import Application.Client.ClientLobby;
+import Application.Client.ClientLobbyPlayer;
 import Application.MVVM.Model.initWrapper.InitWrapper;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -22,7 +22,7 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
   private final ObjectProperty<Paint> lobbyStatusMessageColor;
   private final StringProperty joinCombatButtonText;
 
-  public ClientLobby client; //TODO should be chanced to a more fitting interface
+  public ClientLobbyPlayer client;
 
   public PlayerLobbyViewModel(Client client)
   {
@@ -36,26 +36,13 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
     joinCombatButtonText = new SimpleStringProperty("Join Combat");
   }
 
-  public StringProperty lobbyIdProperty()
-  {
-    return lobbyIdProperty;
-  }
-
-  public StringProperty lobbyStatusMessageTextProperty() {
-    return lobbyStatusMessageText;
-  }
-
-  public ObjectProperty<Paint> lobbyStatusMessageColorProperty() {
-    return lobbyStatusMessageColor;
-  }
-
-  public StringProperty joinCombatButtonTextProperty() {
-    return joinCombatButtonText;
-  }
-
   public void setLobbyId(String lobbyId)
   {
     lobbyIdProperty.setValue("Lobby id: " + lobbyId);
+  }
+
+  public void joinCombat() {
+    client.joinCombatAsCharacter();
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
@@ -102,11 +89,24 @@ public class PlayerLobbyViewModel implements PropertyChangeListener {
     });
   }
 
-  public ListProperty<InitWrapper> initListProperty() {
-    return initList;
+  public StringProperty lobbyIdProperty()
+  {
+    return lobbyIdProperty;
   }
 
-  public void joinCombat() {
-    client.joinCombatAsCharacter();
+  public StringProperty lobbyStatusMessageTextProperty() {
+    return lobbyStatusMessageText;
+  }
+
+  public ObjectProperty<Paint> lobbyStatusMessageColorProperty() {
+    return lobbyStatusMessageColor;
+  }
+
+  public StringProperty joinCombatButtonTextProperty() {
+    return joinCombatButtonText;
+  }
+
+  public ListProperty<InitWrapper> initListProperty() {
+    return initList;
   }
 }

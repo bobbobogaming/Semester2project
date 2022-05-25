@@ -49,6 +49,12 @@ public class DMCharacterSheetViewModel {
     maxHp = new SimpleStringProperty(userID.getCurrentCharacter().getStats().getMaxHP() + "");
 
   }
+
+  private String formatStatsString(int stat)
+  {
+    return (stat >= 0)?("+" + stat):(stat + "");
+  }
+
   public StringProperty characterNameProperty() {
     return characterName;
   }
@@ -117,11 +123,6 @@ public class DMCharacterSheetViewModel {
 
   public StringProperty maxHpProperty() {
     return maxHp;
-  }
-
-  private String formatStatsString(int stat)
-  {
-    return (stat >= 0)?("+" + stat):(stat + "");
   }
 
   public StringProperty playerNameProperty() {

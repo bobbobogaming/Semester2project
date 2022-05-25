@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class UnaryFilterContext implements UnaryOperator<TextFormatter.Change> {
-  private FilterStrategy strategy;
+  private final FilterStrategy strategy;
 
   public UnaryFilterContext(FilterStrategy strategy){
     this.strategy = strategy;

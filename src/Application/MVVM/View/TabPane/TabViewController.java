@@ -6,7 +6,6 @@ import Application.MVVM.View.Lobby.Root.LobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -29,16 +28,10 @@ public class TabViewController implements PropertyChangeListener
     viewModel.addPropertyChangeListener(this);
 
     lobbyViewController.init(lobbyViewModel);
-    lobbyViewModel.addPropertyChangeListener(tabViewModel);
     characterViewController.init(characterViewModel);
 
     viewModel.lobbyTabProperty().setValue(lobbyTab.getContent());
     lobbyTab.contentProperty().bind(viewModel.lobbyTabProperty());
-  }
-
-  public void onExit()
-  {
-    lobbyViewController.onExit();
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
@@ -50,5 +43,10 @@ public class TabViewController implements PropertyChangeListener
         tabPane.getTabs().remove(2,tabPane.getTabs().size());
       }
     });
+  }
+
+  public void onExit()
+  {
+    lobbyViewController.onExit();
   }
 }

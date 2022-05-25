@@ -1,4 +1,4 @@
-package Test.Character;
+/*package Test.Character;
 
 import Application.MVVM.Core.ClientFactory;
 import Test.TestrelatedFiles.CharacterSheetModelTest;
@@ -146,10 +146,11 @@ class CharacterViewModelTest {
 
         assertEquals("+4",result);
     }
+}
 
     @Test
     public void saveCharacterInDatabase(){
 
 
     }
-}
+}*/

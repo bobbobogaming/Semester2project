@@ -29,9 +29,7 @@ public class SelectMonsterViewController {
   }
 
   public void onButtonAddMonster(ActionEvent actionEvent) {
-    if (monsterList.getSelectionModel().getSelectedItem() != null) {
-      selectMonsterViewModel.addMonster(monsterList.getSelectionModel().getSelectedItem());
-    }
+    selectMonsterViewModel.addMonster(monsterList.getSelectionModel().getSelectedItem());
     ((Stage) monsterList.getScene().getWindow()).close();
   }
 

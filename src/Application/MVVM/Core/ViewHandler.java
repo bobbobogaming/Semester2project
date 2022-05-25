@@ -20,10 +20,10 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ViewHandler implements PropertyChangeListener
 {
   private Scene currentScene;
-  private Stage currentStage;
-  private ViewModelFactory viewModelFactory;
+  private final Stage currentStage;
+  private final ViewModelFactory viewModelFactory;
   private static ViewHandler instance;
-  private static Lock lock = new ReentrantLock();
+  private static final Lock lock = new ReentrantLock();
 
   public static ViewHandler getInstance(Stage stage) {
     if (instance == null){
@@ -42,14 +42,15 @@ public class ViewHandler implements PropertyChangeListener
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start(String view) throws IOException
+  public void start() throws IOException
   {
     FXMLLoader loader = new FXMLLoader();
     Parent root = null;
     loader.setLocation(getClass().getResource("/Application/MVVM/View/Login/LoginView.fxml"));
     root = loader.load();
     LoginViewController loginViewController = loader.getController();
-    loginViewController.init(viewModelFactory.getLoginViewModel(this));
+    loginViewController.init(viewModelFactory.getLoginViewModel());
+    viewModelFactory.getLoginViewModel().addPropertyChangeListener(this);
     currentStage.setTitle("Dnd support");
 
     currentScene = new Scene(root);

@@ -6,8 +6,6 @@ import Util.textfieldfilter.UnaryFilterContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.function.UnaryOperator;
@@ -63,42 +61,17 @@ public class CharacterViewController
 
     characterList.itemsProperty().bind(viewModel.charactersProperty());
 
-    playAsCharacter.disableProperty().bind(
-        viewModel.isPlayAsCharacterDisabledProperty());
+    playAsCharacter.disableProperty().bind(viewModel.isPlayAsCharacterDisabledProperty());
     playAsCharacter.textProperty().bind(viewModel.playAsCharacterTextProperty());
-    characterInfo.setVisible(false);
-    playAsCharacter.setVisible(false);
+    characterInfo.visibleProperty().bind(viewModel.characterInfoVisibleProperty());
+    playAsCharacter.visibleProperty().bind(viewModel.playAsCharacterVisibleProperty());
+    removeCharacterButton.visibleProperty().bind(viewModel.removeCharacterButtonDisabledProperty());
 
     viewModel.bindBidirectionalIndexProperty(characterList.getSelectionModel());
 
-    /*characterList.itemsProperty().get().addListener((ListChangeListener<Character>) change -> {
-      while (change.next()){
-      System.out.println(change.getList());
-        if (!change.getList().isEmpty())
-        {
-          for (int i = 0; i < change.getList().size(); i++) {
-            if (change.getList().get(i).getName().equals(nameField.getText())) characterList.getSelectionModel().clearAndSelect(i);
-          }
-        }
-      }
-    });*/
-
-    characterList.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue) -> {
-      if (newValue != null){
-        removeCharacterButton.setDisable(false);
-        viewModel.updatePlayAsCharacterButton(newValue);
-        characterInfo.setVisible(true);
-        viewModel.updateCharacterInfo(newValue);
-        playAsCharacter.setVisible(true);
-      } else {
-        removeCharacterButton.setDisable(true);
-        characterInfo.setVisible(false);
-        playAsCharacter.setVisible(false);
-      }
-    });
+    characterList.getSelectionModel().selectedItemProperty().addListener(viewModel::onTableSelectionChanged);
 
     UnaryOperator<TextFormatter.Change> filter = new UnaryFilterContext(new PosetiveNumberStrategy(2));
-
     strField.setTextFormatter(new TextFormatter<>(filter));
     dexField.setTextFormatter(new TextFormatter<>(filter));
     conField.setTextFormatter(new TextFormatter<>(filter));
@@ -113,36 +86,21 @@ public class CharacterViewController
   {
     if (characterList.getSelectionModel().getSelectedItem() == null) {
       viewModel.createCharacterSheet();
-      //characterList.fireEvent(new KeyEvent(KeyEvent.KEY_PRESSED,"U+2386","ENTER",KeyCode.ENTER,false,false,false,false));
     } else {
-      //viewModel.saveCharacterSheet(); Implementeres senere
+      //viewModel.saveCharacterSheet(); Implementeres aldrig
     }
   }
 
   public void onCreateCharacterButton(ActionEvent actionEvent) {
-    //characterList.getSelectionModel().select(-1);
     viewModel.clearCharacterInfo();
-    characterInfo.setVisible(true);
-    //playAsCharacter.setVisible(false);
   }
 
   public void onRemoveCharacterButton(ActionEvent actionEvent) {
-    if (characterList.getSelectionModel().getSelectedItem() != null){
-      viewModel.removeCharacter(characterList.getSelectionModel().getSelectedItem());
-    }
+    viewModel.removeCharacter(characterList.getSelectionModel().getSelectedItem());
   }
 
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {
-    if (characterList.getSelectionModel().getSelectedItem() != null) {
-      viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
-      viewModel.updatePlayAsCharacterButton(characterList.getSelectionModel().getSelectedItem());
-    }
-  }
-
-  public void testMethod(KeyEvent keyEvent) {
-    if (keyEvent.getCode().equals(KeyCode.F)) {
-      System.out.println(characterList.getSelectionModel().getSelectedIndex());
-      System.out.println(characterList.getSelectionModel().getSelectedItem());
-    }
+    viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
+    viewModel.updatePlayAsCharacterButton(characterList.getSelectionModel().getSelectedItem());
   }
 }

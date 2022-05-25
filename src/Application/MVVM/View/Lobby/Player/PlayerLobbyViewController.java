@@ -19,23 +19,19 @@ public class PlayerLobbyViewController {
 
   public void init(PlayerLobbyViewModel playerLobbyViewModel){
     viewModel = playerLobbyViewModel;
+
     lobbyId.textProperty().bind(viewModel.lobbyIdProperty());
     initList.itemsProperty().bind(viewModel.initListProperty());
     initList.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("init"));
     initList.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
     initList.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("hp"));
     initList.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("ac"));
+
     lobbyStatusMessage.textProperty().bind(viewModel.lobbyStatusMessageTextProperty());
-    lobbyStatusMessage.textFillProperty().bind(
-        viewModel.lobbyStatusMessageColorProperty());
+    lobbyStatusMessage.textFillProperty().bind(viewModel.lobbyStatusMessageColorProperty());
     joinCombatButton.textProperty().bind(viewModel.joinCombatButtonTextProperty());
 
     initList.setSelectionModel(null);
-    initList.setFocusTraversable(false);
-  }
-
-  public void setLobbyId(String lobbyId){
-    viewModel.setLobbyId(lobbyId);
   }
 
   public void joinCombat(ActionEvent actionEvent) {
