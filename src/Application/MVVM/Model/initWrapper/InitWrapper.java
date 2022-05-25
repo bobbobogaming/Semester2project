@@ -15,7 +15,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   private final IStatFormat source;
 
   public InitWrapper(Monster monster){
-    init = ThreadLocalRandom.current().nextInt(20) + monster.getMonsterStats().getDexterityModifier();
+    init =Math.max(0,ThreadLocalRandom.current().nextInt(20) + monster.getMonsterStats().getDexterityModifier());
     name = monster.getMonsterName();
     hp = monster.getMaxHP();
     ac = monster.getAc();
@@ -24,7 +24,7 @@ public class InitWrapper implements Serializable, Comparable<InitWrapper> {
   }
 
   public InitWrapper(Character character){
-    init = ThreadLocalRandom.current().nextInt(20) + character.getStats().getDexterityModifier();
+    init = Math.max(0,ThreadLocalRandom.current().nextInt(20) + character.getStats().getDexterityModifier());
     name = character.getName();
     hp = character.getStats().getMaxHP();
     ac = 10 + character.getStats().getDexterityModifier();

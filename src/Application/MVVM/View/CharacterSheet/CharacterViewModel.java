@@ -323,6 +323,7 @@ public class CharacterViewModel
   }
 
   public void initCharactersList() {
+    characters.clear();
     characters.addAll(client.getCharacters());
   }
 }
