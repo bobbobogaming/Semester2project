@@ -89,7 +89,7 @@ public class CharacterViewModel
 
     this.client = client;
 
-    characters = new SimpleListProperty<>(FXCollections.observableArrayList(client.getCharacters()));
+    characters = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
   }
 
   private String setModStat(String stat)
@@ -320,5 +320,9 @@ public class CharacterViewModel
 
   public BooleanProperty playAsCharacterVisibleProperty() {
     return playAsCharacterVisible;
+  }
+
+  public void initCharactersList() {
+    characters.addAll(client.getCharacters());
   }
 }

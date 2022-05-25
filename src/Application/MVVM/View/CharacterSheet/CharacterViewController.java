@@ -103,4 +103,8 @@ public class CharacterViewController
     viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
     viewModel.updatePlayAsCharacterButton(characterList.getSelectionModel().getSelectedItem());
   }
+
+  public void initList() {
+    viewModel.initCharactersList();
+  }
 }
