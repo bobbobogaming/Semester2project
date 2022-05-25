@@ -1,9 +1,7 @@
 package Test.TestFiles.Character;
 
 import Application.MVVM.Core.ClientFactory;
-import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.View.CharacterSheet.CharacterViewModel;
-import Test.TestrelatedFiles.CharacterSheetModelTest;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class CharacterViewModelTest {
     private ClientFactory clientFactory = ClientFactory.getInstance();
-    private ICharacterSheetModel iCharacterSheetModel = new CharacterSheetModelTest();
-    private CharacterViewModel characterViewModel = new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient());
+    private CharacterViewModel characterViewModel = new CharacterViewModel(clientFactory.getClient());
 
 
     @Test
@@ -33,7 +30,7 @@ class CharacterViewModelTest {
         method.setAccessible(true);
         String result = null;
         try {
-            result = (String) method.invoke(new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient()), "9");
+            result = (String) method.invoke(new CharacterViewModel(clientFactory.getClient()), "9");
         } catch (IllegalAccessException e) {
             fail();
             throw new RuntimeException(e);
@@ -59,7 +56,7 @@ class CharacterViewModelTest {
         method.setAccessible(true);
         String result = null;
         try {
-            result = (String) method.invoke(new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient()), "19");
+            result = (String) method.invoke(new CharacterViewModel(clientFactory.getClient()), "19");
         } catch (IllegalAccessException e) {
             fail();
             throw new RuntimeException(e);
@@ -84,7 +81,7 @@ class CharacterViewModelTest {
         method.setAccessible(true);
         String result = null;
         try {
-            result = (String) method.invoke(new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient()), "10");
+            result = (String) method.invoke(new CharacterViewModel(clientFactory.getClient()), "10");
         } catch (IllegalAccessException e) {
             fail();
             throw new RuntimeException(e);
@@ -110,7 +107,7 @@ class CharacterViewModelTest {
         method.setAccessible(true);
         String result = null;
         try {
-            result = (String) method.invoke(new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient()), "20");
+            result = (String) method.invoke(new CharacterViewModel(clientFactory.getClient()), "20");
         } catch (IllegalAccessException e) {
             fail();
             throw new RuntimeException(e);
@@ -135,7 +132,7 @@ class CharacterViewModelTest {
         method.setAccessible(true);
         String result = null;
         try {
-            result = (String) method.invoke(new CharacterViewModel(iCharacterSheetModel,clientFactory.getClient()), "19");
+            result = (String) method.invoke(new CharacterViewModel(clientFactory.getClient()), "19");
         } catch (IllegalAccessException e) {
             fail();
             throw new RuntimeException(e);
