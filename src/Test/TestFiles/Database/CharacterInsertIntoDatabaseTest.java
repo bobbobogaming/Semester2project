@@ -1,4 +1,4 @@
-package Test.Database;
+package Test.TestFiles.Database;
 
 import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
@@ -12,10 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.postgresql.util.PSQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CharacterInsertIntoDatabaseTest {
     private Character character;
@@ -110,7 +110,7 @@ class CharacterInsertIntoDatabaseTest {
     {
         Character user = new Character(new Stats(2, 5, 2, 5, 5, 2,14), charname,2,"Wizard");
 
-        assertThrows(org.postgresql.util.PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
+        assertThrows(PSQLException.class,()->insert.InsertCharacterIntoDatabase(user,userID));
 
     }
 
