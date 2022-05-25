@@ -21,15 +21,11 @@ public class CharacterInsertIntoDatabase {
     public void InsertCharacterIntoDatabase(Character character, UserID user) throws SQLException
     {   //this is an adapter that converts a user and character into an array that can be saved in the database
 
-        int constitution, wisdom, dexterity, charisma, intelligence, strength;
-        String characterName;
+        int constitution, wisdom, dexterity, charisma, intelligence, strength,level, maxHp;
+        String characterName, clas;
 
         Stats stats= character.getStats();
 
-        //temp value
-        int level= 0;
-        int maxHp = 0;
-        String clas = "Warrior";
 
         //unwrapper stats
         characterName = character.getName();
@@ -39,6 +35,9 @@ public class CharacterInsertIntoDatabase {
         charisma = stats.getCharisma();
         intelligence = stats.getIntelligence();
         strength = stats.getStrength();
+        level = character.getLevel();
+        clas = character.getcClass();
+        maxHp = stats.getMaxHP();
 
 
         //wrapper in an Arraylist

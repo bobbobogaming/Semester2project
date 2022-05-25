@@ -1,16 +1,16 @@
-package Test.Character;
+package Test.TestFiles.Character;
 
 import Application.MVVM.Core.ClientFactory;
-import Test.TestrelatedFiles.CharacterSheetModelTest;
 import Application.MVVM.Model.CharacterSheet.ICharacterSheetModel;
 import Application.MVVM.View.CharacterSheet.CharacterViewModel;
+import Test.TestrelatedFiles.CharacterSheetModelTest;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 class CharacterViewModelTest {
