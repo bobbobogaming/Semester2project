@@ -5,6 +5,7 @@ import Application.MVVM.View.CharacterSheet.CharacterViewModel;
 import Application.MVVM.View.Lobby.Root.LobbyViewController;
 import Application.MVVM.View.Lobby.Root.LobbyViewModel;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -48,5 +49,9 @@ public class TabViewController implements PropertyChangeListener
   public void onExit()
   {
     lobbyViewController.onExit();
+  }
+
+  public void onTabChanced(Event event) {
+    characterViewController.initList();
   }
 }
