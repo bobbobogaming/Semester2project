@@ -120,9 +120,9 @@ public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLob
   @Override public void getMonsters() {
     ArrayList<Monster> arrayList = new ArrayList<>();
 /*
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","per",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,20),10,"10","cat",new ArrayList<>()));
-    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","dog",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"0,5","per",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,20),10,"0,125","cat",new ArrayList<>()));
+    arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"0,25","dog",new ArrayList<>()));
     arrayList.add(new Monster(new Stats(10,10,10,10,10,10,10),10,"10","simon",new ArrayList<>()));
 
  */

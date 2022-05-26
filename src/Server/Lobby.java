@@ -19,12 +19,6 @@ public class Lobby {
     this.players = new ArrayList<>();
     this.initiative = new ArrayList<>();
     this.dungeonMaster = dungeonMaster;
-    try {
-      System.out.println(dungeonMaster.getUserID().getName() + " created a new lobby [LobbyID: " + lobbyId + "]");
-    }
-    catch (RemoteException e) {
-      throw new RuntimeException(e);
-    }
   }
 
   public boolean addPlayer(IClientModel client) {
@@ -32,7 +26,6 @@ public class Lobby {
       players.add(client);
       try {
         client.updateInitiativeTable(initiative);
-        System.out.println(client.getUserID().getName() + " joined lobby " + lobbyId);
       }
       catch (RemoteException e) {
         throw new RuntimeException(e);

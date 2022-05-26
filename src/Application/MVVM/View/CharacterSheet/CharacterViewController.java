@@ -65,7 +65,7 @@ public class CharacterViewController
     playAsCharacter.textProperty().bind(viewModel.playAsCharacterTextProperty());
     characterInfo.visibleProperty().bind(viewModel.characterInfoVisibleProperty());
     playAsCharacter.visibleProperty().bind(viewModel.playAsCharacterVisibleProperty());
-    removeCharacterButton.visibleProperty().bind(viewModel.removeCharacterButtonDisabledProperty());
+    removeCharacterButton.disableProperty().bind(viewModel.removeCharacterButtonDisabledProperty());
 
     viewModel.bindBidirectionalIndexProperty(characterList.getSelectionModel());
 
@@ -102,9 +102,5 @@ public class CharacterViewController
   public void onPlayAsCharacterButton(ActionEvent actionEvent) {
     viewModel.playAsCharacter(characterList.getSelectionModel().getSelectedItem());
     viewModel.updatePlayAsCharacterButton(characterList.getSelectionModel().getSelectedItem());
-  }
-
-  public void initList() {
-    viewModel.initCharactersList();
   }
 }
