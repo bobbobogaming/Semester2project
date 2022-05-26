@@ -17,7 +17,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLobbyDM, ClientLobbyPlayer, ClientAddMonster, ClientChooseCharacter, ClientCharacterSheet
+public class Client implements IClientModel, ClientLogin, ClientLobby, ClientLobbyDM, ClientLobbyPlayer, ClientAddMonster,
+    ClientCharacterSheet
 {
   private final IServerModel server;
   private final PropertyChangeSupport support;

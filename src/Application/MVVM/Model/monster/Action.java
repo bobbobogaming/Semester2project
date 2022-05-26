@@ -28,6 +28,10 @@ public class Action implements Serializable {
         return new Action(description, actionName);
     }
 
+    @Override public String toString() {
+        return  actionName + ": " + description;
+    }
+
     @Override public boolean equals(Object obj){
         if (!(obj instanceof Action)) {
             return false;

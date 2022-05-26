@@ -63,7 +63,8 @@ public class Monster implements Serializable, IStatFormat {
             + String.format("CON: %d (%d)",monsterStats.getConstitution(),monsterStats.getConstitutionModifier()) +"\n"
             + String.format("INT: %d (%d)",monsterStats.getIntelligence(),monsterStats.getIntelligenceModifier()) +"\n"
             + String.format("WIS: %d (%d)",monsterStats.getWisdom(),monsterStats.getWisdomModifier()) +"\n"
-            + String.format("CHA: %d (%d)",monsterStats.getCharisma(),monsterStats.getCharismaModifier());
+            + String.format("CHA: %d (%d)",monsterStats.getCharisma(),monsterStats.getCharismaModifier()) + "\n"
+            + monsterAction.toString();
     }
 
     @Override public String toString() {
