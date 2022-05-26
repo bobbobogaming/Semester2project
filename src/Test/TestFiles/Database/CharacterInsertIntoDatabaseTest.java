@@ -52,7 +52,6 @@ class CharacterInsertIntoDatabaseTest {
         try {
             insert.InsertCharacterIntoDatabase(character, userID);
         } catch (SQLException e) {
-            System.out.println("kj");
             throw new RuntimeException(e);
         }
 

@@ -16,6 +16,11 @@ public class Monster implements Serializable, IStatFormat {
     public Monster(Stats monsterStats, int ac, String cr, String monsterName, ArrayList<Action> monsterAction) {
         this.monsterStats = monsterStats;
         this.ac = ac;
+        double doubleCr = Double.parseDouble(cr.replace(',','.'));
+        if (doubleCr == 0.5) cr = "½";
+        else if (doubleCr == 0.25) cr = "¼";
+        else if (doubleCr == 0.125) cr = "⅛";
+        else cr = cr.split(",")[0];
         this.cr = cr;
         this.monsterName = monsterName;
         this.monsterAction = monsterAction;

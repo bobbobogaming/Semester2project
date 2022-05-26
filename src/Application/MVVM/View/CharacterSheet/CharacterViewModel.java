@@ -78,7 +78,7 @@ public class CharacterViewModel
     isPlayAsCharacterDisabled = new SimpleBooleanProperty(false);
     playAsCharacterText = new SimpleStringProperty("Play as character");
 
-    removeCharacterButtonDisabled = new SimpleBooleanProperty();
+    removeCharacterButtonDisabled = new SimpleBooleanProperty(true);
     characterInfoVisible = new SimpleBooleanProperty(false);
     playAsCharacterVisible = new SimpleBooleanProperty(false);
 
@@ -92,6 +92,10 @@ public class CharacterViewModel
     characters = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<>()));
   }
 
+  public void initCharactersList() {
+    characters.addAll(client.getCharacters());
+  }
+
   private String setModStat(String stat)
   {
     if (!stat.isEmpty()){
@@ -102,6 +106,18 @@ public class CharacterViewModel
   }
 
   public void createCharacterSheet(){
+    boolean characterInList = false;
+    for (Character character : characters) {
+      if (character.getName().equals(characterName.getValue())) characterInList = true;
+    }
+
+    if (characterInList){
+      saveStatusColor.set(Color.RED);
+      saveStatusText.setValue("Cannot make characters with a name that's identical,"
+          + "\nto an already saved character");
+      return;
+    }
+
     if (characterName.getValue().isEmpty() ||
         strength.getValue().isEmpty() ||
         dexterity.getValue().isEmpty() ||
@@ -320,10 +336,5 @@ public class CharacterViewModel
 
   public BooleanProperty playAsCharacterVisibleProperty() {
     return playAsCharacterVisible;
-  }
-
-  public void initCharactersList() {
-    characters.clear();
-    characters.addAll(client.getCharacters());
   }
 }

@@ -8,7 +8,7 @@
         <Tab fx:id="lobbyTab" text="Lobby">
             <fx:include fx:id="lobbyView" source="../Lobby/Root/LobbyView.fxml" />
         </Tab>
-        <Tab fx:id="characterTab" onSelectionChanged="#onTabChanced" text="Character Sheet">
+        <Tab fx:id="characterTab" text="Character Sheet">
             <fx:include fx:id="characterView" source="../CharacterSheet/CharacterView.fxml" />
         </Tab>
     </tabs>

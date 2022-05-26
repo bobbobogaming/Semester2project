@@ -37,7 +37,6 @@ public class LoginViewModel implements PropertyChangeSubject
   }
 
   public void login(){
-    System.out.println(userInput.getValue());
     if (!confirmAvailability.getValue()) client.setUserID(new UserID(userInput.getValue()));
   }
 
