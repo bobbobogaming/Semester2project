@@ -69,11 +69,25 @@ class LobbyViewModelTest {
         }
 
         for (int i = 0; i < 10; i++) {
+            //a
             lobbyId.setValue(Integer.toString(i));
             lobbyViewModel.joinLobby();
 
+            //assert
             assertTrue(lobbyError.toString().equals("StringProperty [value: ]"));
         }
 
     }
+
+    @Test
+    void testWhereOnePlayerJoinsTheSameLobbyMultipleTimes(){
+        lobbyViewModel.createLobby();
+        lobbyId.setValue("0");
+
+        for (int i = 0; i < 199; i++) {
+            lobbyViewModel.joinLobby();
+            assertTrue(lobbyError.toString().equals("StringProperty [value: ]"));
+        }
+    }
+
 }
