@@ -31,6 +31,7 @@ class CharacterInsertIntoDatabaseTest {
 
     @BeforeEach
     void setUp() {
+        //arrange
         stats = new Stats(10, 11, 12, 13, 14, 15,91);
 
         level = 2;
@@ -60,7 +61,7 @@ class CharacterInsertIntoDatabaseTest {
 
     @Test
     void insertCharacterIntoDatabase() {
-
+        //act
         ArrayList<Character> characterArrayList;
         SelectAllCharacterFromTableDatabase select = new SelectAllCharacterFromTableDatabase();
         characterArrayList = select.getAllCharacterFromTableDatabase(userID);
@@ -72,6 +73,7 @@ class CharacterInsertIntoDatabaseTest {
                 testInsert = true;
             }
         }
+        //assert
         assertTrue(testInsert);
     }
 

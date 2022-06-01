@@ -16,7 +16,7 @@ class GetMonsterFromDataBaseViewTest {
 
     @BeforeEach
     void setUp() {
-
+        //arrange
         GetMonsterFromDataBaseView data = new GetMonsterFromDataBaseView();
         monsterArrayList =  data.getData();
     }
@@ -25,7 +25,7 @@ class GetMonsterFromDataBaseViewTest {
     void zeroNameInMonster() {
 
 
-
+        //act
         int count = 0;
 
         for (Monster monster:monsterArrayList
@@ -34,7 +34,7 @@ class GetMonsterFromDataBaseViewTest {
                 count++;
             }
         }
-
+        //assert
         assertEquals(0,count);
     }
     @Test

@@ -264,7 +264,6 @@ class CharacterViewModelTest {
 
 
         characterViewModel.createCharacterSheet();
-        //result.add(new Character(new Stats(3,10,15,44,39,10,50),"BOB",10,"Monk"));
 
         //assert
         assertEquals(result, clientCharacterSheetTestClass.getCharacters());
