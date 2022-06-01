@@ -208,7 +208,7 @@ class CharacterViewModelTest {
     }
 
     @Test
-    public void saveCharacterInDatabase() {
+    public void saveCharacter() {
 
         //act
         strength.setValue("2");
@@ -380,6 +380,36 @@ class CharacterViewModelTest {
 
 
         characterViewModel.updatePlayAsCharacterButton(characterArrayList.get(0));
+    }
+
+    @Test
+    public void testForToLongName(){
+
+
+        strength.setValue("2");
+        level.setValue("4");
+        characterClass.setValue("Monk");
+
+        dexterity.setValue("0");
+        constitution.setValue("10");
+        intelligence.setValue("44");
+        wisdom.setValue("39");
+        charisma.setValue("10");
+        maxHp.setValue("50");
+
+        String varname = "";
+
+        for (int i = 0; i < 259; i++) {
+            varname += "a";
+        }
+        characterName.setValue(varname);
+
+        characterViewModel.createCharacterSheet();
+
+        ArrayList<Character> characterArrayList =  clientCharacterSheetTestClass.getCharacters();
+
+        characterViewModel.updatePlayAsCharacterButton(characterArrayList.get(0));
+
     }
 
 

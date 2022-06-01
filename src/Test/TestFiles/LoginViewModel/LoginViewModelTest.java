@@ -19,7 +19,7 @@ class LoginViewModelTest {
 
     private LoginViewModel loginViewModel;
 
-    private ClientLogin clientLogin;
+    private ClientLoginTest clientLogin;
     private StringProperty userNameField;
     private BooleanProperty confirmAvailability;
 
@@ -35,8 +35,16 @@ class LoginViewModelTest {
     }
 
     @Test
-    void TestForNoUserSet(){
+    void testForNoUserSet(){
         loginViewModel.login();
+        assertEquals(clientLogin.getUserID(),null);
+    }
 
+    @Test
+    void testAddOneUserThreeLetter(){
+        confirmAvailability.set(false);
+        userNameField.setValue("BOB");
+        loginViewModel.login();
+        assertEquals(clientLogin.getUserID().getName(),"BOB");
     }
 }
