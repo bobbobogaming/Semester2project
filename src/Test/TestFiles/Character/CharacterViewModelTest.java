@@ -208,7 +208,7 @@ class CharacterViewModelTest {
     }
 
     @Test
-    public void saveCharacterInDatabase() {
+    public void saveCharacter() {
 
         //act
         strength.setValue("2");
@@ -312,7 +312,6 @@ class CharacterViewModelTest {
         characterViewModel.createCharacterSheet();
 
 
-        ArrayList<Character> result = new ArrayList<>();
 
 
         strength.setValue("3");
@@ -332,11 +331,84 @@ class CharacterViewModelTest {
         characterViewModel.removeCharacter(new Character(new Stats(2, 0, 10, 44, 39, 10, 50), "BOB", 4, "Monk"));
         characterViewModel.removeCharacter(new Character(new Stats(3, 10, 15, 44, 39, 10, 50), "BOB1", 10, "Monk"));
 
+        //expected because it has removed the two
+        ArrayList<Character> result = new ArrayList<>();
+
+        assertEquals(result, clientCharacterSheetTestClass.getCharacters());
+    }
+
+    @Test
+    public void forgotToAddAValue(){
+        //act z because this is where you forgot a value
+        strength.setValue("2");
+        level.setValue("4");
+        characterClass.setValue("Monk");
+        characterName.setValue("BOB");
+        dexterity.setValue("0");
+        constitution.setValue("10");
+        intelligence.setValue("44");
+        wisdom.setValue("39");
+        charisma.setValue("");
+        maxHp.setValue("50");
+
+        characterViewModel.createCharacterSheet();
+
+
+
+        ArrayList<Character> result = new ArrayList<>();
+
         assertEquals(result, clientCharacterSheetTestClass.getCharacters());
     }
 
     @Test
     public void playAsCharacterStringNotChoosen(){
+        //act
+        strength.setValue("2");
+        level.setValue("4");
+        characterClass.setValue("Monk");
+        characterName.setValue("BOB");
+        dexterity.setValue("0");
+        constitution.setValue("10");
+        intelligence.setValue("44");
+        wisdom.setValue("39");
+        charisma.setValue("10");
+        maxHp.setValue("50");
+
+        characterViewModel.createCharacterSheet();
+
+        ArrayList<Character> characterArrayList =  clientCharacterSheetTestClass.getCharacters();
+
+
+        characterViewModel.updatePlayAsCharacterButton(characterArrayList.get(0));
+    }
+
+    @Test
+    public void testForToLongName(){
+
+
+        strength.setValue("2");
+        level.setValue("4");
+        characterClass.setValue("Monk");
+
+        dexterity.setValue("0");
+        constitution.setValue("10");
+        intelligence.setValue("44");
+        wisdom.setValue("39");
+        charisma.setValue("10");
+        maxHp.setValue("50");
+
+        String varname = "";
+
+        for (int i = 0; i < 259; i++) {
+            varname += "a";
+        }
+        characterName.setValue(varname);
+
+        characterViewModel.createCharacterSheet();
+
+        ArrayList<Character> characterArrayList =  clientCharacterSheetTestClass.getCharacters();
+
+        characterViewModel.updatePlayAsCharacterButton(characterArrayList.get(0));
 
     }
 

@@ -3,6 +3,7 @@ package Test.TestFiles.Database;
 import Application.Client.UserID;
 import Application.MVVM.Model.character.Character;
 import Application.MVVM.Model.character.Stats;
+import Database.Adapters.AdduserToDataBase;
 import Database.Adapters.CharacterDeleteFromDatabase;
 import Database.Adapters.CharacterInsertIntoDatabase;
 import Database.Adapters.SelectAllCharacterFromTableDatabase;
@@ -14,10 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SelectAllCharacterFromTableDatabaseTest {
     @org.junit.jupiter.api.Test
     void characters() {
+
         CharacterInsertIntoDatabase characterInsertIntoDatabase = new CharacterInsertIntoDatabase();
-
-
-
 
         //you need to run CharacterInsertIntoDatabaseTest before this
         SelectAllCharacterFromTableDatabase selectAllCharacterFromTableDatabase = new SelectAllCharacterFromTableDatabase();
